@@ -1,0 +1,922 @@
+.class public Lcom/jieli/ble/SendBleDataThread;
+.super Ljava/lang/Thread;
+.source "SendBleDataThread.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+    }
+.end annotation
+
+
+# static fields
+.field private static final TAG:Ljava/lang/String; = "SendBleDataThread"
+
+
+# instance fields
+.field private volatile isDataSend:Z
+
+.field private volatile isThreadWaiting:Z
+
+.field private volatile isWaitingForCallback:Z
+
+.field private final mBleManager:Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;
+
+.field private mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+.field private final mListener:Lcom/jieli/ble/interfaces/OnThreadStateListener;
+
+.field private final mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/concurrent/LinkedBlockingQueue<",
+            "Lcom/jieli/ble/SendBleDataThread$BleSendTask;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private volatile retryNum:I
+
+
+# direct methods
+.method public constructor <init>(Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;Lcom/jieli/ble/interfaces/OnThreadStateListener;)V
+    .locals 1
+
+    .line 34
+    const-string v0, "SendBleDataThread"
+
+    invoke-direct {p0, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/String;)V
+
+    .line 23
+    new-instance v0, Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-direct {v0}, Ljava/util/concurrent/LinkedBlockingQueue;-><init>()V
+
+    iput-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    const/4 v0, 0x0
+
+    .line 24
+    iput-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    .line 25
+    iput-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    .line 26
+    iput-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    .line 27
+    iput v0, p0, Lcom/jieli/ble/SendBleDataThread;->retryNum:I
+
+    .line 35
+    iput-object p1, p0, Lcom/jieli/ble/SendBleDataThread;->mBleManager:Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;
+
+    .line 36
+    iput-object p2, p0, Lcom/jieli/ble/SendBleDataThread;->mListener:Lcom/jieli/ble/interfaces/OnThreadStateListener;
+
+    return-void
+.end method
+
+.method private addSendData(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[BLcom/jieli/ble/interfaces/OnWriteDataCallback;)Z
+    .locals 8
+
+    .line 88
+    iget-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1
+
+    .line 89
+    new-instance v2, Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    move-object v3, p1
+
+    move-object v4, p2
+
+    move-object v5, p3
+
+    move-object v6, p4
+
+    move-object v7, p5
+
+    invoke-direct/range {v2 .. v7}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;-><init>(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[BLcom/jieli/ble/interfaces/OnWriteDataCallback;)V
+
+    .line 91
+    :try_start_0
+    iget-object p1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {p1, v2}, Ljava/util/concurrent/LinkedBlockingQueue;->put(Ljava/lang/Object;)V
+    :try_end_0
+    .catch Ljava/lang/InterruptedException; {:try_start_0 .. :try_end_0} :catch_0
+
+    const/4 p1, 0x1
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v0
+
+    move-object p1, v0
+
+    .line 94
+    invoke-virtual {p1}, Ljava/lang/InterruptedException;->printStackTrace()V
+
+    move p1, v1
+
+    :goto_0
+    if-eqz p1, :cond_0
+
+    .line 96
+    iget-boolean p2, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    if-eqz p2, :cond_0
+
+    iget-boolean p2, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    if-nez p2, :cond_0
+
+    .line 97
+    iput-boolean v1, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    .line 98
+    iget-object p2, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    monitor-enter p2
+
+    .line 99
+    :try_start_1
+    iget-object p3, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {p3}, Ljava/lang/Object;->notify()V
+
+    .line 100
+    monitor-exit p2
+
+    goto :goto_1
+
+    :catchall_0
+    move-exception v0
+
+    move-object p1, v0
+
+    monitor-exit p2
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw p1
+
+    :cond_0
+    :goto_1
+    return p1
+
+    :cond_1
+    return v1
+.end method
+
+.method private callbackResult(Lcom/jieli/ble/SendBleDataThread$BleSendTask;Z)V
+    .locals 7
+
+    if-eqz p1, :cond_1
+
+    .line 118
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getCallback()Lcom/jieli/ble/interfaces/OnWriteDataCallback;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1
+
+    .line 119
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getBleGatt()Landroid/bluetooth/BluetoothGatt;
+
+    move-result-object v0
+
+    if-nez v0, :cond_0
+
+    return-void
+
+    .line 120
+    :cond_0
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getCallback()Lcom/jieli/ble/interfaces/OnWriteDataCallback;
+
+    move-result-object v1
+
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getBleGatt()Landroid/bluetooth/BluetoothGatt;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/bluetooth/BluetoothGatt;->getDevice()Landroid/bluetooth/BluetoothDevice;
+
+    move-result-object v2
+
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getServiceUUID()Ljava/util/UUID;
+
+    move-result-object v3
+
+    .line 121
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getCharacteristicUUID()Ljava/util/UUID;
+
+    move-result-object v4
+
+    invoke-virtual {p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getData()[B
+
+    move-result-object v6
+
+    move v5, p2
+
+    .line 120
+    invoke-interface/range {v1 .. v6}, Lcom/jieli/ble/interfaces/OnWriteDataCallback;->onBleResult(Landroid/bluetooth/BluetoothDevice;Ljava/util/UUID;Ljava/util/UUID;Z[B)V
+
+    return-void
+
+    .line 123
+    :cond_1
+    const-string p1, "SendBleDataThread"
+
+    const-string p2, "getCallback is null."
+
+    invoke-static {p1, p2}, Lcom/jieli/jl_bt_ota/util/JL_Log;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public addSendTask(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[BLcom/jieli/ble/interfaces/OnWriteDataCallback;)Z
+    .locals 12
+
+    move-object/from16 v0, p4
+
+    .line 44
+    iget-object v2, p0, Lcom/jieli/ble/SendBleDataThread;->mBleManager:Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;
+
+    const/4 v7, 0x0
+
+    if-eqz v2, :cond_3
+
+    if-eqz p1, :cond_3
+
+    if-eqz p2, :cond_3
+
+    if-eqz p3, :cond_3
+
+    if-eqz v0, :cond_3
+
+    array-length v3, v0
+
+    if-nez v3, :cond_0
+
+    goto :goto_1
+
+    .line 47
+    :cond_0
+    invoke-interface {v2}, Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;->getBleMtu()I
+
+    move-result v8
+
+    .line 48
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    const-string v3, "addSendTask : "
+
+    invoke-direct {v2, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v2, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    const-string v3, "SendBleDataThread"
+
+    invoke-static {v3, v2}, Lcom/jieli/jl_bt_ota/util/JL_Log;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 49
+    array-length v9, v0
+
+    .line 50
+    div-int v10, v9, v8
+
+    move v2, v7
+
+    move v11, v2
+
+    :goto_0
+    if-ge v11, v10, :cond_1
+
+    .line 53
+    new-array v5, v8, [B
+
+    mul-int v2, v11, v8
+
+    .line 54
+    invoke-static {v0, v2, v5, v7, v8}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    move-object v1, p0
+
+    move-object v2, p1
+
+    move-object v3, p2
+
+    move-object v4, p3
+
+    move-object/from16 v6, p5
+
+    .line 55
+    invoke-direct/range {v1 .. v6}, Lcom/jieli/ble/SendBleDataThread;->addSendData(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[BLcom/jieli/ble/interfaces/OnWriteDataCallback;)Z
+
+    move-result v5
+
+    add-int/lit8 v11, v11, 0x1
+
+    move v2, v5
+
+    goto :goto_0
+
+    .line 58
+    :cond_1
+    rem-int v1, v9, v8
+
+    if-eqz v1, :cond_2
+
+    .line 59
+    new-array v4, v1, [B
+
+    sub-int/2addr v9, v1
+
+    .line 60
+    invoke-static {v0, v9, v4, v7, v1}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move-object v3, p3
+
+    move-object/from16 v5, p5
+
+    .line 61
+    invoke-direct/range {v0 .. v5}, Lcom/jieli/ble/SendBleDataThread;->addSendData(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[BLcom/jieli/ble/interfaces/OnWriteDataCallback;)Z
+
+    move-result v1
+
+    return v1
+
+    :cond_2
+    return v2
+
+    :cond_3
+    :goto_1
+    return v7
+.end method
+
+.method public isRunning()Z
+    .locals 1
+
+    .line 40
+    iget-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    return v0
+.end method
+
+.method public run()V
+    .locals 8
+
+    .line 129
+    const-string v0, "SendBleDataThread"
+
+    const-string v1, "send ble data thread is started."
+
+    invoke-static {v0, v1}, Lcom/jieli/jl_bt_ota/util/JL_Log;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 130
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mListener:Lcom/jieli/ble/interfaces/OnThreadStateListener;
+
+    if-eqz v0, :cond_0
+
+    .line 131
+    invoke-virtual {p0}, Lcom/jieli/ble/SendBleDataThread;->getId()J
+
+    move-result-wide v1
+
+    invoke-virtual {p0}, Lcom/jieli/ble/SendBleDataThread;->getName()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-interface {v0, v1, v2, v3}, Lcom/jieli/ble/interfaces/OnThreadStateListener;->onStart(JLjava/lang/String;)V
+
+    .line 133
+    :cond_0
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mBleManager:Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;
+
+    if-eqz v0, :cond_9
+
+    .line 134
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    monitor-enter v0
+
+    .line 135
+    :cond_1
+    :goto_0
+    :try_start_0
+    iget-boolean v1, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    const/4 v2, 0x0
+
+    if-eqz v1, :cond_7
+
+    const/4 v1, 0x0
+
+    .line 136
+    iput-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    .line 137
+    iput-boolean v2, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    .line 138
+    iput-boolean v2, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    .line 139
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/util/concurrent/LinkedBlockingQueue;->isEmpty()Z
+
+    move-result v1
+
+    const/4 v3, 0x1
+
+    if-eqz v1, :cond_2
+
+    .line 140
+    iput-boolean v3, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    .line 141
+    const-string v1, "SendBleDataThread"
+
+    const-string v2, "queue is empty, so waiting for data"
+
+    invoke-static {v1, v2}, Lcom/jieli/jl_bt_ota/util/JL_Log;->d(Ljava/lang/String;Ljava/lang/String;)V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 143
+    :try_start_1
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/lang/Object;->wait()V
+    :try_end_1
+    .catch Ljava/lang/InterruptedException; {:try_start_1 .. :try_end_1} :catch_0
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v1
+
+    .line 145
+    :try_start_2
+    invoke-virtual {v1}, Ljava/lang/InterruptedException;->printStackTrace()V
+
+    goto :goto_0
+
+    .line 148
+    :cond_2
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/util/concurrent/LinkedBlockingQueue;->peek()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    iput-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    if-eqz v1, :cond_6
+
+    .line 150
+    iget-object v4, p0, Lcom/jieli/ble/SendBleDataThread;->mBleManager:Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;
+
+    invoke-static {v1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->access$000(Lcom/jieli/ble/SendBleDataThread$BleSendTask;)Landroid/bluetooth/BluetoothGatt;
+
+    move-result-object v1
+
+    iget-object v5, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v5}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getServiceUUID()Ljava/util/UUID;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    .line 151
+    invoke-virtual {v6}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getCharacteristicUUID()Ljava/util/UUID;
+
+    move-result-object v6
+
+    iget-object v7, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v7}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getData()[B
+
+    move-result-object v7
+
+    .line 150
+    invoke-interface {v4, v1, v5, v6, v7}, Lxfkj/fitpro/activity/ota/jli/ble/interfaces/IBleOp;->writeDataByBle(Landroid/bluetooth/BluetoothGatt;Ljava/util/UUID;Ljava/util/UUID;[B)Z
+
+    move-result v1
+
+    iput-boolean v1, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    .line 152
+    iget-boolean v1, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+
+    const/4 v4, -0x1
+
+    if-eqz v1, :cond_3
+
+    .line 154
+    :try_start_3
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    const-wide/16 v5, 0x1f40
+
+    invoke-virtual {v1, v5, v6}, Ljava/lang/Object;->wait(J)V
+    :try_end_3
+    .catch Ljava/lang/InterruptedException; {:try_start_3 .. :try_end_3} :catch_1
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
+
+    goto :goto_1
+
+    :catch_1
+    move-exception v1
+
+    .line 156
+    :try_start_4
+    invoke-virtual {v1}, Ljava/lang/InterruptedException;->printStackTrace()V
+
+    goto :goto_1
+
+    .line 159
+    :cond_3
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v1, v4}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->setStatus(I)V
+
+    .line 161
+    :goto_1
+    const-string v1, "SendBleDataThread"
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "data send ret :"
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v6}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getStatus()I
+
+    move-result v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-static {v1, v5}, Lcom/jieli/jl_bt_ota/util/JL_Log;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 162
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getStatus()I
+
+    move-result v1
+
+    if-eqz v1, :cond_5
+
+    .line 163
+    iget v1, p0, Lcom/jieli/ble/SendBleDataThread;->retryNum:I
+
+    add-int/2addr v1, v3
+
+    iput v1, p0, Lcom/jieli/ble/SendBleDataThread;->retryNum:I
+
+    .line 164
+    iget v1, p0, Lcom/jieli/ble/SendBleDataThread;->retryNum:I
+
+    const/4 v3, 0x3
+
+    if-lt v1, v3, :cond_4
+
+    .line 165
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-direct {p0, v1, v2}, Lcom/jieli/ble/SendBleDataThread;->callbackResult(Lcom/jieli/ble/SendBleDataThread$BleSendTask;Z)V
+
+    .line 166
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/util/concurrent/LinkedBlockingQueue;->clear()V
+
+    goto :goto_2
+
+    .line 168
+    :cond_4
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getStatus()I
+
+    move-result v1
+
+    if-eq v1, v4, :cond_1
+
+    .line 169
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v1, v4}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->setStatus(I)V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_0
+
+    const-wide/16 v1, 0xa
+
+    .line 171
+    :try_start_5
+    invoke-static {v1, v2}, Lcom/jieli/ble/SendBleDataThread;->sleep(J)V
+    :try_end_5
+    .catch Ljava/lang/InterruptedException; {:try_start_5 .. :try_end_5} :catch_2
+    .catchall {:try_start_5 .. :try_end_5} :catchall_0
+
+    goto/16 :goto_0
+
+    :catch_2
+    move-exception v1
+
+    .line 173
+    :try_start_6
+    invoke-virtual {v1}, Ljava/lang/InterruptedException;->printStackTrace()V
+
+    goto/16 :goto_0
+
+    .line 179
+    :cond_5
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-direct {p0, v1, v3}, Lcom/jieli/ble/SendBleDataThread;->callbackResult(Lcom/jieli/ble/SendBleDataThread$BleSendTask;Z)V
+
+    .line 182
+    :cond_6
+    :goto_2
+    iput v2, p0, Lcom/jieli/ble/SendBleDataThread;->retryNum:I
+
+    .line 183
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/util/concurrent/LinkedBlockingQueue;->isEmpty()Z
+
+    move-result v1
+
+    if-nez v1, :cond_1
+
+    iget-object v1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v1}, Ljava/util/concurrent/LinkedBlockingQueue;->poll()Ljava/lang/Object;
+
+    goto/16 :goto_0
+
+    .line 186
+    :cond_7
+    monitor-exit v0
+    :try_end_6
+    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+
+    .line 188
+    iput-boolean v2, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    .line 189
+    iput-boolean v2, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    .line 190
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v0}, Ljava/util/concurrent/LinkedBlockingQueue;->clear()V
+
+    .line 191
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mListener:Lcom/jieli/ble/interfaces/OnThreadStateListener;
+
+    if-eqz v0, :cond_8
+
+    .line 192
+    invoke-virtual {p0}, Lcom/jieli/ble/SendBleDataThread;->getId()J
+
+    move-result-wide v1
+
+    invoke-virtual {p0}, Lcom/jieli/ble/SendBleDataThread;->getName()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-interface {v0, v1, v2, v3}, Lcom/jieli/ble/interfaces/OnThreadStateListener;->onEnd(JLjava/lang/String;)V
+
+    .line 194
+    :cond_8
+    const-string v0, "SendBleDataThread"
+
+    const-string v1, "send ble data thread exit."
+
+    invoke-static {v0, v1}, Lcom/jieli/jl_bt_ota/util/JL_Log;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    goto :goto_3
+
+    :catchall_0
+    move-exception v1
+
+    .line 186
+    :try_start_7
+    monitor-exit v0
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_0
+
+    throw v1
+
+    :cond_9
+    :goto_3
+    return-void
+.end method
+
+.method public declared-synchronized start()V
+    .locals 1
+
+    monitor-enter p0
+
+    const/4 v0, 0x1
+
+    .line 108
+    :try_start_0
+    iput-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    .line 109
+    invoke-super {p0}, Ljava/lang/Thread;->start()V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 110
+    monitor-exit p0
+
+    return-void
+
+    :catchall_0
+    move-exception v0
+
+    :try_start_1
+    monitor-exit p0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v0
+.end method
+
+.method public declared-synchronized stopThread()V
+    .locals 1
+
+    monitor-enter p0
+
+    const/4 v0, 0x0
+
+    .line 113
+    :try_start_0
+    iput-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isDataSend:Z
+
+    const/4 v0, 0x0
+
+    .line 114
+    invoke-virtual {p0, v0}, Lcom/jieli/ble/SendBleDataThread;->wakeupSendThread(Lcom/jieli/ble/SendBleDataThread$BleSendTask;)V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 115
+    monitor-exit p0
+
+    return-void
+
+    :catchall_0
+    move-exception v0
+
+    :try_start_1
+    monitor-exit p0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v0
+.end method
+
+.method public wakeupSendThread(Lcom/jieli/ble/SendBleDataThread$BleSendTask;)V
+    .locals 1
+
+    if-eqz p1, :cond_1
+
+    .line 67
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v0, p1}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    goto :goto_0
+
+    :cond_0
+    return-void
+
+    :cond_1
+    :goto_0
+    if-eqz p1, :cond_2
+
+    .line 69
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    invoke-virtual {v0}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->getCallback()Lcom/jieli/ble/interfaces/OnWriteDataCallback;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Lcom/jieli/ble/SendBleDataThread$BleSendTask;->setCallback(Lcom/jieli/ble/interfaces/OnWriteDataCallback;)V
+
+    .line 70
+    iput-object p1, p0, Lcom/jieli/ble/SendBleDataThread;->mCurrentTask:Lcom/jieli/ble/SendBleDataThread$BleSendTask;
+
+    .line 72
+    :cond_2
+    iget-object p1, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    monitor-enter p1
+
+    .line 73
+    :try_start_0
+    iget-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isThreadWaiting:Z
+
+    if-eqz v0, :cond_4
+
+    .line 74
+    iget-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    if-eqz v0, :cond_3
+
+    .line 75
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v0}, Ljava/lang/Object;->notifyAll()V
+
+    goto :goto_1
+
+    .line 77
+    :cond_3
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v0}, Ljava/lang/Object;->notify()V
+
+    goto :goto_1
+
+    .line 79
+    :cond_4
+    iget-boolean v0, p0, Lcom/jieli/ble/SendBleDataThread;->isWaitingForCallback:Z
+
+    if-eqz v0, :cond_5
+
+    .line 80
+    iget-object v0, p0, Lcom/jieli/ble/SendBleDataThread;->mQueue:Ljava/util/concurrent/LinkedBlockingQueue;
+
+    invoke-virtual {v0}, Ljava/lang/Object;->notify()V
+
+    .line 82
+    :cond_5
+    :goto_1
+    monitor-exit p1
+
+    return-void
+
+    :catchall_0
+    move-exception v0
+
+    monitor-exit p1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v0
+.end method

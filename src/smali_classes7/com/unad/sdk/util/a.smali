@@ -1,0 +1,91 @@
+.class public abstract Lcom/unad/sdk/util/a;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# direct methods
+.method public static a(Landroid/content/Context;)Ljava/lang/String;
+    .locals 2
+
+    .line 1
+    new-instance v0, Lcom/unad/sdk/util/IPSharedPreferencesUtil;
+
+    invoke-direct {v0, p0}, Lcom/unad/sdk/util/IPSharedPreferencesUtil;-><init>(Landroid/content/Context;)V
+
+    .line 2
+    sget-object p0, Lcom/unad/sdk/util/IPSharedPreferencesUtil;->c:Ljava/lang/String;
+
+    const-string v1, ""
+
+    invoke-virtual {v0, p0, v1}, Lcom/unad/sdk/util/IPSharedPreferencesUtil;->b(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p0
+
+    .line 3
+    invoke-virtual {v1, p0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 4
+    invoke-static {}, Ljava/util/UUID;->randomUUID()Ljava/util/UUID;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/util/UUID;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    .line 5
+    sget-object v1, Lcom/unad/sdk/util/IPSharedPreferencesUtil;->c:Ljava/lang/String;
+
+    invoke-virtual {v0, v1, p0}, Lcom/unad/sdk/util/IPSharedPreferencesUtil;->a(Ljava/lang/String;Ljava/lang/String;)V
+
+    :cond_0
+    return-object p0
+.end method
+
+.method public static b(Landroid/content/Context;)Ljava/lang/String;
+    .locals 2
+
+    if-nez p0, :cond_0
+
+    goto :goto_0
+
+    .line 6
+    :cond_0
+    :try_start_0
+    invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+
+    move-result-object v0
+
+    .line 7
+    invoke-virtual {p0}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
+
+    move-result-object p0
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, p0, v1}, Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;
+
+    move-result-object p0
+
+    iget-object p0, p0, Landroid/content/pm/PackageInfo;->versionName:Ljava/lang/String;
+    :try_end_0
+    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+
+    return-object p0
+
+    :catch_0
+    move-exception p0
+
+    .line 9
+    invoke-virtual {p0}, Ljava/lang/Throwable;->printStackTrace()V
+
+    .line 1
+    :goto_0
+    const-string p0, ""
+
+    return-object p0
+.end method

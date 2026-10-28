@@ -1,0 +1,187 @@
+.class public final Lcom/yandex/mobile/ads/impl/yr0;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/yandex/mobile/ads/impl/yr0$a;
+    }
+.end annotation
+
+
+# static fields
+.field private static final d:Ljava/lang/Object;
+
+.field private static volatile e:Lcom/yandex/mobile/ads/impl/yr0;
+
+.field public static final synthetic f:I
+
+
+# instance fields
+.field private final a:Lcom/yandex/mobile/ads/impl/y31;
+
+.field private final b:Ljava/util/ArrayList;
+
+.field private c:I
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 1
+
+    .line 1
+    new-instance v0, Ljava/lang/Object;
+
+    invoke-direct {v0}, Ljava/lang/Object;-><init>()V
+
+    sput-object v0, Lcom/yandex/mobile/ads/impl/yr0;->d:Ljava/lang/Object;
+
+    return-void
+.end method
+
+.method synthetic constructor <init>()V
+    .locals 2
+
+    .line 2
+    new-instance v0, Lcom/yandex/mobile/ads/impl/y31;
+
+    sget-object v1, Lcom/yandex/mobile/ads/impl/y31;->c:Ljava/lang/String;
+
+    invoke-direct {v0, v1}, Lcom/yandex/mobile/ads/impl/y31;-><init>(Ljava/lang/String;)V
+
+    .line 3
+    invoke-direct {p0, v0}, Lcom/yandex/mobile/ads/impl/yr0;-><init>(Lcom/yandex/mobile/ads/impl/y31;)V
+
+    return-void
+.end method
+
+.method private constructor <init>(Lcom/yandex/mobile/ads/impl/y31;)V
+    .locals 0
+
+    .line 11
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 12
+    iput-object p1, p0, Lcom/yandex/mobile/ads/impl/yr0;->a:Lcom/yandex/mobile/ads/impl/y31;
+
+    .line 15
+    new-instance p1, Ljava/util/ArrayList;
+
+    invoke-direct {p1}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object p1, p0, Lcom/yandex/mobile/ads/impl/yr0;->b:Ljava/util/ArrayList;
+
+    return-void
+.end method
+
+.method public static final synthetic a()Lcom/yandex/mobile/ads/impl/yr0;
+    .locals 1
+
+    .line 9
+    sget-object v0, Lcom/yandex/mobile/ads/impl/yr0;->e:Lcom/yandex/mobile/ads/impl/yr0;
+
+    return-object v0
+.end method
+
+.method public static final synthetic a(Lcom/yandex/mobile/ads/impl/yr0;)V
+    .locals 0
+
+    .line 8
+    sput-object p0, Lcom/yandex/mobile/ads/impl/yr0;->e:Lcom/yandex/mobile/ads/impl/yr0;
+
+    return-void
+.end method
+
+.method public static final synthetic b()Ljava/lang/Object;
+    .locals 1
+
+    .line 1
+    sget-object v0, Lcom/yandex/mobile/ads/impl/yr0;->d:Ljava/lang/Object;
+
+    return-object v0
+.end method
+
+
+# virtual methods
+.method public final c()Ljava/util/concurrent/Executor;
+    .locals 5
+
+    .line 17
+    sget-object v0, Lcom/yandex/mobile/ads/impl/yr0;->d:Ljava/lang/Object;
+
+    monitor-enter v0
+
+    .line 19
+    :try_start_0
+    iget-object v1, p0, Lcom/yandex/mobile/ads/impl/yr0;->b:Ljava/util/ArrayList;
+
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    move-result v1
+
+    const/4 v2, 0x4
+
+    if-ge v1, v2, :cond_0
+
+    .line 20
+    iget-object v1, p0, Lcom/yandex/mobile/ads/impl/yr0;->a:Lcom/yandex/mobile/ads/impl/y31;
+
+    invoke-static {v1}, Ljava/util/concurrent/Executors;->newSingleThreadExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;
+
+    move-result-object v1
+
+    const-string v2, "newSingleThreadExecutor(...)"
+
+    invoke-static {v1, v2}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 21
+    iget-object v2, p0, Lcom/yandex/mobile/ads/impl/yr0;->b:Ljava/util/ArrayList;
+
+    invoke-virtual {v2, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_0
+
+    .line 23
+    :cond_0
+    iget-object v1, p0, Lcom/yandex/mobile/ads/impl/yr0;->b:Ljava/util/ArrayList;
+
+    iget v3, p0, Lcom/yandex/mobile/ads/impl/yr0;->c:I
+
+    add-int/lit8 v4, v3, 0x1
+
+    iput v4, p0, Lcom/yandex/mobile/ads/impl/yr0;->c:I
+
+    invoke-virtual {v1, v3}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/util/concurrent/Executor;
+
+    .line 24
+    iget v3, p0, Lcom/yandex/mobile/ads/impl/yr0;->c:I
+
+    if-ne v3, v2, :cond_1
+
+    const/4 v2, 0x0
+
+    .line 25
+    iput v2, p0, Lcom/yandex/mobile/ads/impl/yr0;->c:I
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 29
+    :cond_1
+    :goto_0
+    monitor-exit v0
+
+    return-object v1
+
+    :catchall_0
+    move-exception v1
+
+    monitor-exit v0
+
+    throw v1
+.end method

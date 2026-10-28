@@ -1,0 +1,23 @@
+.class final Lcom/yandex/mobile/ads/impl/c40;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# direct methods
+.method public static a(Ljava/lang/Throwable;)Z
+    .locals 0
+
+    .line 119
+    instance-of p0, p0, Landroid/media/DeniedByServerException;
+
+    return p0
+.end method
+
+.method public static b(Ljava/lang/Throwable;)Z
+    .locals 0
+
+    .line 114
+    instance-of p0, p0, Landroid/media/NotProvisionedException;
+
+    return p0
+.end method

@@ -1,0 +1,47 @@
+package sg.bigo.ads.cy;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import sg.bigo.ads.common.utils.r;
+
+/* JADX INFO: loaded from: /home/familia/Downloads/Proj/apktool_out/classes10.dex */
+public final class d {
+    public final Map<String, String> a = new ConcurrentHashMap();
+    public final String b;
+
+    public d(String str) {
+        this.b = str;
+    }
+
+    public final void a(String str, int i) {
+        this.a.put(str, String.valueOf(i));
+    }
+
+    public final void a(String str, long j) {
+        this.a.put(str, String.valueOf(j));
+    }
+
+    public final void a(String str, String str2) {
+        if (r.a((CharSequence) str) || r.a((CharSequence) str2)) {
+            return;
+        }
+        this.a.put(str, str2);
+    }
+
+    public final void a(Map<String, String> map) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            if (entry.getKey() != null && entry.getValue() != null) {
+                this.a.put(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+    public final String toString() {
+        StringBuilder sb = new StringBuilder("eventId = ");
+        sb.append(this.b).append(":");
+        for (Map.Entry<String, String> entry : this.a.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append(",");
+        }
+        return sb.toString();
+    }
+}

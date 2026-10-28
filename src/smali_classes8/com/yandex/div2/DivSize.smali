@@ -1,0 +1,585 @@
+.class public abstract Lcom/yandex/div2/DivSize;
+.super Ljava/lang/Object;
+.source "DivSize.kt"
+
+# interfaces
+.implements Lcom/yandex/div/json/JSONSerializable;
+.implements Lcom/yandex/div/data/Hashable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/yandex/div2/DivSize$Companion;,
+        Lcom/yandex/div2/DivSize$Fixed;,
+        Lcom/yandex/div2/DivSize$MatchParent;,
+        Lcom/yandex/div2/DivSize$WrapContent;
+    }
+.end annotation
+
+.annotation runtime Lkotlin/Metadata;
+    d1 = {
+        "\u0000D\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0008\u0002\n\u0002\u0010\u0008\n\u0002\u0008\u0003\n\u0002\u0010\u000b\n\u0002\u0008\u0002\n\u0002\u0018\u0002\n\u0002\u0008\u0004\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\u0008\u0004\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\u00086\u0018\u0000 \u00142\u00020\u00012\u00020\u0002:\u0004\u0014\u0015\u0016\u0017B\u0007\u0008\u0004\u00a2\u0006\u0002\u0010\u0003J \u0010\u0008\u001a\u00020\t2\u0008\u0010\n\u001a\u0004\u0018\u00010\u00002\u0006\u0010\u000b\u001a\u00020\u000c2\u0006\u0010\r\u001a\u00020\u000cJ\u0008\u0010\u000e\u001a\u00020\u0005H\u0016J\u0008\u0010\u000f\u001a\u00020\u0005H\u0016J\u0006\u0010\u0010\u001a\u00020\u0011J\u0008\u0010\u0012\u001a\u00020\u0013H\u0016R\u0012\u0010\u0004\u001a\u0004\u0018\u00010\u0005X\u0082\u000e\u00a2\u0006\u0004\n\u0002\u0010\u0006R\u0012\u0010\u0007\u001a\u0004\u0018\u00010\u0005X\u0082\u000e\u00a2\u0006\u0004\n\u0002\u0010\u0006\u0082\u0001\u0003\u0018\u0019\u001a\u00a8\u0006\u001b"
+    }
+    d2 = {
+        "Lcom/yandex/div2/DivSize;",
+        "Lcom/yandex/div/json/JSONSerializable;",
+        "Lcom/yandex/div/data/Hashable;",
+        "()V",
+        "_hash",
+        "",
+        "Ljava/lang/Integer;",
+        "_propertiesHash",
+        "equals",
+        "",
+        "other",
+        "resolver",
+        "Lcom/yandex/div/json/expressions/ExpressionResolver;",
+        "otherResolver",
+        "hash",
+        "propertiesHash",
+        "value",
+        "",
+        "writeToJSON",
+        "Lorg/json/JSONObject;",
+        "Companion",
+        "Fixed",
+        "MatchParent",
+        "WrapContent",
+        "Lcom/yandex/div2/DivSize$Fixed;",
+        "Lcom/yandex/div2/DivSize$MatchParent;",
+        "Lcom/yandex/div2/DivSize$WrapContent;",
+        "div-data_release"
+    }
+    k = 0x1
+    mv = {
+        0x1,
+        0x8,
+        0x0
+    }
+    xi = 0x30
+.end annotation
+
+
+# static fields
+.field private static final CREATOR:Lkotlin/jvm/functions/Function2;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Lkotlin/jvm/functions/Function2<",
+            "Lcom/yandex/div/json/ParsingEnvironment;",
+            "Lorg/json/JSONObject;",
+            "Lcom/yandex/div2/DivSize;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field public static final Companion:Lcom/yandex/div2/DivSize$Companion;
+
+
+# instance fields
+.field private _hash:Ljava/lang/Integer;
+
+.field private _propertiesHash:Ljava/lang/Integer;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    new-instance v0, Lcom/yandex/div2/DivSize$Companion;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/yandex/div2/DivSize$Companion;-><init>(Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+    sput-object v0, Lcom/yandex/div2/DivSize;->Companion:Lcom/yandex/div2/DivSize$Companion;
+
+    .line 88
+    sget-object v0, Lcom/yandex/div2/DivSize$Companion$CREATOR$1;->INSTANCE:Lcom/yandex/div2/DivSize$Companion$CREATOR$1;
+
+    check-cast v0, Lkotlin/jvm/functions/Function2;
+
+    sput-object v0, Lcom/yandex/div2/DivSize;->CREATOR:Lkotlin/jvm/functions/Function2;
+
+    return-void
+.end method
+
+.method private constructor <init>()V
+    .locals 0
+
+    .line 20
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method public synthetic constructor <init>(Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+    .locals 0
+
+    invoke-direct {p0}, Lcom/yandex/div2/DivSize;-><init>()V
+
+    return-void
+.end method
+
+.method public static final synthetic access$getCREATOR$cp()Lkotlin/jvm/functions/Function2;
+    .locals 1
+
+    .line 20
+    sget-object v0, Lcom/yandex/div2/DivSize;->CREATOR:Lkotlin/jvm/functions/Function2;
+
+    return-object v0
+.end method
+
+.method public static final fromJson(Lcom/yandex/div/json/ParsingEnvironment;Lorg/json/JSONObject;)Lcom/yandex/div2/DivSize;
+    .locals 1
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/yandex/div/json/ParsingException;
+        }
+    .end annotation
+
+    .annotation runtime Lkotlin/jvm/JvmStatic;
+    .end annotation
+
+    sget-object v0, Lcom/yandex/div2/DivSize;->Companion:Lcom/yandex/div2/DivSize$Companion;
+
+    invoke-virtual {v0, p0, p1}, Lcom/yandex/div2/DivSize$Companion;->fromJson(Lcom/yandex/div/json/ParsingEnvironment;Lorg/json/JSONObject;)Lcom/yandex/div2/DivSize;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+
+# virtual methods
+.method public final equals(Lcom/yandex/div2/DivSize;Lcom/yandex/div/json/expressions/ExpressionResolver;Lcom/yandex/div/json/expressions/ExpressionResolver;)Z
+    .locals 3
+
+    const-string v0, "resolver"
+
+    invoke-static {p2, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string v0, "otherResolver"
+
+    invoke-static {p3, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    if-nez p1, :cond_0
+
+    const/4 p1, 0x0
+
+    return p1
+
+    .line 57
+    :cond_0
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$Fixed;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_2
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$Fixed;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$Fixed;->getValue()Lcom/yandex/div2/DivFixedSize;
+
+    move-result-object v0
+
+    invoke-virtual {p1}, Lcom/yandex/div2/DivSize;->value()Ljava/lang/Object;
+
+    move-result-object p1
+
+    instance-of v2, p1, Lcom/yandex/div2/DivFixedSize;
+
+    if-eqz v2, :cond_1
+
+    move-object v1, p1
+
+    check-cast v1, Lcom/yandex/div2/DivFixedSize;
+
+    :cond_1
+    invoke-virtual {v0, v1, p2, p3}, Lcom/yandex/div2/DivFixedSize;->equals(Lcom/yandex/div2/DivFixedSize;Lcom/yandex/div/json/expressions/ExpressionResolver;Lcom/yandex/div/json/expressions/ExpressionResolver;)Z
+
+    move-result p1
+
+    return p1
+
+    .line 58
+    :cond_2
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    if-eqz v0, :cond_4
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$MatchParent;->getValue()Lcom/yandex/div2/DivMatchParentSize;
+
+    move-result-object v0
+
+    invoke-virtual {p1}, Lcom/yandex/div2/DivSize;->value()Ljava/lang/Object;
+
+    move-result-object p1
+
+    instance-of v2, p1, Lcom/yandex/div2/DivMatchParentSize;
+
+    if-eqz v2, :cond_3
+
+    move-object v1, p1
+
+    check-cast v1, Lcom/yandex/div2/DivMatchParentSize;
+
+    :cond_3
+    invoke-virtual {v0, v1, p2, p3}, Lcom/yandex/div2/DivMatchParentSize;->equals(Lcom/yandex/div2/DivMatchParentSize;Lcom/yandex/div/json/expressions/ExpressionResolver;Lcom/yandex/div/json/expressions/ExpressionResolver;)Z
+
+    move-result p1
+
+    return p1
+
+    .line 59
+    :cond_4
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    if-eqz v0, :cond_6
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$WrapContent;->getValue()Lcom/yandex/div2/DivWrapContentSize;
+
+    move-result-object v0
+
+    invoke-virtual {p1}, Lcom/yandex/div2/DivSize;->value()Ljava/lang/Object;
+
+    move-result-object p1
+
+    instance-of v2, p1, Lcom/yandex/div2/DivWrapContentSize;
+
+    if-eqz v2, :cond_5
+
+    move-object v1, p1
+
+    check-cast v1, Lcom/yandex/div2/DivWrapContentSize;
+
+    :cond_5
+    invoke-virtual {v0, v1, p2, p3}, Lcom/yandex/div2/DivWrapContentSize;->equals(Lcom/yandex/div2/DivWrapContentSize;Lcom/yandex/div/json/expressions/ExpressionResolver;Lcom/yandex/div/json/expressions/ExpressionResolver;)Z
+
+    move-result p1
+
+    return p1
+
+    :cond_6
+    new-instance p1, Lkotlin/NoWhenBranchMatchedException;
+
+    invoke-direct {p1}, Lkotlin/NoWhenBranchMatchedException;-><init>()V
+
+    throw p1
+.end method
+
+.method public hash()I
+    .locals 2
+
+    .line 42
+    iget-object v0, p0, Lcom/yandex/div2/DivSize;->_hash:Ljava/lang/Integer;
+
+    if-eqz v0, :cond_0
+
+    check-cast v0, Ljava/lang/Number;
+
+    invoke-virtual {v0}, Ljava/lang/Number;->intValue()I
+
+    move-result v0
+
+    return v0
+
+    .line 45
+    :cond_0
+    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lkotlin/jvm/internal/Reflection;->getOrCreateKotlinClass(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Object;->hashCode()I
+
+    move-result v0
+
+    .line 46
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$Fixed;
+
+    if-eqz v1, :cond_1
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$Fixed;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$Fixed;->getValue()Lcom/yandex/div2/DivFixedSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivFixedSize;->hash()I
+
+    move-result v1
+
+    goto :goto_0
+
+    .line 47
+    :cond_1
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    if-eqz v1, :cond_2
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$MatchParent;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$MatchParent;->getValue()Lcom/yandex/div2/DivMatchParentSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivMatchParentSize;->hash()I
+
+    move-result v1
+
+    goto :goto_0
+
+    .line 48
+    :cond_2
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    if-eqz v1, :cond_3
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$WrapContent;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$WrapContent;->getValue()Lcom/yandex/div2/DivWrapContentSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivWrapContentSize;->hash()I
+
+    move-result v1
+
+    :goto_0
+    add-int/2addr v0, v1
+
+    .line 50
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/yandex/div2/DivSize;->_hash:Ljava/lang/Integer;
+
+    return v0
+
+    .line 48
+    :cond_3
+    new-instance v0, Lkotlin/NoWhenBranchMatchedException;
+
+    invoke-direct {v0}, Lkotlin/NoWhenBranchMatchedException;-><init>()V
+
+    throw v0
+.end method
+
+.method public propertiesHash()I
+    .locals 2
+
+    .line 29
+    iget-object v0, p0, Lcom/yandex/div2/DivSize;->_propertiesHash:Ljava/lang/Integer;
+
+    if-eqz v0, :cond_0
+
+    check-cast v0, Ljava/lang/Number;
+
+    invoke-virtual {v0}, Ljava/lang/Number;->intValue()I
+
+    move-result v0
+
+    return v0
+
+    .line 32
+    :cond_0
+    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lkotlin/jvm/internal/Reflection;->getOrCreateKotlinClass(Ljava/lang/Class;)Lkotlin/reflect/KClass;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Object;->hashCode()I
+
+    move-result v0
+
+    .line 33
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$Fixed;
+
+    if-eqz v1, :cond_1
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$Fixed;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$Fixed;->getValue()Lcom/yandex/div2/DivFixedSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivFixedSize;->propertiesHash()I
+
+    move-result v1
+
+    goto :goto_0
+
+    .line 34
+    :cond_1
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    if-eqz v1, :cond_2
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$MatchParent;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$MatchParent;->getValue()Lcom/yandex/div2/DivMatchParentSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivMatchParentSize;->propertiesHash()I
+
+    move-result v1
+
+    goto :goto_0
+
+    .line 35
+    :cond_2
+    instance-of v1, p0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    if-eqz v1, :cond_3
+
+    move-object v1, p0
+
+    check-cast v1, Lcom/yandex/div2/DivSize$WrapContent;
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivSize$WrapContent;->getValue()Lcom/yandex/div2/DivWrapContentSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/yandex/div2/DivWrapContentSize;->propertiesHash()I
+
+    move-result v1
+
+    :goto_0
+    add-int/2addr v0, v1
+
+    .line 37
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/yandex/div2/DivSize;->_propertiesHash:Ljava/lang/Integer;
+
+    return v0
+
+    .line 35
+    :cond_3
+    new-instance v0, Lkotlin/NoWhenBranchMatchedException;
+
+    invoke-direct {v0}, Lkotlin/NoWhenBranchMatchedException;-><init>()V
+
+    throw v0
+.end method
+
+.method public final value()Ljava/lang/Object;
+    .locals 1
+
+    .line 65
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$Fixed;
+
+    if-eqz v0, :cond_0
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$Fixed;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$Fixed;->getValue()Lcom/yandex/div2/DivFixedSize;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 66
+    :cond_0
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    if-eqz v0, :cond_1
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$MatchParent;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$MatchParent;->getValue()Lcom/yandex/div2/DivMatchParentSize;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 67
+    :cond_1
+    instance-of v0, p0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    if-eqz v0, :cond_2
+
+    move-object v0, p0
+
+    check-cast v0, Lcom/yandex/div2/DivSize$WrapContent;
+
+    invoke-virtual {v0}, Lcom/yandex/div2/DivSize$WrapContent;->getValue()Lcom/yandex/div2/DivWrapContentSize;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_2
+    new-instance v0, Lkotlin/NoWhenBranchMatchedException;
+
+    invoke-direct {v0}, Lkotlin/NoWhenBranchMatchedException;-><init>()V
+
+    throw v0
+.end method
+
+.method public writeToJSON()Lorg/json/JSONObject;
+    .locals 2
+
+    .line 72
+    invoke-static {}, Lcom/yandex/div/serialization/BuiltInParserKt;->getBuiltInParserComponent()Lcom/yandex/div2/JsonParserComponent;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/yandex/div2/JsonParserComponent;->getDivSizeJsonEntityParser()Lkotlin/Lazy;
+
+    move-result-object v0
+
+    .line 73
+    invoke-interface {v0}, Lkotlin/Lazy;->getValue()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/yandex/div2/DivSizeJsonParser$EntityParserImpl;
+
+    .line 74
+    invoke-static {}, Lcom/yandex/div/serialization/BuiltInParserKt;->getBuiltInParsingContext()Lcom/yandex/div/serialization/ParsingContext;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1, p0}, Lcom/yandex/div2/DivSizeJsonParser$EntityParserImpl;->serialize(Lcom/yandex/div/serialization/ParsingContext;Lcom/yandex/div2/DivSize;)Lorg/json/JSONObject;
+
+    move-result-object v0
+
+    return-object v0
+.end method

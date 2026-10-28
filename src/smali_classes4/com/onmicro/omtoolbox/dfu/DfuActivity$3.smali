@@ -1,0 +1,86 @@
+.class Lcom/onmicro/omtoolbox/dfu/DfuActivity$3;
+.super Ljava/lang/Object;
+.source "DfuActivity.java"
+
+# interfaces
+.implements Landroid/widget/SeekBar$OnSeekBarChangeListener;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/onmicro/omtoolbox/dfu/DfuActivity;->showFliterDialog()V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/onmicro/omtoolbox/dfu/DfuActivity;
+
+.field final synthetic val$tv_rssi:Landroid/widget/TextView;
+
+
+# direct methods
+.method constructor <init>(Lcom/onmicro/omtoolbox/dfu/DfuActivity;Landroid/widget/TextView;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
+
+    .line 200
+    iput-object p1, p0, Lcom/onmicro/omtoolbox/dfu/DfuActivity$3;->this$0:Lcom/onmicro/omtoolbox/dfu/DfuActivity;
+
+    iput-object p2, p0, Lcom/onmicro/omtoolbox/dfu/DfuActivity$3;->val$tv_rssi:Landroid/widget/TextView;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onProgressChanged(Landroid/widget/SeekBar;IZ)V
+    .locals 1
+
+    .line 203
+    iget-object p1, p0, Lcom/onmicro/omtoolbox/dfu/DfuActivity$3;->val$tv_rssi:Landroid/widget/TextView;
+
+    sget-object p3, Ljava/util/Locale;->ROOT:Ljava/util/Locale;
+
+    mul-int/lit8 p2, p2, -0x1
+
+    invoke-static {p2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p2
+
+    filled-new-array {p2}, [Ljava/lang/Object;
+
+    move-result-object p2
+
+    const-string v0, "%ddBm"
+
+    invoke-static {p3, v0, p2}, Ljava/lang/String;->format(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object p2
+
+    invoke-virtual {p1, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    return-void
+.end method
+
+.method public onStartTrackingTouch(Landroid/widget/SeekBar;)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public onStopTrackingTouch(Landroid/widget/SeekBar;)V
+    .locals 0
+
+    return-void
+.end method

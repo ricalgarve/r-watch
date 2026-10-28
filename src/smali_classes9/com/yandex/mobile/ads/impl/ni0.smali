@@ -1,0 +1,14 @@
+.class public final Lcom/yandex/mobile/ads/impl/ni0;
+.super Ljava/lang/IllegalStateException;
+.source "SourceFile"
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 2
+    invoke-direct {p0}, Ljava/lang/IllegalStateException;-><init>()V
+
+    return-void
+.end method

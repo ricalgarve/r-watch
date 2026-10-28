@@ -1,0 +1,316 @@
+.class public final Lads_mobile_sdk/vq1;
+.super Lkotlin/coroutines/jvm/internal/SuspendLambda;
+.source "SourceFile"
+
+# interfaces
+.implements Lkotlin/jvm/functions/Function2;
+
+
+# instance fields
+.field public a:I
+
+.field public final synthetic b:Lads_mobile_sdk/cr1;
+
+.field public final synthetic c:Lcom/google/gson/JsonObject;
+
+.field public final synthetic d:Lads_mobile_sdk/sb2;
+
+.field public final synthetic e:Lads_mobile_sdk/oq1;
+
+
+# direct methods
+.method public constructor <init>(Lads_mobile_sdk/sb2;Lads_mobile_sdk/oq1;Lads_mobile_sdk/cr1;Lcom/google/gson/JsonObject;Lkotlin/coroutines/Continuation;)V
+    .locals 0
+
+    .line 2
+    iput-object p3, p0, Lads_mobile_sdk/vq1;->b:Lads_mobile_sdk/cr1;
+
+    iput-object p4, p0, Lads_mobile_sdk/vq1;->c:Lcom/google/gson/JsonObject;
+
+    iput-object p1, p0, Lads_mobile_sdk/vq1;->d:Lads_mobile_sdk/sb2;
+
+    iput-object p2, p0, Lads_mobile_sdk/vq1;->e:Lads_mobile_sdk/oq1;
+
+    const/4 p1, 0x2
+
+    invoke-direct {p0, p1, p5}, Lkotlin/coroutines/jvm/internal/SuspendLambda;-><init>(ILkotlin/coroutines/Continuation;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final create(Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+    .locals 6
+
+    .line 1
+    new-instance v0, Lads_mobile_sdk/vq1;
+
+    iget-object v3, p0, Lads_mobile_sdk/vq1;->b:Lads_mobile_sdk/cr1;
+
+    iget-object v4, p0, Lads_mobile_sdk/vq1;->c:Lcom/google/gson/JsonObject;
+
+    iget-object v1, p0, Lads_mobile_sdk/vq1;->d:Lads_mobile_sdk/sb2;
+
+    iget-object v2, p0, Lads_mobile_sdk/vq1;->e:Lads_mobile_sdk/oq1;
+
+    move-object v5, p2
+
+    invoke-direct/range {v0 .. v5}, Lads_mobile_sdk/vq1;-><init>(Lads_mobile_sdk/sb2;Lads_mobile_sdk/oq1;Lads_mobile_sdk/cr1;Lcom/google/gson/JsonObject;Lkotlin/coroutines/Continuation;)V
+
+    return-object v0
+.end method
+
+.method public final invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    .locals 0
+
+    .line 1
+    check-cast p1, Lkotlinx/coroutines/CoroutineScope;
+
+    check-cast p2, Lkotlin/coroutines/Continuation;
+
+    .line 2
+    invoke-virtual {p0, p1, p2}, Lads_mobile_sdk/vq1;->create(Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+
+    move-result-object p1
+
+    check-cast p1, Lads_mobile_sdk/vq1;
+
+    sget-object p2, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+
+    invoke-virtual {p1, p2}, Lads_mobile_sdk/vq1;->invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public final invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;
+    .locals 12
+
+    .line 1
+    invoke-static {}, Lkotlin/coroutines/intrinsics/IntrinsicsKt;->getCOROUTINE_SUSPENDED()Ljava/lang/Object;
+
+    move-result-object v0
+
+    .line 111
+    iget v1, p0, Lads_mobile_sdk/vq1;->a:I
+
+    const/4 v2, 0x2
+
+    const/4 v3, 0x1
+
+    if-eqz v1, :cond_2
+
+    if-eq v1, v3, :cond_1
+
+    if-ne v1, v2, :cond_0
+
+    invoke-static {p1}, Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V
+
+    goto/16 :goto_4
+
+    :cond_0
+    new-instance p1, Ljava/lang/IllegalStateException;
+
+    const-string v0, "call to \'resume\' before \'invoke\' with coroutine"
+
+    invoke-direct {p1, v0}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw p1
+
+    :cond_1
+    invoke-static {p1}, Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V
+
+    goto :goto_0
+
+    :cond_2
+    invoke-static {p1}, Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V
+
+    .line 112
+    iget-object p1, p0, Lads_mobile_sdk/vq1;->b:Lads_mobile_sdk/cr1;
+
+    .line 113
+    iget-object p1, p1, Lads_mobile_sdk/cr1;->c:Lads_mobile_sdk/ou1;
+
+    .line 114
+    iget-object v1, p0, Lads_mobile_sdk/vq1;->c:Lcom/google/gson/JsonObject;
+
+    iget-object v4, p0, Lads_mobile_sdk/vq1;->d:Lads_mobile_sdk/sb2;
+
+    iput v3, p0, Lads_mobile_sdk/vq1;->a:I
+
+    invoke-virtual {p1, v1, v4, p0}, Lads_mobile_sdk/ou1;->a(Lcom/google/gson/JsonObject;Lads_mobile_sdk/sb2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    if-ne p1, v0, :cond_3
+
+    goto/16 :goto_2
+
+    .line 115
+    :cond_3
+    :goto_0
+    check-cast p1, Lads_mobile_sdk/lw0;
+
+    if-eqz p1, :cond_6
+
+    iget-object v1, p0, Lads_mobile_sdk/vq1;->e:Lads_mobile_sdk/oq1;
+
+    iget-object v3, p0, Lads_mobile_sdk/vq1;->b:Lads_mobile_sdk/cr1;
+
+    iget-object v4, p0, Lads_mobile_sdk/vq1;->c:Lcom/google/gson/JsonObject;
+
+    .line 116
+    iput-object p1, v1, Lads_mobile_sdk/oq1;->j:Lads_mobile_sdk/lw0;
+
+    .line 117
+    iput-object p1, v1, Lads_mobile_sdk/oq1;->k:Landroid/view/View;
+
+    .line 118
+    invoke-virtual {p1}, Lads_mobile_sdk/lw0;->d()Lads_mobile_sdk/ix0;
+
+    move-result-object v5
+
+    iput-object v5, v1, Lads_mobile_sdk/oq1;->l:Lads_mobile_sdk/ix0;
+
+    .line 119
+    invoke-virtual {p1}, Lads_mobile_sdk/lw0;->d()Lads_mobile_sdk/ix0;
+
+    move-result-object v5
+
+    iput-object v5, v1, Lads_mobile_sdk/oq1;->m:Lcom/google/android/libraries/ads/mobile/sdk/common/VideoController;
+
+    .line 120
+    iget-object v5, v3, Lads_mobile_sdk/cr1;->f:Lads_mobile_sdk/hq0;
+
+    .line 121
+    invoke-virtual {v5}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    .line 123
+    const-string v6, "gads:immersive_video_ads:enabled"
+
+    const-string v7, "key"
+
+    invoke-static {v6, v7}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 139
+    sget-object v8, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
+
+    sget-object v9, Lads_mobile_sdk/do;->b:Lads_mobile_sdk/nn;
+
+    invoke-virtual {v5, v6, v8, v9}, Lads_mobile_sdk/do;->a(Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+
+    move-result-object v5
+
+    check-cast v5, Ljava/lang/Boolean;
+
+    invoke-virtual {v5}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result v5
+
+    if-eqz v5, :cond_6
+
+    .line 140
+    const-string/jumbo v5, "video"
+
+    const/4 v6, 0x0
+
+    .line 141
+    invoke-static {v4, v5, v6}, Lads_mobile_sdk/ii1;->a(Lcom/google/gson/JsonObject;Ljava/lang/String;Lcom/google/gson/JsonObject;)Lcom/google/gson/JsonObject;
+
+    move-result-object v4
+
+    if-eqz v4, :cond_6
+
+    .line 142
+    const-string v5, "flags"
+
+    invoke-static {v4, v5}, Lads_mobile_sdk/ii1;->e(Lcom/google/gson/JsonObject;Ljava/lang/String;)Lcom/google/gson/JsonArray;
+
+    move-result-object v4
+
+    if-eqz v4, :cond_6
+
+    .line 143
+    invoke-virtual {v4}, Lcom/google/gson/JsonArray;->size()I
+
+    move-result v5
+
+    const/4 v6, 0x0
+
+    :goto_1
+    if-ge v6, v5, :cond_6
+
+    .line 144
+    invoke-static {v4, v6}, Lads_mobile_sdk/ii1;->a(Lcom/google/gson/JsonArray;I)Lcom/google/gson/JsonObject;
+
+    move-result-object v8
+
+    if-nez v8, :cond_4
+
+    goto :goto_3
+
+    .line 146
+    :cond_4
+    const-string v9, ""
+
+    invoke-static {v8, v7, v9}, Lads_mobile_sdk/ii1;->a(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
+    .line 147
+    const-string v11, "afma_video_player_type"
+
+    invoke-static {v10, v11}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v10
+
+    if-eqz v10, :cond_5
+
+    .line 149
+    :try_start_0
+    const-string/jumbo v4, "value"
+
+    .line 150
+    invoke-static {v8, v4, v9}, Lads_mobile_sdk/ii1;->a(Lcom/google/gson/JsonObject;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 151
+    invoke-static {v4}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+
+    move-result v4
+    :try_end_0
+    .catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_0
+
+    const/4 v5, 0x3
+
+    if-ne v4, v5, :cond_6
+
+    .line 152
+    iput v2, p0, Lads_mobile_sdk/vq1;->a:I
+
+    invoke-static {v3, v1, p1, p0}, Lads_mobile_sdk/cr1;->a(Lads_mobile_sdk/cr1;Lads_mobile_sdk/oq1;Lads_mobile_sdk/lw0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    if-ne p1, v0, :cond_6
+
+    :goto_2
+    return-object v0
+
+    :cond_5
+    :goto_3
+    add-int/lit8 v6, v6, 0x1
+
+    goto :goto_1
+
+    .line 155
+    :catch_0
+    :cond_6
+    :goto_4
+    sget-object p1, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+
+    return-object p1
+.end method

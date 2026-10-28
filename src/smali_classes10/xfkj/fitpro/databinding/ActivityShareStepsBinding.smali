@@ -1,0 +1,399 @@
+.class public final Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+.super Ljava/lang/Object;
+.source "ActivityShareStepsBinding.java"
+
+# interfaces
+.implements Landroidx/viewbinding/ViewBinding;
+
+
+# instance fields
+.field public final circleAvator:Lde/hdodenhof/circleimageview/CircleImageView;
+
+.field public final imgBack:Landroid/widget/ImageView;
+
+.field public final llContainer:Landroid/widget/LinearLayout;
+
+.field public final llLoad:Landroid/widget/LinearLayout;
+
+.field public final llShareMain:Landroid/widget/RelativeLayout;
+
+.field public final progressBar:Landroid/widget/ProgressBar;
+
+.field public final rlLoaddata:Landroid/widget/RelativeLayout;
+
+.field private final rootView:Landroid/widget/RelativeLayout;
+
+.field public final srcollView:Landroid/widget/ScrollView;
+
+.field public final tvBeatPerson:Lxfkj/fitpro/view/RxRunTextView;
+
+.field public final tvLoadFailed:Landroid/widget/TextView;
+
+.field public final tvLoadding:Landroid/widget/TextView;
+
+.field public final tvNickname:Landroid/widget/TextView;
+
+.field public final tvSteps:Lxfkj/fitpro/view/NewsLabFontsTextView;
+
+.field public final tvWeekSteps:Landroid/widget/TextView;
+
+.field public final tvYulu:Lxfkj/fitpro/view/HYkFontsTextView;
+
+
+# direct methods
+.method private constructor <init>(Landroid/widget/RelativeLayout;Lde/hdodenhof/circleimageview/CircleImageView;Landroid/widget/ImageView;Landroid/widget/LinearLayout;Landroid/widget/LinearLayout;Landroid/widget/RelativeLayout;Landroid/widget/ProgressBar;Landroid/widget/RelativeLayout;Landroid/widget/ScrollView;Lxfkj/fitpro/view/RxRunTextView;Landroid/widget/TextView;Landroid/widget/TextView;Landroid/widget/TextView;Lxfkj/fitpro/view/NewsLabFontsTextView;Landroid/widget/TextView;Lxfkj/fitpro/view/HYkFontsTextView;)V
+    .locals 0
+
+    .line 83
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 84
+    iput-object p1, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->rootView:Landroid/widget/RelativeLayout;
+
+    .line 85
+    iput-object p2, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->circleAvator:Lde/hdodenhof/circleimageview/CircleImageView;
+
+    .line 86
+    iput-object p3, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->imgBack:Landroid/widget/ImageView;
+
+    .line 87
+    iput-object p4, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->llContainer:Landroid/widget/LinearLayout;
+
+    .line 88
+    iput-object p5, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->llLoad:Landroid/widget/LinearLayout;
+
+    .line 89
+    iput-object p6, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->llShareMain:Landroid/widget/RelativeLayout;
+
+    .line 90
+    iput-object p7, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->progressBar:Landroid/widget/ProgressBar;
+
+    .line 91
+    iput-object p8, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->rlLoaddata:Landroid/widget/RelativeLayout;
+
+    .line 92
+    iput-object p9, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->srcollView:Landroid/widget/ScrollView;
+
+    .line 93
+    iput-object p10, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvBeatPerson:Lxfkj/fitpro/view/RxRunTextView;
+
+    .line 94
+    iput-object p11, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvLoadFailed:Landroid/widget/TextView;
+
+    .line 95
+    iput-object p12, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvLoadding:Landroid/widget/TextView;
+
+    .line 96
+    iput-object p13, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvNickname:Landroid/widget/TextView;
+
+    .line 97
+    iput-object p14, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvSteps:Lxfkj/fitpro/view/NewsLabFontsTextView;
+
+    .line 98
+    iput-object p15, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvWeekSteps:Landroid/widget/TextView;
+
+    move-object/from16 p1, p16
+
+    .line 99
+    iput-object p1, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->tvYulu:Lxfkj/fitpro/view/HYkFontsTextView;
+
+    return-void
+.end method
+
+.method public static bind(Landroid/view/View;)Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+    .locals 20
+
+    move-object/from16 v0, p0
+
+    const v1, 0x7f0a01d0
+
+    .line 130
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v5, v2
+
+    check-cast v5, Lde/hdodenhof/circleimageview/CircleImageView;
+
+    if-eqz v5, :cond_0
+
+    const v1, 0x7f0a0339
+
+    .line 136
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v6, v2
+
+    check-cast v6, Landroid/widget/ImageView;
+
+    if-eqz v6, :cond_0
+
+    const v1, 0x7f0a051c
+
+    .line 142
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v7, v2
+
+    check-cast v7, Landroid/widget/LinearLayout;
+
+    if-eqz v7, :cond_0
+
+    const v1, 0x7f0a0537
+
+    .line 148
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v8, v2
+
+    check-cast v8, Landroid/widget/LinearLayout;
+
+    if-eqz v8, :cond_0
+
+    const v1, 0x7f0a0546
+
+    .line 154
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v9, v2
+
+    check-cast v9, Landroid/widget/RelativeLayout;
+
+    if-eqz v9, :cond_0
+
+    const v1, 0x7f0a074d
+
+    .line 160
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v10, v2
+
+    check-cast v10, Landroid/widget/ProgressBar;
+
+    if-eqz v10, :cond_0
+
+    const v1, 0x7f0a07a3
+
+    .line 166
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v11, v2
+
+    check-cast v11, Landroid/widget/RelativeLayout;
+
+    if-eqz v11, :cond_0
+
+    const v1, 0x7f0a09e4
+
+    .line 172
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v12, v2
+
+    check-cast v12, Landroid/widget/ScrollView;
+
+    if-eqz v12, :cond_0
+
+    const v1, 0x7f0a0b22
+
+    .line 178
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v13, v2
+
+    check-cast v13, Lxfkj/fitpro/view/RxRunTextView;
+
+    if-eqz v13, :cond_0
+
+    const v1, 0x7f0a0b9c
+
+    .line 184
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v14, v2
+
+    check-cast v14, Landroid/widget/TextView;
+
+    if-eqz v14, :cond_0
+
+    const v1, 0x7f0a0b9e
+
+    .line 190
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object v15, v2
+
+    check-cast v15, Landroid/widget/TextView;
+
+    if-eqz v15, :cond_0
+
+    const v1, 0x7f0a0bb4
+
+    .line 196
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object/from16 v16, v2
+
+    check-cast v16, Landroid/widget/TextView;
+
+    if-eqz v16, :cond_0
+
+    const v1, 0x7f0a0c00
+
+    .line 202
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object/from16 v17, v2
+
+    check-cast v17, Lxfkj/fitpro/view/NewsLabFontsTextView;
+
+    if-eqz v17, :cond_0
+
+    const v1, 0x7f0a0c30
+
+    .line 208
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object/from16 v18, v2
+
+    check-cast v18, Landroid/widget/TextView;
+
+    if-eqz v18, :cond_0
+
+    const v1, 0x7f0a0c34
+
+    .line 214
+    invoke-static {v0, v1}, Landroidx/viewbinding/ViewBindings;->findChildViewById(Landroid/view/View;I)Landroid/view/View;
+
+    move-result-object v2
+
+    move-object/from16 v19, v2
+
+    check-cast v19, Lxfkj/fitpro/view/HYkFontsTextView;
+
+    if-eqz v19, :cond_0
+
+    .line 219
+    new-instance v3, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+
+    move-object v4, v0
+
+    check-cast v4, Landroid/widget/RelativeLayout;
+
+    invoke-direct/range {v3 .. v19}, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;-><init>(Landroid/widget/RelativeLayout;Lde/hdodenhof/circleimageview/CircleImageView;Landroid/widget/ImageView;Landroid/widget/LinearLayout;Landroid/widget/LinearLayout;Landroid/widget/RelativeLayout;Landroid/widget/ProgressBar;Landroid/widget/RelativeLayout;Landroid/widget/ScrollView;Lxfkj/fitpro/view/RxRunTextView;Landroid/widget/TextView;Landroid/widget/TextView;Landroid/widget/TextView;Lxfkj/fitpro/view/NewsLabFontsTextView;Landroid/widget/TextView;Lxfkj/fitpro/view/HYkFontsTextView;)V
+
+    return-object v3
+
+    .line 223
+    :cond_0
+    invoke-virtual {v0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getResourceName(I)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 224
+    new-instance v1, Ljava/lang/NullPointerException;
+
+    const-string v2, "Missing required view with ID: "
+
+    invoke-virtual {v2, v0}, Ljava/lang/String;->concat(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-direct {v1, v0}, Ljava/lang/NullPointerException;-><init>(Ljava/lang/String;)V
+
+    throw v1
+.end method
+
+.method public static inflate(Landroid/view/LayoutInflater;)Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+    .locals 2
+
+    const/4 v0, 0x0
+
+    const/4 v1, 0x0
+
+    .line 110
+    invoke-static {p0, v0, v1}, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->inflate(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method public static inflate(Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+    .locals 2
+
+    const v0, 0x7f0d0071
+
+    const/4 v1, 0x0
+
+    .line 116
+    invoke-virtual {p0, v0, p1, v1}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
+
+    move-result-object p0
+
+    if-eqz p2, :cond_0
+
+    .line 118
+    invoke-virtual {p1, p0}, Landroid/view/ViewGroup;->addView(Landroid/view/View;)V
+
+    .line 120
+    :cond_0
+    invoke-static {p0}, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->bind(Landroid/view/View;)Lxfkj/fitpro/databinding/ActivityShareStepsBinding;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+
+# virtual methods
+.method public bridge synthetic getRoot()Landroid/view/View;
+    .locals 1
+
+    .line 26
+    invoke-virtual {p0}, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->getRoot()Landroid/widget/RelativeLayout;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getRoot()Landroid/widget/RelativeLayout;
+    .locals 1
+
+    .line 105
+    iget-object v0, p0, Lxfkj/fitpro/databinding/ActivityShareStepsBinding;->rootView:Landroid/widget/RelativeLayout;
+
+    return-object v0
+.end method

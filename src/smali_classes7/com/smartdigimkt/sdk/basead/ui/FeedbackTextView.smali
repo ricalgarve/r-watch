@@ -1,0 +1,25 @@
+.class public Lcom/smartdigimkt/sdk/basead/ui/FeedbackTextView;
+.super Lcom/smartdigimkt/sdk/basead/ui/AutoResizeTextView;
+.source "SourceFile"
+
+
+# direct methods
+.method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+    .locals 1
+
+    .line 1
+    invoke-direct {p0, p1, p2}, Lcom/smartdigimkt/sdk/basead/ui/AutoResizeTextView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+    .line 2
+    const-string p2, "myoffer_bg_feedback_textview"
+
+    const-string v0, "drawable"
+
+    invoke-static {p1, p2, v0}, Lcom/smartdigimkt/e8/j;->a(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I
+
+    move-result p1
+
+    invoke-virtual {p0, p1}, Landroid/view/View;->setBackgroundResource(I)V
+
+    return-void
+.end method

@@ -1,0 +1,78 @@
+.class public final Lcom/yandex/mobile/ads/impl/a92;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# instance fields
+.field private final a:Lcom/yandex/mobile/ads/impl/iw1;
+
+
+# direct methods
+.method public synthetic constructor <init>()V
+    .locals 1
+
+    .line 2
+    sget v0, Lcom/yandex/mobile/ads/impl/iw1;->l:I
+
+    invoke-static {}, Lcom/yandex/mobile/ads/impl/iw1$a;->a()Lcom/yandex/mobile/ads/impl/iw1;
+
+    move-result-object v0
+
+    .line 3
+    invoke-direct {p0, v0}, Lcom/yandex/mobile/ads/impl/a92;-><init>(Lcom/yandex/mobile/ads/impl/iw1;)V
+
+    return-void
+.end method
+
+.method public constructor <init>(Lcom/yandex/mobile/ads/impl/iw1;)V
+    .locals 1
+
+    .line 4
+    const-string v0, "sdkSettings"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 10
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 11
+    iput-object p1, p0, Lcom/yandex/mobile/ads/impl/a92;->a:Lcom/yandex/mobile/ads/impl/iw1;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final a(Landroid/content/Context;)Z
+    .locals 1
+
+    .line 1
+    const-string v0, "context"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 12
+    iget-object v0, p0, Lcom/yandex/mobile/ads/impl/a92;->a:Lcom/yandex/mobile/ads/impl/iw1;
+
+    invoke-virtual {v0, p1}, Lcom/yandex/mobile/ads/impl/iw1;->a(Landroid/content/Context;)Lcom/yandex/mobile/ads/impl/hu1;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_0
+
+    .line 13
+    invoke-virtual {p1}, Lcom/yandex/mobile/ads/impl/hu1;->O()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_0
+
+    const/4 p1, 0x1
+
+    return p1
+
+    :cond_0
+    const/4 p1, 0x0
+
+    return p1
+.end method

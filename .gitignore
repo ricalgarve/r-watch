@@ -1,0 +1,24 @@
+# ==============================================================================
+# HiWatch Pro REA - Git Ignore
+# ==============================================================================
+
+# Binários APK compilados e artefatos de saída
+dist/
+*.apk
+*.idsig
+
+# Cache de compilação intermediário do Apktool
+src/build/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.bak
+__pycache__/
+*.pyc
+
+# Arquivos de sistema operacional e IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

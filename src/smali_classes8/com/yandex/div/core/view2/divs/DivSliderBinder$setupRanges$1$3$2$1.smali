@@ -1,0 +1,147 @@
+.class final Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;
+.super Lkotlin/jvm/internal/Lambda;
+.source "DivSliderBinder.kt"
+
+# interfaces
+.implements Lkotlin/jvm/functions/Function1;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/yandex/div/core/view2/divs/DivSliderBinder;->setupRanges(Lcom/yandex/div/core/view2/divs/widgets/DivSliderView;Lcom/yandex/div2/DivSlider;Lcom/yandex/div/json/expressions/ExpressionResolver;)V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x18
+    name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lkotlin/jvm/internal/Lambda;",
+        "Lkotlin/jvm/functions/Function1<",
+        "Ljava/lang/Long;",
+        "Lkotlin/Unit;",
+        ">;"
+    }
+.end annotation
+
+.annotation system Ldalvik/annotation/SourceDebugExtension;
+    value = "SMAP\nDivSliderBinder.kt\nKotlin\n*S Kotlin\n*F\n+ 1 DivSliderBinder.kt\ncom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1\n+ 2 DivSliderBinder.kt\ncom/yandex/div/core/view2/divs/DivSliderBinder$Companion\n*L\n1#1,419:1\n404#2,4:420\n*S KotlinDebug\n*F\n+ 1 DivSliderBinder.kt\ncom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1\n*L\n346#1:420,4\n*E\n"
+.end annotation
+
+.annotation runtime Lkotlin/Metadata;
+    d1 = {
+        "\u0000\u000e\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\t\n\u0000\u0010\u0000\u001a\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u0003H\n\u00a2\u0006\u0002\u0008\u0004"
+    }
+    d2 = {
+        "<anonymous>",
+        "",
+        "it",
+        "",
+        "invoke"
+    }
+    k = 0x3
+    mv = {
+        0x1,
+        0x8,
+        0x0
+    }
+    xi = 0x30
+.end annotation
+
+
+# instance fields
+.field final synthetic $metrics:Landroid/util/DisplayMetrics;
+
+.field final synthetic $range:Lcom/yandex/div/internal/widget/slider/SliderView$Range;
+
+.field final synthetic $resolver:Lcom/yandex/div/json/expressions/ExpressionResolver;
+
+.field final synthetic $this_setupRanges:Lcom/yandex/div/core/view2/divs/widgets/DivSliderView;
+
+.field final synthetic $this_with:Lcom/yandex/div2/DivEdgeInsets;
+
+
+# direct methods
+.method constructor <init>(Lcom/yandex/div/core/view2/divs/widgets/DivSliderView;Lcom/yandex/div/internal/widget/slider/SliderView$Range;Lcom/yandex/div2/DivEdgeInsets;Lcom/yandex/div/json/expressions/ExpressionResolver;Landroid/util/DisplayMetrics;)V
+    .locals 0
+
+    iput-object p1, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$this_setupRanges:Lcom/yandex/div/core/view2/divs/widgets/DivSliderView;
+
+    iput-object p2, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$range:Lcom/yandex/div/internal/widget/slider/SliderView$Range;
+
+    iput-object p3, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$this_with:Lcom/yandex/div2/DivEdgeInsets;
+
+    iput-object p4, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$resolver:Lcom/yandex/div/json/expressions/ExpressionResolver;
+
+    iput-object p5, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$metrics:Landroid/util/DisplayMetrics;
+
+    const/4 p1, 0x1
+
+    invoke-direct {p0, p1}, Lkotlin/jvm/internal/Lambda;-><init>(I)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public bridge synthetic invoke(Ljava/lang/Object;)Ljava/lang/Object;
+    .locals 2
+
+    .line 345
+    check-cast p1, Ljava/lang/Number;
+
+    invoke-virtual {p1}, Ljava/lang/Number;->longValue()J
+
+    move-result-wide v0
+
+    invoke-virtual {p0, v0, v1}, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->invoke(J)V
+
+    sget-object p1, Lkotlin/Unit;->INSTANCE:Lkotlin/Unit;
+
+    return-object p1
+.end method
+
+.method public final invoke(J)V
+    .locals 8
+
+    .line 346
+    invoke-static {}, Lcom/yandex/div/core/view2/divs/DivSliderBinder;->access$getCompanion$p()Lcom/yandex/div/core/view2/divs/DivSliderBinder$Companion;
+
+    iget-object v0, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$this_setupRanges:Lcom/yandex/div/core/view2/divs/widgets/DivSliderView;
+
+    check-cast v0, Lcom/yandex/div/internal/widget/slider/SliderView;
+
+    iget-object v1, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$range:Lcom/yandex/div/internal/widget/slider/SliderView$Range;
+
+    iget-object v3, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$this_with:Lcom/yandex/div2/DivEdgeInsets;
+
+    iget-object v6, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$resolver:Lcom/yandex/div/json/expressions/ExpressionResolver;
+
+    iget-object v7, p0, Lcom/yandex/div/core/view2/divs/DivSliderBinder$setupRanges$1$3$2$1;->$metrics:Landroid/util/DisplayMetrics;
+
+    invoke-static {}, Lcom/yandex/div/core/view2/divs/DivSliderBinder;->access$getCompanion$p()Lcom/yandex/div/core/view2/divs/DivSliderBinder$Companion;
+
+    move-result-object v2
+
+    const-string v4, "metrics"
+
+    invoke-static {v7, v4}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    move-wide v4, p1
+
+    invoke-virtual/range {v2 .. v7}, Lcom/yandex/div/core/view2/divs/DivSliderBinder$Companion;->applyUnit(Lcom/yandex/div2/DivEdgeInsets;JLcom/yandex/div/json/expressions/ExpressionResolver;Landroid/util/DisplayMetrics;)I
+
+    move-result p1
+
+    invoke-virtual {v1, p1}, Lcom/yandex/div/internal/widget/slider/SliderView$Range;->setMarginEnd(I)V
+
+    .line 421
+    invoke-virtual {v0}, Lcom/yandex/div/internal/widget/slider/SliderView;->requestLayout()V
+
+    .line 422
+    invoke-virtual {v0}, Lcom/yandex/div/internal/widget/slider/SliderView;->invalidate()V
+
+    return-void
+.end method

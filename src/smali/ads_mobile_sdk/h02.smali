@@ -1,0 +1,234 @@
+.class public final Lads_mobile_sdk/h02;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+# interfaces
+.implements Lads_mobile_sdk/xd3;
+.implements Lads_mobile_sdk/d41;
+
+
+# instance fields
+.field public final a:Landroid/content/Context;
+
+.field public final b:Ljava/util/concurrent/ExecutorService;
+
+.field public c:Landroid/net/NetworkCapabilities;
+
+
+# direct methods
+.method public constructor <init>(Landroid/content/Context;Ljava/util/concurrent/ExecutorService;)V
+    .locals 1
+
+    .line 40
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    .line 41
+    iput-object v0, p0, Lads_mobile_sdk/h02;->c:Landroid/net/NetworkCapabilities;
+
+    .line 45
+    iput-object p1, p0, Lads_mobile_sdk/h02;->a:Landroid/content/Context;
+
+    .line 46
+    iput-object p2, p0, Lads_mobile_sdk/h02;->b:Ljava/util/concurrent/ExecutorService;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final a()Lcom/google/common/util/concurrent/ListenableFuture;
+    .locals 2
+
+    .line 12
+    new-instance v0, Lads_mobile_sdk/h02$$ExternalSyntheticLambda0;
+
+    invoke-direct {v0, p0}, Lads_mobile_sdk/h02$$ExternalSyntheticLambda0;-><init>(Lads_mobile_sdk/h02;)V
+
+    iget-object v1, p0, Lads_mobile_sdk/h02;->b:Ljava/util/concurrent/ExecutorService;
+
+    invoke-static {v0, v1}, Lcom/google/common/util/concurrent/Futures;->submit(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Lcom/google/common/util/concurrent/ListenableFuture;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public final a(Ljava/util/HashMap;)V
+    .locals 2
+
+    .line 2
+    const-string v0, "ntc"
+
+    .line 3
+    monitor-enter p0
+
+    .line 4
+    :try_start_0
+    iget-object v1, p0, Lads_mobile_sdk/h02;->c:Landroid/net/NetworkCapabilities;
+
+    monitor-exit p0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 5
+    invoke-virtual {p1, v0, v1}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 6
+    invoke-virtual {p0}, Lads_mobile_sdk/h02;->b()J
+
+    move-result-wide v0
+
+    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v0
+
+    const-string v1, "nt"
+
+    invoke-virtual {p1, v1, v0}, Ljava/util/HashMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    return-void
+
+    :catchall_0
+    move-exception p1
+
+    .line 7
+    :try_start_1
+    monitor-exit p0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw p1
+.end method
+
+.method public final a(Ljava/util/HashMap;Landroid/content/Context;Landroid/view/View;)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public final b()J
+    .locals 2
+
+    .line 111
+    monitor-enter p0
+
+    .line 112
+    :try_start_0
+    iget-object v0, p0, Lads_mobile_sdk/h02;->c:Landroid/net/NetworkCapabilities;
+
+    if-eqz v0, :cond_2
+
+    const/4 v1, 0x4
+
+    .line 113
+    invoke-virtual {v0, v1}, Landroid/net/NetworkCapabilities;->hasTransport(I)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const-wide/16 v0, 0x2
+
+    .line 114
+    monitor-exit p0
+
+    return-wide v0
+
+    .line 115
+    :cond_0
+    iget-object v0, p0, Lads_mobile_sdk/h02;->c:Landroid/net/NetworkCapabilities;
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Landroid/net/NetworkCapabilities;->hasTransport(I)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    const-wide/16 v0, 0x1
+
+    .line 116
+    monitor-exit p0
+
+    return-wide v0
+
+    .line 117
+    :cond_1
+    iget-object v0, p0, Lads_mobile_sdk/h02;->c:Landroid/net/NetworkCapabilities;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Landroid/net/NetworkCapabilities;->hasTransport(I)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_2
+
+    const-wide/16 v0, 0x0
+
+    .line 118
+    monitor-exit p0
+
+    return-wide v0
+
+    .line 121
+    :cond_2
+    monitor-exit p0
+
+    const-wide/16 v0, -0x1
+
+    return-wide v0
+
+    :catchall_0
+    move-exception v0
+
+    .line 122
+    monitor-exit p0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v0
+.end method
+
+.method public final b(Ljava/util/HashMap;)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public final c()V
+    .locals 3
+
+    .line 4
+    new-instance v0, Lads_mobile_sdk/g02;
+
+    invoke-direct {v0, p0}, Lads_mobile_sdk/g02;-><init>(Lads_mobile_sdk/h02;)V
+
+    .line 23
+    :try_start_0
+    iget-object v1, p0, Lads_mobile_sdk/h02;->a:Landroid/content/Context;
+
+    const-string v2, "connectivity"
+
+    .line 25
+    invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/google/common/base/Preconditions;->checkNotNull(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/net/ConnectivityManager;
+
+    .line 26
+    invoke-virtual {v1, v0}, Landroid/net/ConnectivityManager;->registerDefaultNetworkCallback(Landroid/net/ConnectivityManager$NetworkCallback;)V
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    :catchall_0
+    return-void
+.end method

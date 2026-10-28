@@ -1,0 +1,36 @@
+.class public final synthetic Lcom/yandex/div2/DivInputJsonParser$$ExternalSyntheticLambda0;
+.super Ljava/lang/Object;
+.source "D8$$SyntheticClass"
+
+# interfaces
+.implements Lcom/yandex/div/internal/parser/ValueValidator;
+
+
+# direct methods
+.method public synthetic constructor <init>()V
+    .locals 0
+
+    .line 0
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final isValid(Ljava/lang/Object;)Z
+    .locals 2
+
+    .line 0
+    check-cast p1, Ljava/lang/Double;
+
+    invoke-virtual {p1}, Ljava/lang/Double;->doubleValue()D
+
+    move-result-wide v0
+
+    invoke-static {v0, v1}, Lcom/yandex/div2/DivInputJsonParser;->$r8$lambda$_LuGPuUID_iFQyG0CxLni8uS34M(D)Z
+
+    move-result p1
+
+    return p1
+.end method

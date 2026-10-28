@@ -1,0 +1,50 @@
+.class public Lcom/thinkup/core/api/bridge/TUAdapterBridgeConst$FORMAT;
+.super Ljava/lang/Object;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/thinkup/core/api/bridge/TUAdapterBridgeConst;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "FORMAT"
+.end annotation
+
+
+# static fields
+.field public static final BANNER:I = 0x2
+
+.field public static final BANNER_FORMAT:Ljava/lang/String; = "2"
+
+.field public static final INTERSTITIAL:I = 0x3
+
+.field public static final INTERSTITIAL_FORMAT:Ljava/lang/String; = "3"
+
+.field public static final MEDIA_VIDEO:I = 0x32
+
+.field public static final MEDIA_VIDEO_FORMAT:Ljava/lang/String; = "50"
+
+.field public static final NATIVE:I = 0x0
+
+.field public static final NATIVE_FORMAT:Ljava/lang/String; = "0"
+
+.field public static final REWARDEDVIDEO_FORMAT:Ljava/lang/String; = "1"
+
+.field public static final REWARDVIDEO:I = 0x1
+
+.field public static final SPLASH:I = 0x4
+
+.field public static final SPLASH_FORMAT:Ljava/lang/String; = "4"
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 75
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method

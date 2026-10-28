@@ -1,0 +1,321 @@
+.class public final Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;
+.super Lcom/yandex/mobile/ads/impl/il1;
+.source "SourceFile"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader$a;
+    }
+.end annotation
+
+.annotation runtime Lkotlin/Deprecated;
+    level = .enum Lkotlin/DeprecationLevel;->WARNING:Lkotlin/DeprecationLevel;
+    message = "This AdsLoader version is deprecated, use YandexAdsLoader from com.yandex.mobile.ads.instream.media3 package"
+    replaceWith = .subannotation Lkotlin/ReplaceWith;
+        expression = "YandexMedia3AdsLoader"
+        imports = {
+            "com.yandex.mobile.ads.instream.media3.YandexMedia3AdsLoader"
+        }
+    .end subannotation
+.end annotation
+
+.annotation runtime Lkotlin/Metadata;
+    d1 = {
+        "\u0000h\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\u0008\u0002\n\u0002\u0018\u0002\n\u0002\u0008\u0003\n\u0002\u0018\u0002\n\u0002\u0008\u0005\n\u0002\u0010\u0015\n\u0002\u0010\u0008\n\u0002\u0008\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0008\t\n\u0002\u0018\u0002\n\u0002\u0008\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0008\u0005\u0008\u0007\u0018\u0000 22\u00020\u0001:\u00012B\u0017\u0012\u0006\u0010-\u001a\u00020,\u0012\u0006\u0010/\u001a\u00020.\u00a2\u0006\u0004\u00080\u00101J\u0017\u0010\u0005\u001a\u00020\u00042\u0008\u0010\u0003\u001a\u0004\u0018\u00010\u0002\u00a2\u0006\u0004\u0008\u0005\u0010\u0006J\u0017\u0010\t\u001a\u00020\u00042\u0008\u0010\u0008\u001a\u0004\u0018\u00010\u0007\u00a2\u0006\u0004\u0008\t\u0010\nJ\u0019\u0010\r\u001a\u00020\u00042\u0008\u0010\u000c\u001a\u0004\u0018\u00010\u000bH\u0016\u00a2\u0006\u0004\u0008\r\u0010\u000eJ\u000f\u0010\u000f\u001a\u00020\u0004H\u0016\u00a2\u0006\u0004\u0008\u000f\u0010\u0010J\u001b\u0010\u0014\u001a\u00020\u00042\n\u0010\u0013\u001a\u00020\u0011\"\u00020\u0012H\u0016\u00a2\u0006\u0004\u0008\u0014\u0010\u0015J7\u0010 \u001a\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u00162\u0006\u0010\u0019\u001a\u00020\u00182\u0006\u0010\u001b\u001a\u00020\u001a2\u0006\u0010\u001d\u001a\u00020\u001c2\u0006\u0010\u001f\u001a\u00020\u001eH\u0016\u00a2\u0006\u0004\u0008 \u0010!J\u001f\u0010\"\u001a\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u00162\u0006\u0010\u001f\u001a\u00020\u001eH\u0016\u00a2\u0006\u0004\u0008\"\u0010#J\'\u0010&\u001a\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u00162\u0006\u0010$\u001a\u00020\u00122\u0006\u0010%\u001a\u00020\u0012H\u0016\u00a2\u0006\u0004\u0008&\u0010\'J/\u0010*\u001a\u00020\u00042\u0006\u0010\u0017\u001a\u00020\u00162\u0006\u0010$\u001a\u00020\u00122\u0006\u0010%\u001a\u00020\u00122\u0006\u0010)\u001a\u00020(H\u0016\u00a2\u0006\u0004\u0008*\u0010+\u00a8\u00063"
+    }
+    d2 = {
+        "Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;",
+        "Lcom/yandex/mobile/ads/impl/il1;",
+        "Landroid/view/ViewGroup;",
+        "adViewGroup",
+        "",
+        "requestAds",
+        "(Landroid/view/ViewGroup;)V",
+        "Lcom/yandex/mobile/ads/video/playback/VideoAdPlaybackListener;",
+        "listener",
+        "setVideoAdPlaybackListener",
+        "(Lcom/yandex/mobile/ads/video/playback/VideoAdPlaybackListener;)V",
+        "Lcom/google/android/exoplayer2/Player;",
+        "player",
+        "setPlayer",
+        "(Lcom/google/android/exoplayer2/Player;)V",
+        "release",
+        "()V",
+        "",
+        "",
+        "contentTypes",
+        "setSupportedContentTypes",
+        "([I)V",
+        "Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;",
+        "adsMediaSource",
+        "Lcom/google/android/exoplayer2/upstream/DataSpec;",
+        "adTagDataSpec",
+        "",
+        "adPlaybackId",
+        "Lcom/google/android/exoplayer2/ui/AdViewProvider;",
+        "adViewProvider",
+        "Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;",
+        "eventListener",
+        "start",
+        "(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;Lcom/google/android/exoplayer2/upstream/DataSpec;Ljava/lang/Object;Lcom/google/android/exoplayer2/ui/AdViewProvider;Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;)V",
+        "stop",
+        "(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;)V",
+        "adGroupIndex",
+        "adIndexInAdGroup",
+        "handlePrepareComplete",
+        "(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;II)V",
+        "Ljava/io/IOException;",
+        "exception",
+        "handlePrepareError",
+        "(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;IILjava/io/IOException;)V",
+        "Landroid/content/Context;",
+        "context",
+        "Lcom/yandex/mobile/ads/instream/InstreamAdRequestConfiguration;",
+        "requestConfiguration",
+        "<init>",
+        "(Landroid/content/Context;Lcom/yandex/mobile/ads/instream/InstreamAdRequestConfiguration;)V",
+        "a",
+        "mobileads_externalRelease"
+    }
+    k = 0x1
+    mv = {
+        0x1,
+        0x9,
+        0x0
+    }
+.end annotation
+
+
+# static fields
+.field public static final AD_TAG_URI:Ljava/lang/String; = "yandex://ad_tag"
+
+.field public static final a:Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader$a;
+
+
+# instance fields
+.field private final b:Lcom/yandex/mobile/ads/impl/pm0;
+
+.field private final c:Lcom/yandex/mobile/ads/impl/km2;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    new-instance v0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader$a;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader$a;-><init>(I)V
+
+    sput-object v0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->a:Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader$a;
+
+    return-void
+.end method
+
+.method public constructor <init>(Landroid/content/Context;Lcom/yandex/mobile/ads/instream/InstreamAdRequestConfiguration;)V
+    .locals 2
+
+    const-string v0, "context"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string v0, "requestConfiguration"
+
+    invoke-static {p2, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1
+    invoke-direct {p0}, Lcom/yandex/mobile/ads/impl/il1;-><init>()V
+
+    .line 3
+    new-instance v0, Lcom/yandex/mobile/ads/impl/jm2;
+
+    invoke-direct {v0, p2}, Lcom/yandex/mobile/ads/impl/jm2;-><init>(Lcom/yandex/mobile/ads/instream/InstreamAdRequestConfiguration;)V
+
+    .line 4
+    new-instance p2, Lcom/yandex/mobile/ads/impl/dn2;
+
+    invoke-direct {p2, p1}, Lcom/yandex/mobile/ads/impl/dn2;-><init>(Landroid/content/Context;)V
+
+    .line 5
+    new-instance v1, Lcom/yandex/mobile/ads/impl/ta;
+
+    invoke-direct {v1, p1, p2, v0}, Lcom/yandex/mobile/ads/impl/ta;-><init>(Landroid/content/Context;Lcom/yandex/mobile/ads/impl/dn2;Lcom/yandex/mobile/ads/impl/jm2;)V
+
+    .line 6
+    invoke-virtual {v1}, Lcom/yandex/mobile/ads/impl/ta;->a()Lcom/yandex/mobile/ads/impl/pm0;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    .line 7
+    new-instance p1, Lcom/yandex/mobile/ads/impl/km2;
+
+    invoke-direct {p1}, Lcom/yandex/mobile/ads/impl/km2;-><init>()V
+
+    iput-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->c:Lcom/yandex/mobile/ads/impl/km2;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public handlePrepareComplete(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;II)V
+    .locals 1
+
+    const-string v0, "adsMediaSource"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1
+    iget-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {p1, p2, p3}, Lcom/yandex/mobile/ads/impl/pm0;->a(II)V
+
+    return-void
+.end method
+
+.method public handlePrepareError(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;IILjava/io/IOException;)V
+    .locals 1
+
+    const-string v0, "adsMediaSource"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "exception"
+
+    invoke-static {p4, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1
+    iget-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {p1, p2, p3, p4}, Lcom/yandex/mobile/ads/impl/pm0;->a(IILjava/io/IOException;)V
+
+    return-void
+.end method
+
+.method public release()V
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/pm0;->a()V
+
+    return-void
+.end method
+
+.method public final requestAds(Landroid/view/ViewGroup;)V
+    .locals 2
+
+    .line 1
+    iget-object v0, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-static {}, Lkotlin/collections/CollectionsKt;->emptyList()Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-virtual {v0, p1, v1}, Lcom/yandex/mobile/ads/impl/pm0;->a(Landroid/view/ViewGroup;Ljava/util/List;)V
+
+    return-void
+.end method
+
+.method public setPlayer(Lcom/google/android/exoplayer2/Player;)V
+    .locals 1
+
+    .line 1
+    iget-object v0, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {v0, p1}, Lcom/yandex/mobile/ads/impl/pm0;->a(Lcom/google/android/exoplayer2/Player;)V
+
+    return-void
+.end method
+
+.method public varargs setSupportedContentTypes([I)V
+    .locals 1
+
+    const-string v0, "contentTypes"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    return-void
+.end method
+
+.method public final setVideoAdPlaybackListener(Lcom/yandex/mobile/ads/video/playback/VideoAdPlaybackListener;)V
+    .locals 2
+
+    if-eqz p1, :cond_0
+
+    .line 1
+    new-instance v0, Lcom/yandex/mobile/ads/impl/qn2;
+
+    iget-object v1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->c:Lcom/yandex/mobile/ads/impl/km2;
+
+    invoke-direct {v0, p1, v1}, Lcom/yandex/mobile/ads/impl/qn2;-><init>(Lcom/yandex/mobile/ads/video/playback/VideoAdPlaybackListener;Lcom/yandex/mobile/ads/impl/km2;)V
+
+    goto :goto_0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    .line 2
+    :goto_0
+    iget-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {p1, v0}, Lcom/yandex/mobile/ads/impl/pm0;->a(Lcom/yandex/mobile/ads/impl/qn2;)V
+
+    return-void
+.end method
+
+.method public start(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;Lcom/google/android/exoplayer2/upstream/DataSpec;Ljava/lang/Object;Lcom/google/android/exoplayer2/ui/AdViewProvider;Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;)V
+    .locals 1
+
+    const-string v0, "adsMediaSource"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "adTagDataSpec"
+
+    invoke-static {p2, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "adPlaybackId"
+
+    invoke-static {p3, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "adViewProvider"
+
+    invoke-static {p4, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "eventListener"
+
+    invoke-static {p5, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1
+    iget-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {p1, p5, p4, p3}, Lcom/yandex/mobile/ads/impl/pm0;->a(Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;Lcom/google/android/exoplayer2/ui/AdViewProvider;Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public stop(Lcom/google/android/exoplayer2/source/ads/AdsMediaSource;Lcom/google/android/exoplayer2/source/ads/AdsLoader$EventListener;)V
+    .locals 1
+
+    const-string v0, "adsMediaSource"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    const-string p1, "eventListener"
+
+    invoke-static {p2, p1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    .line 1
+    iget-object p1, p0, Lcom/yandex/mobile/ads/instream/exoplayer/YandexAdsLoader;->b:Lcom/yandex/mobile/ads/impl/pm0;
+
+    invoke-virtual {p1}, Lcom/yandex/mobile/ads/impl/pm0;->b()V
+
+    return-void
+.end method

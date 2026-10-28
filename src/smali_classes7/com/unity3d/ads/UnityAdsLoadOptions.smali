@@ -1,0 +1,43 @@
+.class public Lcom/unity3d/ads/UnityAdsLoadOptions;
+.super Lcom/unity3d/ads/UnityAdsBaseOptions;
+.source "UnityAdsLoadOptions.java"
+
+
+# instance fields
+.field private AD_MARKUP:Ljava/lang/String;
+
+.field public loadConfiguration:Lcom/unity3d/ads/core/data/model/LoadConfigurationInternal;
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 1
+
+    .line 10
+    invoke-direct {p0}, Lcom/unity3d/ads/UnityAdsBaseOptions;-><init>()V
+
+    .line 7
+    const-string v0, "adMarkup"
+
+    iput-object v0, p0, Lcom/unity3d/ads/UnityAdsLoadOptions;->AD_MARKUP:Ljava/lang/String;
+
+    const/4 v0, 0x0
+
+    .line 17
+    iput-object v0, p0, Lcom/unity3d/ads/UnityAdsLoadOptions;->loadConfiguration:Lcom/unity3d/ads/core/data/model/LoadConfigurationInternal;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public setAdMarkup(Ljava/lang/String;)V
+    .locals 1
+
+    .line 14
+    iget-object v0, p0, Lcom/unity3d/ads/UnityAdsLoadOptions;->AD_MARKUP:Ljava/lang/String;
+
+    invoke-virtual {p0, v0, p1}, Lcom/unity3d/ads/UnityAdsLoadOptions;->set(Ljava/lang/String;Ljava/lang/String;)V
+
+    return-void
+.end method

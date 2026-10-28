@@ -1,0 +1,102 @@
+.class final Lsg/bigo/ads/ce/e$1;
+.super Ljava/lang/Object;
+
+# interfaces
+.implements Lsg/bigo/ads/ck/l$a;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lsg/bigo/ads/ce/e;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic a:Lsg/bigo/ads/ce/e;
+
+
+# direct methods
+.method constructor <init>(Lsg/bigo/ads/ce/e;)V
+    .locals 0
+
+    iput-object p1, p0, Lsg/bigo/ads/ce/e$1;->a:Lsg/bigo/ads/ce/e;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final a(Ljava/lang/String;IIILjava/lang/String;Ljava/util/Map;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "III",
+            "Ljava/lang/String;",
+            "Ljava/util/Map<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;)V"
+        }
+    .end annotation
+
+    iget-object p1, p0, Lsg/bigo/ads/ce/e$1;->a:Lsg/bigo/ads/ce/e;
+
+    iget-object p1, p1, Lsg/bigo/ads/ce/e;->h:Ljava/util/concurrent/atomic/AtomicBoolean;
+
+    const/4 p2, 0x0
+
+    invoke-virtual {p1, p2}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
+
+    iget-object p1, p0, Lsg/bigo/ads/ce/e$1;->a:Lsg/bigo/ads/ce/e;
+
+    iget-object p2, p1, Lsg/bigo/ads/ce/e;->a:Landroid/util/Pair;
+
+    invoke-static {p4}, Lsg/bigo/ads/ce/e;->a(I)Z
+
+    move-result p3
+
+    invoke-virtual {p1, p2, p3}, Lsg/bigo/ads/ce/e;->a(Landroid/util/Pair;Z)V
+
+    return-void
+.end method
+
+.method public final a(Ljava/lang/String;ILjava/lang/String;Ljava/util/Map;)V
+    .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "I",
+            "Ljava/lang/String;",
+            "Ljava/util/Map<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;)V"
+        }
+    .end annotation
+
+    iget-object p1, p0, Lsg/bigo/ads/ce/e$1;->a:Lsg/bigo/ads/ce/e;
+
+    iget-object p1, p1, Lsg/bigo/ads/ce/e;->h:Ljava/util/concurrent/atomic/AtomicBoolean;
+
+    const/4 p2, 0x0
+
+    invoke-virtual {p1, p2}, Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V
+
+    iget-object p1, p0, Lsg/bigo/ads/ce/e$1;->a:Lsg/bigo/ads/ce/e;
+
+    iget-object p3, p1, Lsg/bigo/ads/ce/e;->a:Landroid/util/Pair;
+
+    invoke-virtual {p1, p3, p2}, Lsg/bigo/ads/ce/e;->a(Landroid/util/Pair;Z)V
+
+    return-void
+.end method

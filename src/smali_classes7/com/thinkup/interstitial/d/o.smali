@@ -1,0 +1,999 @@
+.class public Lcom/thinkup/interstitial/d/o;
+.super Ljava/lang/Object;
+
+# interfaces
+.implements Lcom/thinkup/core/common/mo/m;
+
+
+# static fields
+.field private static volatile n:Lcom/thinkup/interstitial/d/o;
+
+
+# instance fields
+.field d:Ljava/lang/String;
+
+.field m:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+.field private o:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+.field private q:Lcom/thinkup/core/api/TUNativeAdCustomRender;
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 1
+
+    .line 32
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 33
+    const-string v0, "InterstitialAuto"
+
+    iput-object v0, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    .line 48
+    new-instance v0, Lcom/thinkup/interstitial/d/o$1;
+
+    invoke-direct {v0, p0}, Lcom/thinkup/interstitial/d/o$1;-><init>(Lcom/thinkup/interstitial/d/o;)V
+
+    iput-object v0, p0, Lcom/thinkup/interstitial/d/o;->m:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    return-void
+.end method
+
+.method static synthetic d(Lcom/thinkup/interstitial/d/o;)Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+    .locals 0
+
+    .line 32
+    iget-object p0, p0, Lcom/thinkup/interstitial/d/o;->o:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    return-object p0
+.end method
+
+.method public static d()Lcom/thinkup/interstitial/d/o;
+    .locals 2
+
+    .line 39
+    sget-object v0, Lcom/thinkup/interstitial/d/o;->n:Lcom/thinkup/interstitial/d/o;
+
+    if-nez v0, :cond_1
+
+    .line 40
+    const-class v0, Lcom/thinkup/interstitial/d/o;
+
+    monitor-enter v0
+
+    .line 41
+    :try_start_0
+    sget-object v1, Lcom/thinkup/interstitial/d/o;->n:Lcom/thinkup/interstitial/d/o;
+
+    if-nez v1, :cond_0
+
+    .line 42
+    new-instance v1, Lcom/thinkup/interstitial/d/o;
+
+    invoke-direct {v1}, Lcom/thinkup/interstitial/d/o;-><init>()V
+
+    sput-object v1, Lcom/thinkup/interstitial/d/o;->n:Lcom/thinkup/interstitial/d/o;
+
+    .line 43
+    :cond_0
+    monitor-exit v0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    goto :goto_0
+
+    :catchall_0
+    move-exception v1
+
+    monitor-exit v0
+
+    throw v1
+
+    .line 45
+    :cond_1
+    :goto_0
+    sget-object v0, Lcom/thinkup/interstitial/d/o;->n:Lcom/thinkup/interstitial/d/o;
+
+    return-object v0
+.end method
+
+.method public static d(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+    .locals 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/util/Map<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 220
+    invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    return-void
+
+    .line 223
+    :cond_0
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    const-string v1, "3"
+
+    invoke-virtual {v0, p0, p1, v1, p2}, Lcom/thinkup/core/common/o/nd;->d(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+
+    return-void
+.end method
+
+.method public static d(Ljava/lang/String;Ljava/util/Map;)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/util/Map<",
+            "Ljava/lang/String;",
+            "Ljava/lang/Object;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 177
+    invoke-static {p0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    return-void
+
+    .line 180
+    :cond_0
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p0, p1}, Lcom/thinkup/core/common/nm;->d(Ljava/lang/String;Ljava/util/Map;)V
+
+    return-void
+.end method
+
+.method public static varargs d([Ljava/lang/String;)V
+    .locals 5
+
+    if-nez p0, :cond_0
+
+    goto :goto_1
+
+    .line 161
+    :cond_0
+    array-length v0, p0
+
+    const/4 v1, 0x0
+
+    move v2, v1
+
+    :goto_0
+    if-ge v2, v0, :cond_2
+
+    aget-object v3, p0, v2
+
+    .line 162
+    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_1
+
+    .line 165
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3, v1}, Lcom/thinkup/core/common/nm;->d(Ljava/lang/String;Z)V
+
+    .line 167
+    invoke-static {v3}, Lcom/thinkup/interstitial/d/o;->d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object v3
+
+    .line 168
+    invoke-virtual {v3}, Lcom/thinkup/core/common/d0;->d()Lcom/thinkup/core/common/mo/o;
+
+    move-result-object v3
+
+    if-eqz v3, :cond_1
+
+    const/4 v4, 0x0
+
+    .line 170
+    invoke-interface {v3, v4}, Lcom/thinkup/core/common/mo/o;->d(Lcom/thinkup/core/common/mo/m;)V
+
+    .line 171
+    invoke-interface {v3}, Lcom/thinkup/core/common/mo/o;->o()V
+
+    :cond_1
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_0
+
+    :cond_2
+    :goto_1
+    return-void
+.end method
+
+.method private static d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+    .locals 2
+
+    .line 245
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->dd()Landroid/content/Context;
+
+    move-result-object v0
+
+    const-string v1, "3"
+
+    invoke-static {v0, p0, v1}, Lcom/thinkup/core/common/d0;->d(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method private m()Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+    .locals 1
+
+    .line 240
+    iget-object v0, p0, Lcom/thinkup/interstitial/d/o;->m:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    return-object v0
+.end method
+
+.method public static o(Ljava/lang/String;)Ljava/util/List;
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Ljava/util/List<",
+            "Lcom/thinkup/core/api/TUAdInfo;",
+            ">;"
+        }
+    .end annotation
+
+    .line 212
+    invoke-static {p0}, Lcom/thinkup/interstitial/d/o;->d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object p0
+
+    if-eqz p0, :cond_0
+
+    .line 214
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->d0q()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Lcom/thinkup/core/common/d0;->d(Landroid/content/Context;)Ljava/util/List;
+
+    move-result-object p0
+
+    return-object p0
+
+    :cond_0
+    const/4 p0, 0x0
+
+    return-object p0
+.end method
+
+.method private q(Ljava/lang/String;)Lcom/thinkup/core/api/TUAdStatusInfo;
+    .locals 2
+
+    .line 228
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->dd()Landroid/content/Context;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_2
+
+    .line 229
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->mo()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_2
+
+    .line 230
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->mq()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    goto :goto_0
+
+    .line 234
+    :cond_0
+    invoke-static {p1}, Lcom/thinkup/interstitial/d/o;->d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_1
+
+    .line 235
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/thinkup/core/common/o/nd;->d0q()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0, v1}, Lcom/thinkup/core/common/d0;->d(Landroid/content/Context;Ljava/util/Map;)Lcom/thinkup/core/api/TUAdStatusInfo;
+
+    move-result-object p1
+
+    return-object p1
+
+    :cond_1
+    return-object v1
+
+    .line 231
+    :cond_2
+    :goto_0
+    iget-object p1, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    const-string v0, "SDK init error!"
+
+    invoke-static {p1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    return-object v1
+.end method
+
+
+# virtual methods
+.method public final d(Landroid/app/Activity;Ljava/lang/String;Lcom/thinkup/core/api/TUShowConfig;Lcom/thinkup/interstitial/api/TUInterstitialAutoEventListener;Lcom/thinkup/core/api/TUAdRevenueListener;)V
+    .locals 12
+
+    move-object/from16 v0, p4
+
+    .line 277
+    sget-object v1, Lcom/thinkup/core/common/o/dn$nd;->no:Ljava/lang/String;
+
+    sget-object v2, Lcom/thinkup/core/common/o/dn$nd;->on:Ljava/lang/String;
+
+    sget-object v3, Lcom/thinkup/core/common/o/dn$nd;->mn:Ljava/lang/String;
+
+    const-string v4, ""
+
+    invoke-static {p2, v1, v2, v3, v4}, Lcom/thinkup/core/common/no/on;->m(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 278
+    invoke-static {p2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    const-string v2, "9999"
+
+    if-eqz v1, :cond_0
+
+    .line 279
+    iget-object p1, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    const-string p2, "PlacementId is Empty!"
+
+    invoke-static {p1, p2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 280
+    const-string p1, "placementId is empty."
+
+    invoke-static {v2, v4, p1}, Lcom/thinkup/core/api/ErrorCode;->getErrorCode(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/thinkup/core/api/AdError;
+
+    move-result-object p1
+
+    if-eqz v0, :cond_5
+
+    .line 282
+    invoke-virtual {v0, p1}, Lcom/thinkup/interstitial/api/TUInterstitialAutoEventListener;->onInterstitialAdVideoError(Lcom/thinkup/core/api/AdError;)V
+
+    return-void
+
+    .line 287
+    :cond_0
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/thinkup/core/common/o/nd;->dd()Landroid/content/Context;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_4
+
+    .line 288
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/thinkup/core/common/o/nd;->mo()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_4
+
+    .line 289
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/thinkup/core/common/o/nd;->mq()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    goto :goto_0
+
+    :cond_1
+    if-nez p1, :cond_2
+
+    .line 299
+    iget-object v1, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    const-string v3, "Interstitial Show Activity is null."
+
+    invoke-static {v1, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 302
+    :cond_2
+    invoke-static/range {p1 .. p2}, Lcom/thinkup/interstitial/d/m;->d(Landroid/content/Context;Ljava/lang/String;)Lcom/thinkup/interstitial/d/m;
+
+    move-result-object v5
+
+    if-eqz v5, :cond_3
+
+    .line 304
+    new-instance v8, Lcom/thinkup/interstitial/d/q;
+
+    move-object/from16 p2, p5
+
+    invoke-direct {v8, v0, p2}, Lcom/thinkup/interstitial/d/q;-><init>(Lcom/thinkup/interstitial/api/TUInterstitialAutoEventListener;Lcom/thinkup/core/api/TUAdRevenueListener;)V
+
+    const/4 v10, 0x0
+
+    iget-object v11, p0, Lcom/thinkup/interstitial/d/o;->q:Lcom/thinkup/core/api/TUNativeAdCustomRender;
+
+    const/4 v9, 0x0
+
+    move-object v6, p1
+
+    move-object v7, p3
+
+    invoke-virtual/range {v5 .. v11}, Lcom/thinkup/interstitial/d/m;->d(Landroid/app/Activity;Lcom/thinkup/core/api/TUShowConfig;Lcom/thinkup/interstitial/api/TUInterstitialListener;Lcom/thinkup/core/api/TUEventInterface;Ljava/util/Map;Lcom/thinkup/core/api/TUNativeAdCustomRender;)V
+
+    return-void
+
+    :cond_3
+    if-eqz v0, :cond_5
+
+    .line 307
+    const-string p1, "adLoadManager is null"
+
+    invoke-static {v2, v4, p1}, Lcom/thinkup/core/api/ErrorCode;->getErrorCode(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/thinkup/core/api/AdError;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Lcom/thinkup/interstitial/api/TUInterstitialAutoEventListener;->onInterstitialAdVideoError(Lcom/thinkup/core/api/AdError;)V
+
+    return-void
+
+    .line 290
+    :cond_4
+    :goto_0
+    iget-object p1, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    const-string p2, "Show error: SDK init error!"
+
+    invoke-static {p1, p2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 291
+    const-string p1, "sdk init error"
+
+    invoke-static {v2, v4, p1}, Lcom/thinkup/core/api/ErrorCode;->getErrorCode(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/thinkup/core/api/AdError;
+
+    move-result-object p1
+
+    if-eqz v0, :cond_5
+
+    .line 293
+    invoke-virtual {v0, p1}, Lcom/thinkup/interstitial/api/TUInterstitialAutoEventListener;->onInterstitialAdVideoError(Lcom/thinkup/core/api/AdError;)V
+
+    :cond_5
+    return-void
+.end method
+
+.method public final d(Landroid/content/Context;[Ljava/lang/String;Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;Lcom/thinkup/core/api/TUAdRequest;)V
+    .locals 6
+
+    .line 76
+    const-string v0, "tpn_thinkup"
+
+    if-nez p1, :cond_0
+
+    .line 77
+    new-instance p1, Ljava/lang/StringBuilder;
+
+    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
+
+    iget-object p2, p0, Lcom/thinkup/interstitial/d/o;->d:Ljava/lang/String;
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    const-string p2, " init failed: context = null"
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {v0, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    return-void
+
+    .line 81
+    :cond_0
+    instance-of v1, p1, Landroid/app/Activity;
+
+    if-eqz v1, :cond_1
+
+    .line 82
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v1
+
+    move-object v2, p1
+
+    check-cast v2, Landroid/app/Activity;
+
+    invoke-virtual {v1, v2}, Lcom/thinkup/core/common/o/nd;->d(Landroid/app/Activity;)V
+
+    :cond_1
+    if-eqz p2, :cond_5
+
+    .line 86
+    array-length v1, p2
+
+    const/4 v2, 0x0
+
+    :goto_0
+    if-ge v2, v1, :cond_5
+
+    aget-object v3, p2, v2
+
+    .line 87
+    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4
+
+    .line 91
+    invoke-static {}, Lcom/thinkup/core/basead/adx/api/TUAdxSetting;->getInstance()Lcom/thinkup/core/basead/adx/api/TUAdxSetting;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3}, Lcom/thinkup/core/basead/adx/api/TUAdxSetting;->isAdxNetworkMode(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_2
+
+    .line 93
+    const-string v3, "Forbidden placement, this placement is in adx network mode"
+
+    invoke-static {v0, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1
+
+    .line 97
+    :cond_2
+    invoke-static {}, Lcom/thinkup/core/common/no;->d()Lcom/thinkup/core/common/no;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3}, Lcom/thinkup/core/common/no;->d(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_3
+
+    .line 99
+    const-string v3, "Forbidden placement"
+
+    invoke-static {v0, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1
+
+    .line 103
+    :cond_3
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3}, Lcom/thinkup/core/common/nm;->q(Ljava/lang/String;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4
+
+    .line 105
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v4
+
+    const/4 v5, 0x1
+
+    invoke-virtual {v4, v3, v5}, Lcom/thinkup/core/common/nm;->d(Ljava/lang/String;Z)V
+
+    .line 107
+    invoke-static {v3}, Lcom/thinkup/interstitial/d/o;->d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object v3
+
+    .line 108
+    invoke-virtual {v3}, Lcom/thinkup/core/common/d0;->d()Lcom/thinkup/core/common/mo/o;
+
+    move-result-object v3
+
+    if-eqz v3, :cond_4
+
+    .line 110
+    invoke-interface {v3, p0}, Lcom/thinkup/core/common/mo/o;->d(Lcom/thinkup/core/common/mo/m;)V
+
+    const/4 v4, 0x3
+
+    .line 112
+    invoke-interface {v3, p1, p4, v4}, Lcom/thinkup/core/common/mo/o;->d(Landroid/content/Context;Lcom/thinkup/core/api/TUAdRequest;I)V
+
+    :cond_4
+    :goto_1
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_0
+
+    .line 118
+    :cond_5
+    iput-object p3, p0, Lcom/thinkup/interstitial/d/o;->o:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    return-void
+.end method
+
+.method public final varargs d(Lcom/thinkup/core/api/TUAdRequest;[Ljava/lang/String;)V
+    .locals 5
+
+    if-nez p2, :cond_0
+
+    goto :goto_2
+
+    .line 125
+    :cond_0
+    array-length v0, p2
+
+    const/4 v1, 0x0
+
+    :goto_0
+    if-ge v1, v0, :cond_4
+
+    aget-object v2, p2, v1
+
+    .line 126
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_3
+
+    .line 130
+    invoke-static {}, Lcom/thinkup/core/basead/adx/api/TUAdxSetting;->getInstance()Lcom/thinkup/core/basead/adx/api/TUAdxSetting;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v2}, Lcom/thinkup/core/basead/adx/api/TUAdxSetting;->isAdxNetworkMode(Ljava/lang/String;)Z
+
+    move-result v3
+
+    const-string v4, "tpn_thinkup"
+
+    if-eqz v3, :cond_1
+
+    .line 132
+    const-string v2, "Forbidden placement, this placement is in adx network mode"
+
+    invoke-static {v4, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1
+
+    .line 136
+    :cond_1
+    invoke-static {}, Lcom/thinkup/core/common/no;->d()Lcom/thinkup/core/common/no;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v2}, Lcom/thinkup/core/common/no;->d(Ljava/lang/String;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_2
+
+    .line 138
+    const-string v2, "Forbidden placement"
+
+    invoke-static {v4, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_1
+
+    .line 142
+    :cond_2
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v2}, Lcom/thinkup/core/common/nm;->q(Ljava/lang/String;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_3
+
+    .line 144
+    invoke-static {}, Lcom/thinkup/core/common/nm;->d()Lcom/thinkup/core/common/nm;
+
+    move-result-object v3
+
+    const/4 v4, 0x1
+
+    invoke-virtual {v3, v2, v4}, Lcom/thinkup/core/common/nm;->d(Ljava/lang/String;Z)V
+
+    .line 146
+    invoke-static {v2}, Lcom/thinkup/interstitial/d/o;->d0(Ljava/lang/String;)Lcom/thinkup/core/common/d0;
+
+    move-result-object v2
+
+    .line 147
+    invoke-virtual {v2}, Lcom/thinkup/core/common/d0;->d()Lcom/thinkup/core/common/mo/o;
+
+    move-result-object v2
+
+    if-eqz v2, :cond_3
+
+    .line 149
+    invoke-interface {v2, p0}, Lcom/thinkup/core/common/mo/o;->d(Lcom/thinkup/core/common/mo/m;)V
+
+    .line 150
+    invoke-static {}, Lcom/thinkup/core/common/o/nd;->m()Lcom/thinkup/core/common/o/nd;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lcom/thinkup/core/common/o/nd;->d0q()Landroid/content/Context;
+
+    move-result-object v3
+
+    const/4 v4, 0x3
+
+    invoke-interface {v2, v3, p1, v4}, Lcom/thinkup/core/common/mo/o;->d(Landroid/content/Context;Lcom/thinkup/core/api/TUAdRequest;I)V
+
+    :cond_3
+    :goto_1
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_0
+
+    :cond_4
+    :goto_2
+    return-void
+.end method
+
+.method public final d(Lcom/thinkup/core/api/TUNativeAdCustomRender;)V
+    .locals 0
+
+    .line 269
+    iput-object p1, p0, Lcom/thinkup/interstitial/d/o;->q:Lcom/thinkup/core/api/TUNativeAdCustomRender;
+
+    return-void
+.end method
+
+.method public final d(Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;)V
+    .locals 0
+
+    .line 313
+    iput-object p1, p0, Lcom/thinkup/interstitial/d/o;->o:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    return-void
+.end method
+
+.method public final d(Ljava/lang/String;)V
+    .locals 1
+
+    .line 250
+    invoke-static {}, Lcom/thinkup/interstitial/d/o;->d()Lcom/thinkup/interstitial/d/o;
+
+    move-result-object v0
+
+    .line 1240
+    iget-object v0, v0, Lcom/thinkup/interstitial/d/o;->m:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    if-eqz v0, :cond_0
+
+    .line 252
+    invoke-interface {v0, p1}, Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;->onInterstitialAutoLoaded(Ljava/lang/String;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public final d(Ljava/lang/String;Lcom/thinkup/core/api/AdError;)V
+    .locals 1
+
+    .line 258
+    invoke-static {}, Lcom/thinkup/interstitial/d/o;->d()Lcom/thinkup/interstitial/d/o;
+
+    move-result-object v0
+
+    .line 2240
+    iget-object v0, v0, Lcom/thinkup/interstitial/d/o;->m:Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;
+
+    if-eqz v0, :cond_0
+
+    .line 260
+    invoke-interface {v0, p1, p2}, Lcom/thinkup/interstitial/api/TUInterstitialAutoLoadListener;->onInterstitialAutoLoadFail(Ljava/lang/String;Lcom/thinkup/core/api/AdError;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public final m(Ljava/lang/String;)Z
+    .locals 5
+
+    .line 185
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_1
+
+    .line 186
+    invoke-direct {p0, p1}, Lcom/thinkup/interstitial/d/o;->q(Ljava/lang/String;)Lcom/thinkup/core/api/TUAdStatusInfo;
+
+    move-result-object v0
+
+    if-nez v0, :cond_0
+
+    return v1
+
+    .line 190
+    :cond_0
+    invoke-virtual {v0}, Lcom/thinkup/core/api/TUAdStatusInfo;->isReady()Z
+
+    move-result v1
+
+    .line 193
+    :cond_1
+    sget-object v0, Lcom/thinkup/core/common/o/dn$nd;->no:Ljava/lang/String;
+
+    sget-object v2, Lcom/thinkup/core/common/o/dn$nd;->oo:Ljava/lang/String;
+
+    invoke-static {v1}, Ljava/lang/String;->valueOf(Z)Ljava/lang/String;
+
+    move-result-object v3
+
+    const-string v4, ""
+
+    invoke-static {p1, v0, v2, v3, v4}, Lcom/thinkup/core/common/no/on;->m(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    return v1
+.end method
+
+.method public final n(Ljava/lang/String;)Lcom/thinkup/core/api/TUAdStatusInfo;
+    .locals 5
+
+    .line 199
+    invoke-static {p1}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x0
+
+    if-nez v0, :cond_0
+
+    .line 200
+    invoke-direct {p0, p1}, Lcom/thinkup/interstitial/d/o;->q(Ljava/lang/String;)Lcom/thinkup/core/api/TUAdStatusInfo;
+
+    move-result-object v0
+
+    if-nez v0, :cond_1
+
+    .line 202
+    new-instance v0, Lcom/thinkup/core/api/TUAdStatusInfo;
+
+    invoke-direct {v0, v2, v2, v1}, Lcom/thinkup/core/api/TUAdStatusInfo;-><init>(ZZLcom/thinkup/core/api/TUAdInfo;)V
+
+    goto :goto_0
+
+    .line 205
+    :cond_0
+    new-instance v0, Lcom/thinkup/core/api/TUAdStatusInfo;
+
+    invoke-direct {v0, v2, v2, v1}, Lcom/thinkup/core/api/TUAdStatusInfo;-><init>(ZZLcom/thinkup/core/api/TUAdInfo;)V
+
+    .line 207
+    :cond_1
+    :goto_0
+    sget-object v1, Lcom/thinkup/core/common/o/dn$nd;->no:Ljava/lang/String;
+
+    sget-object v2, Lcom/thinkup/core/common/o/dn$nd;->oq:Ljava/lang/String;
+
+    invoke-virtual {v0}, Lcom/thinkup/core/api/TUAdStatusInfo;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    const-string v4, ""
+
+    invoke-static {p1, v1, v2, v3, v4}, Lcom/thinkup/core/common/no/on;->m(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    return-object v0
+.end method

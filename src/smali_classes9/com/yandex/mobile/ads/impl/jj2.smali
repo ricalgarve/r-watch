@@ -1,0 +1,405 @@
+.class final Lcom/yandex/mobile/ads/impl/jj2;
+.super Ljava/lang/Object;
+.source "SourceFile"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/yandex/mobile/ads/impl/jj2$a;
+    }
+.end annotation
+
+
+# direct methods
+.method private static a(ILcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+    .locals 5
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 15
+    invoke-static {p1, p2}, Lcom/yandex/mobile/ads/impl/jj2$a;->a(Lcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+
+    move-result-object v0
+
+    .line 16
+    :goto_0
+    iget v1, v0, Lcom/yandex/mobile/ads/impl/jj2$a;->a:I
+
+    if-eq v1, p0, :cond_1
+
+    .line 17
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    const-string v2, "Ignoring unknown WAV chunk: "
+
+    invoke-direct {v1, v2}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+
+    iget v2, v0, Lcom/yandex/mobile/ads/impl/jj2$a;->a:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v2, "WavHeaderReader"
+
+    invoke-static {v2, v1}, Lcom/yandex/mobile/ads/impl/qs0;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 18
+    iget-wide v1, v0, Lcom/yandex/mobile/ads/impl/jj2$a;->b:J
+
+    const-wide/16 v3, 0x8
+
+    add-long/2addr v1, v3
+
+    const-wide/32 v3, 0x7fffffff
+
+    cmp-long v3, v1, v3
+
+    if-gtz v3, :cond_0
+
+    long-to-int v0, v1
+
+    .line 23
+    invoke-virtual {p1, v0}, Lcom/yandex/mobile/ads/impl/nz;->a(I)V
+
+    .line 24
+    invoke-static {p1, p2}, Lcom/yandex/mobile/ads/impl/jj2$a;->a(Lcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+
+    move-result-object v0
+
+    goto :goto_0
+
+    .line 25
+    :cond_0
+    new-instance p0, Ljava/lang/StringBuilder;
+
+    const-string p1, "Chunk is too large (~2GB+) to skip; id: "
+
+    invoke-direct {p0, p1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+
+    iget p1, v0, Lcom/yandex/mobile/ads/impl/jj2$a;->a:I
+
+    invoke-virtual {p0, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/yandex/mobile/ads/impl/ag1;->a(Ljava/lang/String;)Lcom/yandex/mobile/ads/impl/ag1;
+
+    move-result-object p0
+
+    throw p0
+
+    :cond_1
+    return-object v0
+.end method
+
+.method public static a(Lcom/yandex/mobile/ads/impl/nz;)Z
+    .locals 4
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 2
+    new-instance v0, Lcom/yandex/mobile/ads/impl/wf1;
+
+    const/16 v1, 0x8
+
+    invoke-direct {v0, v1}, Lcom/yandex/mobile/ads/impl/wf1;-><init>(I)V
+
+    .line 3
+    invoke-static {p0, v0}, Lcom/yandex/mobile/ads/impl/jj2$a;->a(Lcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+
+    move-result-object v1
+
+    .line 4
+    iget v1, v1, Lcom/yandex/mobile/ads/impl/jj2$a;->a:I
+
+    const v2, 0x52494646
+
+    const/4 v3, 0x0
+
+    if-eq v1, v2, :cond_0
+
+    const v2, 0x52463634
+
+    if-eq v1, v2, :cond_0
+
+    return v3
+
+    .line 8
+    :cond_0
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->c()[B
+
+    move-result-object v1
+
+    const/4 v2, 0x4
+
+    .line 9
+    invoke-virtual {p0, v1, v3, v2, v3}, Lcom/yandex/mobile/ads/impl/nz;->b([BIIZ)Z
+
+    .line 10
+    invoke-virtual {v0, v3}, Lcom/yandex/mobile/ads/impl/wf1;->e(I)V
+
+    .line 11
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->h()I
+
+    move-result p0
+
+    const v0, 0x57415645
+
+    if-eq p0, v0, :cond_1
+
+    .line 13
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    const-string v1, "Unsupported form type: "
+
+    invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    const-string v0, "WavHeaderReader"
+
+    invoke-static {v0, p0}, Lcom/yandex/mobile/ads/impl/qs0;->b(Ljava/lang/String;Ljava/lang/String;)V
+
+    return v3
+
+    :cond_1
+    const/4 p0, 0x1
+
+    return p0
+.end method
+
+.method public static b(Lcom/yandex/mobile/ads/impl/nz;)Lcom/yandex/mobile/ads/impl/ij2;
+    .locals 12
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 1
+    new-instance v0, Lcom/yandex/mobile/ads/impl/wf1;
+
+    const/16 v1, 0x10
+
+    invoke-direct {v0, v1}, Lcom/yandex/mobile/ads/impl/wf1;-><init>(I)V
+
+    const v2, 0x666d7420
+
+    .line 3
+    invoke-static {v2, p0, v0}, Lcom/yandex/mobile/ads/impl/jj2;->a(ILcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+
+    move-result-object v2
+
+    .line 4
+    iget-wide v3, v2, Lcom/yandex/mobile/ads/impl/jj2$a;->b:J
+
+    const-wide/16 v5, 0x10
+
+    cmp-long v3, v3, v5
+
+    if-ltz v3, :cond_3
+
+    .line 5
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->c()[B
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    .line 6
+    invoke-virtual {p0, v3, v4, v1, v4}, Lcom/yandex/mobile/ads/impl/nz;->b([BIIZ)Z
+
+    .line 7
+    invoke-virtual {v0, v4}, Lcom/yandex/mobile/ads/impl/wf1;->e(I)V
+
+    .line 8
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->o()I
+
+    move-result v6
+
+    .line 9
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->o()I
+
+    move-result v7
+
+    .line 10
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->k()I
+
+    move-result v8
+
+    const-string v3, "Top bit not zero: "
+
+    if-ltz v8, :cond_2
+
+    .line 11
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->k()I
+
+    move-result v5
+
+    if-ltz v5, :cond_1
+
+    .line 12
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->o()I
+
+    move-result v9
+
+    .line 13
+    invoke-virtual {v0}, Lcom/yandex/mobile/ads/impl/wf1;->o()I
+
+    move-result v10
+
+    .line 15
+    iget-wide v2, v2, Lcom/yandex/mobile/ads/impl/jj2$a;->b:J
+
+    long-to-int v0, v2
+
+    sub-int/2addr v0, v1
+
+    if-lez v0, :cond_0
+
+    .line 18
+    new-array v1, v0, [B
+
+    .line 19
+    invoke-virtual {p0, v1, v4, v0, v4}, Lcom/yandex/mobile/ads/impl/nz;->b([BIIZ)Z
+
+    goto :goto_0
+
+    .line 20
+    :cond_0
+    sget-object v1, Lcom/yandex/mobile/ads/impl/y82;->f:[B
+
+    :goto_0
+    move-object v11, v1
+
+    .line 23
+    invoke-virtual {p0}, Lcom/yandex/mobile/ads/impl/nz;->d()J
+
+    move-result-wide v0
+
+    invoke-virtual {p0}, Lcom/yandex/mobile/ads/impl/nz;->a()J
+
+    move-result-wide v2
+
+    sub-long/2addr v0, v2
+
+    long-to-int v0, v0
+
+    invoke-virtual {p0, v0}, Lcom/yandex/mobile/ads/impl/nz;->a(I)V
+
+    .line 24
+    new-instance v5, Lcom/yandex/mobile/ads/impl/ij2;
+
+    invoke-direct/range {v5 .. v11}, Lcom/yandex/mobile/ads/impl/ij2;-><init>(IIIII[B)V
+
+    return-object v5
+
+    .line 25
+    :cond_1
+    new-instance p0, Ljava/lang/IllegalStateException;
+
+    .line 26
+    invoke-static {v3, v5}, Lcom/yandex/mobile/ads/impl/de;->a(Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 27
+    invoke-direct {p0, v0}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 28
+    :cond_2
+    new-instance p0, Ljava/lang/IllegalStateException;
+
+    .line 29
+    invoke-static {v3, v8}, Lcom/yandex/mobile/ads/impl/de;->a(Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 30
+    invoke-direct {p0, v0}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 31
+    :cond_3
+    new-instance p0, Ljava/lang/IllegalStateException;
+
+    invoke-direct {p0}, Ljava/lang/IllegalStateException;-><init>()V
+
+    throw p0
+.end method
+
+.method public static c(Lcom/yandex/mobile/ads/impl/nz;)Landroid/util/Pair;
+    .locals 3
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 2
+    invoke-virtual {p0}, Lcom/yandex/mobile/ads/impl/nz;->c()V
+
+    .line 4
+    new-instance v0, Lcom/yandex/mobile/ads/impl/wf1;
+
+    const/16 v1, 0x8
+
+    invoke-direct {v0, v1}, Lcom/yandex/mobile/ads/impl/wf1;-><init>(I)V
+
+    const v2, 0x64617461
+
+    .line 6
+    invoke-static {v2, p0, v0}, Lcom/yandex/mobile/ads/impl/jj2;->a(ILcom/yandex/mobile/ads/impl/nz;Lcom/yandex/mobile/ads/impl/wf1;)Lcom/yandex/mobile/ads/impl/jj2$a;
+
+    move-result-object v0
+
+    .line 8
+    invoke-virtual {p0, v1}, Lcom/yandex/mobile/ads/impl/nz;->a(I)V
+
+    .line 10
+    invoke-virtual {p0}, Lcom/yandex/mobile/ads/impl/nz;->a()J
+
+    move-result-wide v1
+
+    .line 11
+    invoke-static {v1, v2}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object p0
+
+    iget-wide v0, v0, Lcom/yandex/mobile/ads/impl/jj2$a;->b:J
+
+    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v0
+
+    invoke-static {p0, v0}, Landroid/util/Pair;->create(Ljava/lang/Object;Ljava/lang/Object;)Landroid/util/Pair;
+
+    move-result-object p0
+
+    return-object p0
+.end method
