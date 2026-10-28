@@ -1758,6 +1758,10 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
+    iget-object v1, p0, Lxfkj/fitpro/fragment/base/DeviceBaseFragment;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, v1}, Lxfkj/fitpro/utils/AdvancedToolsHook;->inject(Landroid/view/View;Landroid/content/Context;)V
+
     .line 340
     :cond_a
     iget-object v0, p0, Lxfkj/fitpro/fragment/base/DeviceBaseFragment;->deviceUI:Lxfkj/fitpro/ui/device/IDeviceUI;
@@ -1803,6 +1807,10 @@
     invoke-direct {v1, p0}, Lxfkj/fitpro/fragment/base/DeviceBaseFragment$$ExternalSyntheticLambda22;-><init>(Lxfkj/fitpro/fragment/base/DeviceBaseFragment;)V
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    iget-object v1, p0, Lxfkj/fitpro/fragment/base/DeviceBaseFragment;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, v1}, Lxfkj/fitpro/utils/AdvancedToolsHook;->inject(Landroid/view/View;Landroid/content/Context;)V
 
     .line 348
     :cond_c

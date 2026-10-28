@@ -307,7 +307,7 @@
 .end method
 
 .method protected initViews()V
-    .locals 1
+    .locals 2
 
     .line 29
     invoke-super {p0}, Lxfkj/fitpro/fragment/base/DeviceBaseFragment;->initViews()V
@@ -321,6 +321,19 @@
 
     iput-object v0, p0, Lxfkj/fitpro/fragment/DeviceFragmentNew;->mImgDeviceInstructions:Landroid/view/View;
 
+    const v0, 0x7f0a01a8
+
+    invoke-virtual {p0, v0}, Lxfkj/fitpro/fragment/DeviceFragmentNew;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_extra
+
+    iget-object v1, p0, Lxfkj/fitpro/fragment/DeviceFragmentNew;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, v1}, Lxfkj/fitpro/utils/AdvancedToolsHook;->inject(Landroid/view/View;Landroid/content/Context;)V
+
+    :cond_extra
     return-void
 .end method
 

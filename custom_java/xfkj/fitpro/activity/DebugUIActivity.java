@@ -1,0 +1,728 @@
+package xfkj.fitpro.activity;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.blankj.utilcode.util.ActivityUtils;
+import xfkj.fitpro.activity.MoreSleepActivity;
+import xfkj.fitpro.activity.ecg.ECGMeasureActivity;
+import xfkj.fitpro.activity.measure.BloodMeasureActivity;
+import xfkj.fitpro.activity.measure.HeartMeasureActivity;
+import xfkj.fitpro.activity.measure.SpoMeasureActivity;
+import xfkj.fitpro.base.NewBaseActivity;
+import xfkj.fitpro.bluetooth.SDKCmdMannager;
+import xfkj.fitpro.db.DBHelper;
+import xfkj.fitpro.model.DeviceHardInfoModel;
+import xfkj.fitpro.model.ECGRecordModel;
+import xfkj.fitpro.model.MeasureBloodModel;
+import xfkj.fitpro.model.MeasureHeartModel;
+import xfkj.fitpro.model.MeasureSpoModel;
+import xfkj.fitpro.model.SportDetailsModel;
+import xfkj.fitpro.utils.Constant;
+import xfkj.fitpro.utils.MySPUtils;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+public class DebugUIActivity extends NewBaseActivity {
+
+    private LinearLayout mContainerHardware;
+    private LinearLayout mChipsLayout;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            View rootView = buildContentView();
+            setContentView(rootView);
+            loadCachedDeviceInfo();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    private int dp(int value) {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                value,
+                getResources().getDisplayMetrics()
+        );
+    }
+
+    private View buildContentView() {
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.setBackgroundColor(Color.parseColor("#0B0F19"));
+        scrollView.setFillViewport(true);
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setPadding(dp(16), dp(16), dp(16), dp(32));
+
+        // 1. Top Header Bar
+        root.addView(buildHeaderBar());
+
+        // 2. Section: Informações do Dispositivo (Conexão)
+        root.addView(createSectionTitle("📋 Informações do Dispositivo", "Dados obtidos durante a sincronização via Bluetooth"));
+        View cardDeviceInfo = buildDeviceInfoCard();
+        root.addView(cardDeviceInfo);
+
+        // Spacer
+        View spacer = new View(this);
+        spacer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer);
+
+        // 3. Section: Aquisição de Informações do Smartwatch
+        root.addView(createSectionTitle("⚡ Aquisição de Informações do Smartwatch", "Clique em 'Obter' para consultar dados ou acionar medição"));
+        View cardSensors = buildSensorAcquisitionCard();
+        root.addView(cardSensors);
+
+        scrollView.addView(root);
+        return scrollView;
+    }
+
+    private View buildHeaderBar() {
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+        header.setPadding(0, dp(4), 0, dp(16));
+
+        // Back button
+        TextView btnBack = new TextView(this);
+        btnBack.setText("❮ Voltar");
+        btnBack.setTextColor(Color.parseColor("#00E5FF"));
+        btnBack.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        btnBack.setTypeface(Typeface.DEFAULT_BOLD);
+        btnBack.setPadding(dp(8), dp(6), dp(12), dp(6));
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        header.addView(btnBack);
+
+        // Title
+        TextView tvTitle = new TextView(this);
+        LinearLayout.LayoutParams titleLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        tvTitle.setLayoutParams(titleLp);
+        tvTitle.setText("Ferramentas Avançadas");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        tvTitle.setGravity(Gravity.CENTER);
+        header.addView(tvTitle);
+
+        // Connection status pill
+        TextView tvStatusPill = new TextView(this);
+        boolean connected = false;
+        try {
+            connected = SDKCmdMannager.isConnected() || Constant.BleState == 1;
+        } catch (Throwable ignored) {}
+
+        tvStatusPill.setText(connected ? "● Conectado" : "○ Offline");
+        tvStatusPill.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvStatusPill.setTypeface(Typeface.DEFAULT_BOLD);
+        tvStatusPill.setTextColor(connected ? Color.parseColor("#10B981") : Color.parseColor("#94A3B8"));
+        tvStatusPill.setPadding(dp(10), dp(4), dp(10), dp(4));
+
+        GradientDrawable pillBg = new GradientDrawable();
+        pillBg.setCornerRadius(dp(12));
+        pillBg.setColor(connected ? Color.parseColor("#064E3B") : Color.parseColor("#1E293B"));
+        pillBg.setStroke(dp(1), connected ? Color.parseColor("#10B981") : Color.parseColor("#475569"));
+        tvStatusPill.setBackground(pillBg);
+
+        header.addView(tvStatusPill);
+        return header;
+    }
+
+    private View createSectionTitle(String title, String subtitle) {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(4), dp(10), dp(4), dp(8));
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText(title);
+        tvTitle.setTextColor(Color.parseColor("#00E5FF"));
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        layout.addView(tvTitle);
+
+        TextView tvSub = new TextView(this);
+        tvSub.setText(subtitle);
+        tvSub.setTextColor(Color.parseColor("#94A3B8"));
+        tvSub.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        layout.addView(tvSub);
+
+        return layout;
+    }
+
+    private View buildDeviceInfoCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(14));
+        bg.setColor(Color.parseColor("#131B2A"));
+        bg.setStroke(dp(1), Color.parseColor("#1F2E45"));
+        card.setBackground(bg);
+
+        mContainerHardware = card;
+        return card;
+    }
+
+    private void loadCachedDeviceInfo() {
+        if (mContainerHardware == null) return;
+        mContainerHardware.removeAllViews();
+
+        String devName = "--";
+        String mac = "--";
+        String firmware = "--";
+        String hardware = "--";
+        String soc = "Padrão BLE";
+        String batteryText = "--%";
+        String bleStateText = "Desconectado";
+
+        try {
+            String name = MySPUtils.getBluetoothName();
+            if (name != null && !name.isEmpty()) devName = name;
+        } catch (Throwable ignored) {}
+
+        try {
+            String address = MySPUtils.getBluetoothAddress();
+            if (address != null && !address.isEmpty()) mac = address;
+        } catch (Throwable ignored) {}
+
+        try {
+            String fw = MySPUtils.getDeviceVersion();
+            if (fw != null && !fw.isEmpty()) firmware = fw;
+        } catch (Throwable ignored) {}
+
+        try {
+            String hw = MySPUtils.getHardVersion();
+            if (hw != null && !hw.isEmpty()) hardware = hw;
+        } catch (Throwable ignored) {}
+
+        try {
+            int plat = MySPUtils.getPlarmType();
+            if (plat == 1) soc = "Telink BLE SoC (Plataforma 1)";
+            else soc = "Realtek / Padrão (" + plat + ")";
+        } catch (Throwable ignored) {}
+
+        try {
+            int b = Constant.battery;
+            if (b >= 0) {
+                batteryText = b + "%" + (Constant.isCharge ? " ⚡ (Carregando)" : "");
+            }
+        } catch (Throwable ignored) {}
+
+        try {
+            boolean conn = SDKCmdMannager.isConnected() || Constant.BleState == 1;
+            bleStateText = conn ? "Conectado via Nordic UART (NUS)" : "Desconectado";
+        } catch (Throwable ignored) {}
+
+        addInfoRow(mContainerHardware, "🏷️ Nome do Dispositivo", devName);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "📶 Endereço MAC", mac);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "🔋 Nível de Bateria", batteryText);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "📡 Status da Conexão", bleStateText);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "💾 Firmware (Software)", firmware);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "⚙️ Versão Hardware", hardware);
+        addDivider(mContainerHardware);
+        addInfoRow(mContainerHardware, "🧩 Chipset / SoC", soc);
+
+        // Hardware ICs if present
+        try {
+            DeviceHardInfoModel hardInfo = DBHelper.getDeviceHardInfo();
+            if (hardInfo != null) {
+                if (hardInfo.getGsensor() != null && !hardInfo.getGsensor().isEmpty()) {
+                    addDivider(mContainerHardware);
+                    addInfoRow(mContainerHardware, "📈 Sensor de Movimento (G-Sensor)", hardInfo.getGsensor());
+                }
+                if (hardInfo.getHeart() != null && !hardInfo.getHeart().isEmpty()) {
+                    addDivider(mContainerHardware);
+                    addInfoRow(mContainerHardware, "❤️ Sensor Óptico Cardíaco", hardInfo.getHeart());
+                }
+            }
+        } catch (Throwable ignored) {}
+
+        // Feature chips
+        addDivider(mContainerHardware);
+        TextView tvChipsHeader = new TextView(this);
+        tvChipsHeader.setText("Recursos Suportados pelo Dispositivo:");
+        tvChipsHeader.setTextColor(Color.parseColor("#94A3B8"));
+        tvChipsHeader.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvChipsHeader.setPadding(0, dp(8), 0, dp(6));
+        mContainerHardware.addView(tvChipsHeader);
+
+        HorizontalScrollView hsv = new HorizontalScrollView(this);
+        hsv.setHorizontalScrollBarEnabled(false);
+        mChipsLayout = new LinearLayout(this);
+        mChipsLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        addChip(mChipsLayout, "📈 Passos", true);
+        addChip(mChipsLayout, "❤️ Cardíaco", true);
+        addChip(mChipsLayout, "🩸 Pressão", true);
+        addChip(mChipsLayout, "🫁 SpO2", true);
+        addChip(mChipsLayout, "📉 ECG", true);
+        addChip(mChipsLayout, "🌙 Sono", true);
+
+        hsv.addView(mChipsLayout);
+        mContainerHardware.addView(hsv);
+    }
+
+    private void addInfoRow(LinearLayout container, String label, String value) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(8), 0, dp(8));
+
+        TextView tvLabel = new TextView(this);
+        LinearLayout.LayoutParams lpLabel = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        tvLabel.setLayoutParams(lpLabel);
+        tvLabel.setText(label);
+        tvLabel.setTextColor(Color.parseColor("#CBD5E1"));
+        tvLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        row.addView(tvLabel);
+
+        TextView tvValue = new TextView(this);
+        tvValue.setText(value);
+        tvValue.setTextColor(Color.WHITE);
+        tvValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvValue.setTypeface(Typeface.DEFAULT_BOLD);
+        tvValue.setGravity(Gravity.END);
+        row.addView(tvValue);
+
+        container.addView(row);
+    }
+
+    private void addChip(LinearLayout layout, String label, boolean active) {
+        TextView chip = new TextView(this);
+        chip.setText(label);
+        chip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        chip.setTypeface(Typeface.DEFAULT_BOLD);
+        chip.setTextColor(Color.parseColor("#00E5FF"));
+        chip.setPadding(dp(10), dp(5), dp(10), dp(5));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(12));
+        bg.setColor(Color.parseColor("#10233D"));
+        bg.setStroke(dp(1), Color.parseColor("#00E5FF"));
+        chip.setBackground(bg);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        lp.setMargins(0, 0, dp(8), 0);
+        chip.setLayoutParams(lp);
+
+        layout.addView(chip);
+    }
+
+    private View buildSensorAcquisitionCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(14));
+        bg.setColor(Color.parseColor("#131B2A"));
+        bg.setStroke(dp(1), Color.parseColor("#1F2E45"));
+        card.setBackground(bg);
+
+        // 1. Passos e Atividade Diária
+        card.addView(createAcquisitionRow("👟", "Passos e Atividade", "Total de passos, km e calorias hoje", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetStepsClicked();
+            }
+        }));
+
+        addDivider(card);
+
+        // 2. Frequência Cardíaca
+        card.addView(createAcquisitionRow("❤️", "Frequência Cardíaca", "Batimentos cardíacos por minuto (BPM)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetHeartRateClicked();
+            }
+        }));
+
+        addDivider(card);
+
+        // 3. Pressão Arterial
+        card.addView(createAcquisitionRow("🩸", "Pressão Arterial", "Pressão sistólica e diastólica (mmHg)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetBloodPressureClicked();
+            }
+        }));
+
+        addDivider(card);
+
+        // 4. Oxigênio no Sangue (SpO2)
+        card.addView(createAcquisitionRow("🫁", "Oxigênio no Sangue", "Saturação de oxigênio sanguíneo (SpO2 %)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetSpo2Clicked();
+            }
+        }));
+
+        addDivider(card);
+
+        // 5. Eletrocardiograma (ECG)
+        card.addView(createAcquisitionRow("📉", "Eletrocardiograma (ECG)", "Traçado e análise do ritmo cardíaco", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetEcgClicked();
+            }
+        }));
+
+        addDivider(card);
+
+        // 6. Monitoramento de Sono
+        card.addView(createAcquisitionRow("🌙", "Monitor de Sono", "Sono profundo, leve e duração total", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGetSleepClicked();
+            }
+        }));
+
+        return card;
+    }
+
+    private View createAcquisitionRow(String icon, String title, String subtitle, View.OnClickListener onObterClick) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(10), 0, dp(10));
+
+        // Icon badge
+        TextView tvIcon = new TextView(this);
+        tvIcon.setText(icon);
+        tvIcon.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        tvIcon.setGravity(Gravity.CENTER);
+        tvIcon.setPadding(0, 0, dp(12), 0);
+        row.addView(tvIcon);
+
+        // Titles
+        LinearLayout titles = new LinearLayout(this);
+        titles.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams lpTitles = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
+        titles.setLayoutParams(lpTitles);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText(title);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        titles.addView(tvTitle);
+
+        TextView tvSub = new TextView(this);
+        tvSub.setText(subtitle);
+        tvSub.setTextColor(Color.parseColor("#94A3B8"));
+        tvSub.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        titles.addView(tvSub);
+
+        row.addView(titles);
+
+        // "Obter" button
+        Button btnObter = new Button(this);
+        btnObter.setText("Obter");
+        btnObter.setTextColor(Color.parseColor("#0B0F19"));
+        btnObter.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        btnObter.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable btnBg = new GradientDrawable();
+        btnBg.setCornerRadius(dp(8));
+        btnBg.setColor(Color.parseColor("#00E5FF"));
+        btnObter.setBackground(btnBg);
+
+        LinearLayout.LayoutParams lpBtn = new LinearLayout.LayoutParams(dp(74), dp(34));
+        lpBtn.setMargins(dp(8), 0, 0, 0);
+        btnObter.setLayoutParams(lpBtn);
+        btnObter.setOnClickListener(onObterClick);
+
+        row.addView(btnObter);
+        return row;
+    }
+
+    private void addDivider(LinearLayout container) {
+        View line = new View(this);
+        line.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
+        line.setBackgroundColor(Color.parseColor("#1E2E48"));
+        container.addView(line);
+    }
+
+    // ==========================================
+    // MODAL DIALOGS FOR EACH SENSOR
+    // ==========================================
+
+    private void onGetStepsClicked() {
+        try {
+            SDKCmdMannager.getTotalSportData();
+        } catch (Throwable ignored) {}
+
+        int steps = 0;
+        float km = 0f;
+        int calories = 0;
+
+        try {
+            List<SportDetailsModel> list = DBHelper.getAllSportsDetails();
+            if (list != null && !list.isEmpty()) {
+                SportDetailsModel item = list.get(0);
+                steps = item.getStep();
+                km = item.getDistance() / 1000f;
+                calories = item.getCalory();
+            }
+        } catch (Throwable ignored) {}
+
+        String content = String.format(Locale.getDefault(),
+                "👟  Passos Hoje: %,d passos\n\n" +
+                "📏  Distância Percorrida: %.2f km\n\n" +
+                "🔥  Calorias Gastas: %d kcal",
+                steps, km, calories
+        );
+
+        showResultModal("Passos e Atividade Diária", "👟", content, null, null);
+    }
+
+    private void onGetHeartRateClicked() {
+        String heartText = "-- bpm";
+        try {
+            MeasureHeartModel m = DBHelper.getLastMeasureHeart();
+            if (m != null && m.getHeart() > 0) {
+                heartText = m.getHeart() + " bpm";
+            }
+        } catch (Throwable ignored) {}
+
+        String content = "❤️  Última Medição:\n\n" +
+                "    " + heartText + "\n\n" +
+                "Status: Medição cardíaca registrada.";
+
+        showResultModal("Frequência Cardíaca", "❤️", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(HeartMeasureActivity.class);
+            }
+        });
+    }
+
+    private void onGetBloodPressureClicked() {
+        String bpText = "-- / -- mmHg";
+        try {
+            MeasureBloodModel m = DBHelper.getLastMeasureBlood();
+            if (m != null && m.getHBlood() > 0) {
+                bpText = m.getHBlood() + " / " + m.getLBlood() + " mmHg";
+            }
+        } catch (Throwable ignored) {}
+
+        String content = "🩸  Última Pressão Registrada:\n\n" +
+                "    " + bpText + "\n\n" +
+                "Status: Medição sistólica e diastólica registrada.";
+
+        showResultModal("Pressão Arterial", "🩸", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(BloodMeasureActivity.class);
+            }
+        });
+    }
+
+    private void onGetSpo2Clicked() {
+        String spoText = "--%";
+        try {
+            MeasureSpoModel m = DBHelper.getLastMeasureSpo();
+            if (m != null && m.getSpo() > 0) {
+                spoText = m.getSpo() + "%";
+            }
+        } catch (Throwable ignored) {}
+
+        String content = "🫁  Última Saturação de Oxigênio:\n\n" +
+                "    " + spoText + "\n\n" +
+                "Status: Nível de SpO2 verificado.";
+
+        showResultModal("Oxigênio no Sangue (SpO2)", "🫁", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(SpoMeasureActivity.class);
+            }
+        });
+    }
+
+    private void onGetEcgClicked() {
+        String ecgInfo = "Traçado cardíaco em tempo real disponível.";
+        try {
+            ECGRecordModel r = DBHelper.getTodayRecentData();
+            if (r != null && r.getHeartRate() > 0) {
+                ecgInfo = "Último ritmo registrado: " + r.getHeartRate() + " bpm";
+            }
+        } catch (Throwable ignored) {}
+
+        String content = "📈  Eletrocardiograma (ECG):\n\n" +
+                "    " + ecgInfo + "\n\n" +
+                "Clique abaixo para abrir o eletrocardiograma interativo com traçado em tempo real, exatamente igual na tela inicial.";
+
+        showResultModal("Eletrocardiograma (ECG)", "📉", content, "Abrir Eletrocardiograma", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DebugUIActivity.this, ECGMeasureActivity.class);
+                intent.putExtra("isTouch", true);
+                intent.putExtra("status", -1);
+                ActivityUtils.startActivity(intent);
+            }
+        });
+    }
+
+    private void onGetSleepClicked() {
+        String sleepContent = "Nenhum dado de sono registrado hoje.";
+        try {
+            List<?> list = DBHelper.getSleepDetailsDatasOfOneDay(new Date());
+            if (list != null && !list.isEmpty()) {
+                sleepContent = "Dados de sono obtidos com sucesso para a data de hoje.";
+            }
+        } catch (Throwable ignored) {}
+
+        showResultModal("Monitoramento do Sono", "🌙", sleepContent, "Ver Histórico Completo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.startActivity(MoreSleepActivity.class);
+            }
+        });
+    }
+
+    private void showResultModal(String title, String icon, String message, String actionButtonText, final View.OnClickListener onAction) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(20), dp(20), dp(20));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(16));
+        bg.setColor(Color.parseColor("#151D2A"));
+        bg.setStroke(dp(1), Color.parseColor("#00E5FF"));
+        layout.setBackground(bg);
+
+        // Header with icon and title
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView tvIcon = new TextView(this);
+        tvIcon.setText(icon);
+        tvIcon.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        tvIcon.setPadding(0, 0, dp(10), 0);
+        header.addView(tvIcon);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText(title);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        header.addView(tvTitle);
+
+        layout.addView(header);
+
+        // Divider
+        View div = new View(this);
+        LinearLayout.LayoutParams divLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1));
+        divLp.setMargins(0, dp(14), 0, dp(14));
+        div.setLayoutParams(divLp);
+        div.setBackgroundColor(Color.parseColor("#22334A"));
+        layout.addView(div);
+
+        // Message
+        TextView tvMsg = new TextView(this);
+        tvMsg.setText(message);
+        tvMsg.setTextColor(Color.parseColor("#E2E8F0"));
+        tvMsg.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        tvMsg.setLineSpacing(dp(4), 1.0f);
+        layout.addView(tvMsg);
+
+        // Action button if present
+        if (actionButtonText != null && onAction != null) {
+            Button btnAction = new Button(this);
+            btnAction.setText(actionButtonText);
+            btnAction.setTextColor(Color.parseColor("#0B0F19"));
+            btnAction.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+            btnAction.setTypeface(Typeface.DEFAULT_BOLD);
+
+            GradientDrawable actionBg = new GradientDrawable();
+            actionBg.setCornerRadius(dp(8));
+            actionBg.setColor(Color.parseColor("#00E5FF"));
+            btnAction.setBackground(actionBg);
+
+            LinearLayout.LayoutParams lpAct = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
+            lpAct.setMargins(0, dp(18), 0, 0);
+            btnAction.setLayoutParams(lpAct);
+
+            btnAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    onAction.onClick(v);
+                }
+            });
+            layout.addView(btnAction);
+        }
+
+        // Close button
+        Button btnClose = new Button(this);
+        btnClose.setText("Fechar");
+        btnClose.setTextColor(Color.parseColor("#94A3B8"));
+        btnClose.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+
+        GradientDrawable closeBg = new GradientDrawable();
+        closeBg.setCornerRadius(dp(8));
+        closeBg.setColor(Color.parseColor("#1E293B"));
+        closeBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnClose.setBackground(closeBg);
+
+        LinearLayout.LayoutParams lpClose = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40));
+        lpClose.setMargins(0, dp(10), 0, 0);
+        btnClose.setLayoutParams(lpClose);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnClose);
+
+        dialog.setContentView(layout);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(
+                    (int) (getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+        }
+        dialog.show();
+    }
+}
