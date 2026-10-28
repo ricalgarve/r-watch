@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetSleepClicked()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,26 +20,13 @@
 # instance fields
 .field final synthetic this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-.field final synthetic val$dialog:Landroid/app/Dialog;
-
-.field final synthetic val$onAction:Landroid/view/View$OnClickListener;
-
 
 # direct methods
-.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;Landroid/view/View$OnClickListener;)V
+.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "()V"
-        }
-    .end annotation
 
-    .line 699
+    .line 644
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
-
-    iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$dialog:Landroid/app/Dialog;
-
-    iput-object p3, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$onAction:Landroid/view/View$OnClickListener;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -49,18 +36,21 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 1
+    .locals 3
 
-    .line 702
-    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$dialog:Landroid/app/Dialog;
+    .line 647
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    invoke-virtual {v0}, Landroid/app/Dialog;->dismiss()V
+    new-instance v0, Landroid/content/Intent;
 
-    .line 703
-    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$onAction:Landroid/view/View$OnClickListener;
+    iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    invoke-interface {v0, p1}, Landroid/view/View$OnClickListener;->onClick(Landroid/view/View;)V
+    const-class v2, Lxfkj/fitpro/activity/MoreSleepActivity;
 
-    .line 704
+    invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+
+    .line 648
     return-void
 .end method

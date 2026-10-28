@@ -2024,52 +2024,61 @@
 .method private onGetBloodPressureClicked()V
     .locals 7
 
-    .line 550
+    .line 560
     const-string v0, "-- / -- mmHg"
 
-    .line 552
+    .line 562
     :try_start_0
-    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureBlood()Lxfkj/fitpro/model/MeasureBloodModel;
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLaststMeasureDetails()Lxfkj/fitpro/model/MeasureDetailsModel;
 
     move-result-object v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 553
-    if-eqz v1, :cond_0
-
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getHBlood()I
-
-    move-result v2
-
-    if-lez v2, :cond_0
-
-    .line 554
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getHBlood()I
-
-    move-result v3
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
+    .line 563
+    const-string v2, " mmHg"
 
     const-string v3, " / "
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    if-eqz v1, :cond_0
 
-    move-result-object v2
+    :try_start_1
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getHblood()I
 
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getLBlood()I
+    move-result v4
+
+    if-lez v4, :cond_0
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getLblood()I
+
+    move-result v4
+
+    if-lez v4, :cond_0
+
+    .line 564
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getHblood()I
+
+    move-result v5
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getLblood()I
 
     move-result v1
 
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
-
-    const-string v2, " mmHg"
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2078,20 +2087,70 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     goto :goto_0
 
-    .line 556
+    .line 566
+    :cond_0
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureBlood()Lxfkj/fitpro/model/MeasureBloodModel;
+
+    move-result-object v1
+
+    .line 567
+    if-eqz v1, :cond_1
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getHBlood()I
+
+    move-result v4
+
+    if-lez v4, :cond_1
+
+    .line 568
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getHBlood()I
+
+    move-result v5
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getLBlood()I
+
+    move-result v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    goto :goto_0
+
+    .line 571
     :catchall_0
     move-exception v1
 
-    :cond_0
+    :cond_1
     :goto_0
     nop
 
-    .line 558
+    .line 573
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2116,38 +2175,38 @@
 
     move-result-object v4
 
-    .line 562
+    .line 577
     const-string v2, "Press\u00e3o Arterial"
 
     const-string v3, "\ud83e\ude78"
 
     const-string v5, "Iniciar Medi\u00e7\u00e3o em Tempo Real"
 
-    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$9;
+    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$10;
 
-    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$9;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$10;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v1, p0
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 568
+    .line 583
     return-void
 .end method
 
 .method private onGetEcgClicked()V
     .locals 7
 
-    .line 592
+    .line 612
     const-string v0, "Tra\u00e7ado card\u00edaco em tempo real dispon\u00edvel."
 
-    .line 594
+    .line 614
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getTodayRecentData()Lxfkj/fitpro/model/ECGRecordModel;
 
     move-result-object v1
 
-    .line 595
+    .line 615
     if-eqz v1, :cond_0
 
     invoke-virtual {v1}, Lxfkj/fitpro/model/ECGRecordModel;->getHeartRate()I
@@ -2156,7 +2215,7 @@
 
     if-lez v2, :cond_0
 
-    .line 596
+    .line 616
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2189,7 +2248,7 @@
 
     goto :goto_0
 
-    .line 598
+    .line 618
     :catchall_0
     move-exception v1
 
@@ -2197,7 +2256,7 @@
     :goto_0
     nop
 
-    .line 600
+    .line 620
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2222,60 +2281,63 @@
 
     move-result-object v4
 
-    .line 604
+    .line 624
     const-string v2, "Eletrocardiograma (ECG)"
 
     const-string v3, "\ud83d\udcc9"
 
     const-string v5, "Abrir Eletrocardiograma"
 
-    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$11;
+    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$12;
 
-    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$11;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$12;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v1, p0
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 613
+    .line 633
     return-void
 .end method
 
 .method private onGetHeartRateClicked()V
     .locals 7
 
-    .line 529
+    .line 534
     const-string v0, "-- bpm"
 
-    .line 531
+    .line 536
     :try_start_0
-    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureHeart()Lxfkj/fitpro/model/MeasureHeartModel;
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLaststMeasureDetails()Lxfkj/fitpro/model/MeasureDetailsModel;
 
     move-result-object v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 532
+    .line 537
+    const-string v2, " bpm"
+
     if-eqz v1, :cond_0
 
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureHeartModel;->getHeart()I
+    :try_start_1
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getHeart()I
 
-    move-result v2
+    move-result v3
 
-    if-lez v2, :cond_0
+    if-lez v3, :cond_0
 
-    .line 533
-    new-instance v2, Ljava/lang/StringBuilder;
+    .line 538
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureHeartModel;->getHeart()I
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getHeart()I
 
     move-result v1
 
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
-
-    const-string v2, " bpm"
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2284,20 +2346,58 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     goto :goto_0
 
-    .line 535
+    .line 540
+    :cond_0
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureHeart()Lxfkj/fitpro/model/MeasureHeartModel;
+
+    move-result-object v1
+
+    .line 541
+    if-eqz v1, :cond_1
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureHeartModel;->getHeart()I
+
+    move-result v3
+
+    if-lez v3, :cond_1
+
+    .line 542
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureHeartModel;->getHeart()I
+
+    move-result v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    goto :goto_0
+
+    .line 545
     :catchall_0
     move-exception v1
 
-    :cond_0
+    :cond_1
     :goto_0
     nop
 
-    .line 537
+    .line 547
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2322,32 +2422,32 @@
 
     move-result-object v4
 
-    .line 541
+    .line 551
     const-string v2, "Frequ\u00eancia Card\u00edaca"
 
     const-string v3, "\u2764\ufe0f"
 
     const-string v5, "Iniciar Medi\u00e7\u00e3o em Tempo Real"
 
-    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$8;
+    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$9;
 
-    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$8;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$9;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v1, p0
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 547
+    .line 557
     return-void
 .end method
 
 .method private onGetSleepClicked()V
     .locals 8
 
-    .line 616
+    .line 636
     const-string v0, "Nenhum dado de sono registrado hoje."
 
-    .line 618
+    .line 638
     :try_start_0
     new-instance v1, Ljava/util/Date;
 
@@ -2357,7 +2457,7 @@
 
     move-result-object v1
 
-    .line 619
+    .line 639
     if-eqz v1, :cond_0
 
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
@@ -2366,14 +2466,14 @@
 
     if-nez v1, :cond_0
 
-    .line 620
+    .line 640
     const-string v0, "Dados de sono obtidos com sucesso para a data de hoje."
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     goto :goto_0
 
-    .line 622
+    .line 642
     :catchall_0
     move-exception v1
 
@@ -2381,60 +2481,63 @@
     :goto_0
     move-object v5, v0
 
-    .line 624
+    .line 644
     const-string v3, "Monitoramento do Sono"
 
     const-string v4, "\ud83c\udf19"
 
     const-string v6, "Ver Hist\u00f3rico Completo"
 
-    new-instance v7, Lxfkj/fitpro/activity/DebugUIActivity$12;
+    new-instance v7, Lxfkj/fitpro/activity/DebugUIActivity$13;
 
-    invoke-direct {v7, p0}, Lxfkj/fitpro/activity/DebugUIActivity$12;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+    invoke-direct {v7, p0}, Lxfkj/fitpro/activity/DebugUIActivity$13;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v2, p0
 
     invoke-direct/range {v2 .. v7}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 630
+    .line 650
     return-void
 .end method
 
 .method private onGetSpo2Clicked()V
     .locals 7
 
-    .line 571
+    .line 586
     const-string v0, "--%"
 
-    .line 573
+    .line 588
     :try_start_0
-    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureSpo()Lxfkj/fitpro/model/MeasureSpoModel;
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLaststMeasureDetails()Lxfkj/fitpro/model/MeasureDetailsModel;
 
     move-result-object v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 574
+    .line 589
+    const-string v2, "%"
+
     if-eqz v1, :cond_0
 
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureSpoModel;->getSpo()I
+    :try_start_1
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getSpo()I
 
-    move-result v2
+    move-result v3
 
-    if-lez v2, :cond_0
+    if-lez v3, :cond_0
 
-    .line 575
-    new-instance v2, Ljava/lang/StringBuilder;
+    .line 590
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureSpoModel;->getSpo()I
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureDetailsModel;->getSpo()I
 
     move-result v1
 
-    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
     move-result-object v1
-
-    const-string v2, "%"
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -2443,20 +2546,58 @@
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     goto :goto_0
 
-    .line 577
+    .line 592
+    :cond_0
+    invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureSpo()Lxfkj/fitpro/model/MeasureSpoModel;
+
+    move-result-object v1
+
+    .line 593
+    if-eqz v1, :cond_1
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureSpoModel;->getSpo()I
+
+    move-result v3
+
+    if-lez v3, :cond_1
+
+    .line 594
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureSpoModel;->getSpo()I
+
+    move-result v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    goto :goto_0
+
+    .line 597
     :catchall_0
     move-exception v1
 
-    :cond_0
+    :cond_1
     :goto_0
     nop
 
-    .line 579
+    .line 599
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2481,22 +2622,22 @@
 
     move-result-object v4
 
-    .line 583
+    .line 603
     const-string v2, "Oxig\u00eanio no Sangue (SpO2)"
 
     const-string v3, "\ud83e\udec1"
 
     const-string v5, "Iniciar Medi\u00e7\u00e3o em Tempo Real"
 
-    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$10;
+    new-instance v6, Lxfkj/fitpro/activity/DebugUIActivity$11;
 
-    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$10;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+    invoke-direct {v6, p0}, Lxfkj/fitpro/activity/DebugUIActivity$11;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v1, p0
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 589
+    .line 609
     return-void
 .end method
 
@@ -2649,40 +2790,42 @@
 
     const-string v8, "\ud83d\udc5f"
 
-    const/4 v10, 0x0
+    const-string v10, "Ver Hist\u00f3rico de Passos"
 
-    const/4 v11, 0x0
+    new-instance v11, Lxfkj/fitpro/activity/DebugUIActivity$8;
+
+    invoke-direct {v11, p0}, Lxfkj/fitpro/activity/DebugUIActivity$8;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     move-object v6, p0
 
     invoke-direct/range {v6 .. v11}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 526
+    .line 531
     return-void
 .end method
 
 .method private showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
     .locals 10
 
-    .line 633
+    .line 653
     new-instance v0, Landroid/app/Dialog;
 
     invoke-direct {v0, p0}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
 
-    .line 634
+    .line 654
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->requestWindowFeature(I)Z
 
-    .line 636
+    .line 656
     new-instance v2, Landroid/widget/LinearLayout;
 
     invoke-direct {v2, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 637
+    .line 657
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 638
+    .line 658
     const/16 v3, 0x14
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2703,12 +2846,12 @@
 
     invoke-virtual {v2, v4, v5, v6, v3}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 640
+    .line 660
     new-instance v3, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v3}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 641
+    .line 661
     const/16 v4, 0x10
 
     invoke-direct {p0, v4}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2719,7 +2862,7 @@
 
     invoke-virtual {v3, v5}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 642
+    .line 662
     const-string v5, "#151D2A"
 
     invoke-static {v5}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2728,7 +2871,7 @@
 
     invoke-virtual {v3, v5}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 643
+    .line 663
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v5
@@ -2741,38 +2884,38 @@
 
     invoke-virtual {v3, v5, v7}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 644
+    .line 664
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 647
+    .line 667
     new-instance v3, Landroid/widget/LinearLayout;
 
     invoke-direct {v3, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 648
+    .line 668
     const/4 v5, 0x0
 
     invoke-virtual {v3, v5}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 649
+    .line 669
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 651
+    .line 671
     new-instance v4, Landroid/widget/TextView;
 
     invoke-direct {v4, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 652
+    .line 672
     invoke-virtual {v4, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 653
+    .line 673
     const/high16 p2, 0x41b00000    # 22.0f
 
     const/4 v7, 0x2
 
     invoke-virtual {v4, v7, p2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 654
+    .line 674
     const/16 p2, 0xa
 
     invoke-direct {p0, p2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2781,44 +2924,44 @@
 
     invoke-virtual {v4, v5, v5, v8, v5}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 655
+    .line 675
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 657
+    .line 677
     new-instance v4, Landroid/widget/TextView;
 
     invoke-direct {v4, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 658
+    .line 678
     invoke-virtual {v4, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 659
+    .line 679
     const/4 p1, -0x1
 
     invoke-virtual {v4, p1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 660
+    .line 680
     const/high16 v8, 0x41800000    # 16.0f
 
     invoke-virtual {v4, v7, v8}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 661
+    .line 681
     sget-object v8, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v4, v8}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 662
+    .line 682
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 664
+    .line 684
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 667
+    .line 687
     new-instance v3, Landroid/view/View;
 
     invoke-direct {v3, p0}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 668
+    .line 688
     new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2827,7 +2970,7 @@
 
     invoke-direct {v4, p1, v8}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 669
+    .line 689
     const/16 v8, 0xe
 
     invoke-direct {p0, v8}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2840,10 +2983,10 @@
 
     invoke-virtual {v4, v5, v9, v5, v8}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 670
+    .line 690
     invoke-virtual {v3, v4}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 671
+    .line 691
     const-string v4, "#22334A"
 
     invoke-static {v4}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2852,18 +2995,18 @@
 
     invoke-virtual {v3, v4}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 672
+    .line 692
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 675
+    .line 695
     new-instance v3, Landroid/widget/TextView;
 
     invoke-direct {v3, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 676
+    .line 696
     invoke-virtual {v3, p3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 677
+    .line 697
     const-string p3, "#E2E8F0"
 
     invoke-static {p3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2872,12 +3015,12 @@
 
     invoke-virtual {v3, p3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 678
+    .line 698
     const/high16 p3, 0x41600000    # 14.0f
 
     invoke-virtual {v3, v7, p3}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 679
+    .line 699
     const/4 p3, 0x4
 
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2890,10 +3033,10 @@
 
     invoke-virtual {v3, p3, v4}, Landroid/widget/TextView;->setLineSpacing(FF)V
 
-    .line 680
+    .line 700
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 683
+    .line 703
     const/16 p3, 0x8
 
     const/high16 v3, 0x41500000    # 13.0f
@@ -2902,15 +3045,15 @@
 
     if-eqz p5, :cond_0
 
-    .line 684
+    .line 704
     new-instance v4, Landroid/widget/Button;
 
     invoke-direct {v4, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
 
-    .line 685
+    .line 705
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
 
-    .line 686
+    .line 706
     const-string p4, "#0B0F19"
 
     invoke-static {p4}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2919,20 +3062,20 @@
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 687
+    .line 707
     invoke-virtual {v4, v7, v3}, Landroid/widget/Button;->setTextSize(IF)V
 
-    .line 688
+    .line 708
     sget-object p4, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 690
+    .line 710
     new-instance p4, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {p4}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 691
+    .line 711
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v8
@@ -2941,17 +3084,17 @@
 
     invoke-virtual {p4, v8}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 692
+    .line 712
     invoke-static {v6}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
 
     move-result v6
 
     invoke-virtual {p4, v6}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 693
+    .line 713
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 695
+    .line 715
     new-instance p4, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 v6, 0x2c
@@ -2962,7 +3105,7 @@
 
     invoke-direct {p4, p1, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 696
+    .line 716
     const/16 v6, 0x12
 
     invoke-direct {p0, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2971,31 +3114,31 @@
 
     invoke-virtual {p4, v5, v6, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 697
+    .line 717
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 699
-    new-instance p4, Lxfkj/fitpro/activity/DebugUIActivity$13;
+    .line 719
+    new-instance p4, Lxfkj/fitpro/activity/DebugUIActivity$14;
 
-    invoke-direct {p4, p0, v0, p5}, Lxfkj/fitpro/activity/DebugUIActivity$13;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;Landroid/view/View$OnClickListener;)V
+    invoke-direct {p4, p0, v0, p5}, Lxfkj/fitpro/activity/DebugUIActivity$14;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;Landroid/view/View$OnClickListener;)V
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 706
+    .line 726
     invoke-virtual {v2, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 710
+    .line 730
     :cond_0
     new-instance p4, Landroid/widget/Button;
 
     invoke-direct {p4, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
 
-    .line 711
+    .line 731
     const-string p5, "Fechar"
 
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
 
-    .line 712
+    .line 732
     const-string p5, "#94A3B8"
 
     invoke-static {p5}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -3004,15 +3147,15 @@
 
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 713
+    .line 733
     invoke-virtual {p4, v7, v3}, Landroid/widget/Button;->setTextSize(IF)V
 
-    .line 715
+    .line 735
     new-instance p5, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {p5}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 716
+    .line 736
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p3
@@ -3021,7 +3164,7 @@
 
     invoke-virtual {p5, p3}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 717
+    .line 737
     const-string p3, "#1E293B"
 
     invoke-static {p3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -3030,7 +3173,7 @@
 
     invoke-virtual {p5, p3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 718
+    .line 738
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p3
@@ -3043,10 +3186,10 @@
 
     invoke-virtual {p5, p3, v1}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 719
+    .line 739
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 721
+    .line 741
     new-instance p3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 p5, 0x28
@@ -3057,37 +3200,37 @@
 
     invoke-direct {p3, p1, p5}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 722
+    .line 742
     invoke-direct {p0, p2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p1
 
     invoke-virtual {p3, v5, p1, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 723
+    .line 743
     invoke-virtual {p4, p3}, Landroid/widget/Button;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 725
-    new-instance p1, Lxfkj/fitpro/activity/DebugUIActivity$14;
+    .line 745
+    new-instance p1, Lxfkj/fitpro/activity/DebugUIActivity$15;
 
-    invoke-direct {p1, p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity$14;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;)V
+    invoke-direct {p1, p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity$15;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;)V
 
     invoke-virtual {p4, p1}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 731
+    .line 751
     invoke-virtual {v2, p4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 733
+    .line 753
     invoke-virtual {v0, v2}, Landroid/app/Dialog;->setContentView(Landroid/view/View;)V
 
-    .line 734
+    .line 754
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
 
     if-eqz p1, :cond_1
 
-    .line 735
+    .line 755
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
@@ -3098,12 +3241,12 @@
 
     invoke-virtual {p1, p2}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 736
+    .line 756
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
 
-    .line 737
+    .line 757
     invoke-virtual {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->getResources()Landroid/content/res/Resources;
 
     move-result-object p2
@@ -3124,16 +3267,16 @@
 
     double-to-int p2, p2
 
-    .line 736
+    .line 756
     const/4 p3, -0x2
 
     invoke-virtual {p1, p2, p3}, Landroid/view/Window;->setLayout(II)V
 
-    .line 741
+    .line 761
     :cond_1
     invoke-virtual {v0}, Landroid/app/Dialog;->show()V
 
-    .line 742
+    .line 762
     return-void
 .end method
 

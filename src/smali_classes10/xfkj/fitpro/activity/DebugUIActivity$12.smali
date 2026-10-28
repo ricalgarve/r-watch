@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetSleepClicked()V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetEcgClicked()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -36,21 +36,36 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 3
+    .locals 2
 
     .line 627
-    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+    new-instance p1, Landroid/content/Intent;
 
-    new-instance v0, Landroid/content/Intent;
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+    const-class v1, Lxfkj/fitpro/activity/ecg/ECGMeasureActivity;
 
-    const-class v2, Lxfkj/fitpro/activity/MoreSleepActivity;
-
-    invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+    invoke-direct {p1, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
     .line 628
+    const-string v0, "isTouch"
+
+    const/4 v1, 0x1
+
+    invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+
+    .line 629
+    const-string v0, "status"
+
+    const/4 v1, -0x1
+
+    invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+
+    .line 630
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+
+    invoke-virtual {v0, p1}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+
+    .line 631
     return-void
 .end method

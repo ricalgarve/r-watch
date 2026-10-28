@@ -3070,26 +3070,9 @@
 .end method
 
 .method public static getSportMeasureBloodRecive(Z)[B
-    .locals 3
+    .locals 1
 
-    const/4 v0, 0x2
-
-    .line 808
-    new-array v0, v0, [B
-
-    const/4 v1, 0x0
-
-    const/4 v2, 0x1
-
-    aput-byte v2, v0, v1
-
-    aput-byte p0, v0, v2
-
-    const/16 p0, 0x12
-
-    const/16 v1, 0x24
-
-    invoke-static {p0, v1, v0}, Lxfkj/fitpro/bluetooth/SendData;->getProtocol(BB[B)[B
+    invoke-static {p0}, Lxfkj/fitpro/bluetooth/SendData;->getSportMeasureRecive(Z)[B
 
     move-result-object p0
 
@@ -3097,26 +3080,9 @@
 .end method
 
 .method public static getSportMeasureHeartRecive(Z)[B
-    .locals 2
+    .locals 1
 
-    const/4 v0, 0x2
-
-    .line 799
-    new-array v0, v0, [B
-
-    const/4 v1, 0x0
-
-    aput-byte v1, v0, v1
-
-    const/4 v1, 0x1
-
-    aput-byte p0, v0, v1
-
-    const/16 p0, 0x12
-
-    const/16 v1, 0x24
-
-    invoke-static {p0, v1, v0}, Lxfkj/fitpro/bluetooth/SendData;->getProtocol(BB[B)[B
+    invoke-static {p0}, Lxfkj/fitpro/bluetooth/SendData;->getSportMeasureRecive(Z)[B
 
     move-result-object p0
 
@@ -3139,26 +3105,9 @@
 .end method
 
 .method public static getSportMeasureSpoRecive(Z)[B
-    .locals 3
+    .locals 1
 
-    const/4 v0, 0x2
-
-    .line 817
-    new-array v1, v0, [B
-
-    const/4 v2, 0x0
-
-    aput-byte v0, v1, v2
-
-    const/4 v0, 0x1
-
-    aput-byte p0, v1, v0
-
-    const/16 p0, 0x12
-
-    const/16 v0, 0x24
-
-    invoke-static {p0, v0, v1}, Lxfkj/fitpro/bluetooth/SendData;->getProtocol(BB[B)[B
+    invoke-static {p0}, Lxfkj/fitpro/bluetooth/SendData;->getSportMeasureRecive(Z)[B
 
     move-result-object p0
 

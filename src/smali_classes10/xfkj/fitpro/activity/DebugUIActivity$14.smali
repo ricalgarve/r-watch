@@ -22,9 +22,11 @@
 
 .field final synthetic val$dialog:Landroid/app/Dialog;
 
+.field final synthetic val$onAction:Landroid/view/View$OnClickListener;
+
 
 # direct methods
-.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;)V
+.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;Landroid/view/View$OnClickListener;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -32,10 +34,12 @@
         }
     .end annotation
 
-    .line 725
+    .line 719
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->val$dialog:Landroid/app/Dialog;
+
+    iput-object p3, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->val$onAction:Landroid/view/View$OnClickListener;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,13 +49,18 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 0
+    .locals 1
 
-    .line 728
-    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->val$dialog:Landroid/app/Dialog;
+    .line 722
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->val$dialog:Landroid/app/Dialog;
 
-    invoke-virtual {p1}, Landroid/app/Dialog;->dismiss()V
+    invoke-virtual {v0}, Landroid/app/Dialog;->dismiss()V
 
-    .line 729
+    .line 723
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$14;->val$onAction:Landroid/view/View$OnClickListener;
+
+    invoke-interface {v0, p1}, Landroid/view/View$OnClickListener;->onClick(Landroid/view/View;)V
+
+    .line 724
     return-void
 .end method

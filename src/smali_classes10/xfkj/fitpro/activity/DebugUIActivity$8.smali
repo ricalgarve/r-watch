@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetHeartRateClicked()V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetStepsClicked()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -25,7 +25,7 @@
 .method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 541
+    .line 525
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -38,19 +38,19 @@
 .method public onClick(Landroid/view/View;)V
     .locals 3
 
-    .line 544
+    .line 528
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     new-instance v0, Landroid/content/Intent;
 
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    const-class v2, Lxfkj/fitpro/activity/measure/HeartMeasureActivity;
+    const-class v2, Lxfkj/fitpro/activity/StepNumberMoreActivity;
 
     invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
     invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 545
+    .line 529
     return-void
 .end method

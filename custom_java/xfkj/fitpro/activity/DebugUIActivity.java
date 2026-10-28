@@ -19,17 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import xfkj.fitpro.activity.MeasureActivity;
 import xfkj.fitpro.activity.MoreSleepActivity;
+import xfkj.fitpro.activity.StepNumberMoreActivity;
 import xfkj.fitpro.activity.ecg.ECGMeasureActivity;
-import xfkj.fitpro.activity.measure.BloodMeasureActivity;
-import xfkj.fitpro.activity.measure.HeartMeasureActivity;
-import xfkj.fitpro.activity.measure.SpoMeasureActivity;
 import xfkj.fitpro.base.NewBaseActivity;
 import xfkj.fitpro.bluetooth.SDKCmdMannager;
 import xfkj.fitpro.db.DBHelper;
 import xfkj.fitpro.model.DeviceHardInfoModel;
 import xfkj.fitpro.model.ECGRecordModel;
 import xfkj.fitpro.model.MeasureBloodModel;
+import xfkj.fitpro.model.MeasureDetailsModel;
 import xfkj.fitpro.model.MeasureHeartModel;
 import xfkj.fitpro.model.MeasureSpoModel;
 import xfkj.fitpro.model.SportDetailsModel;
@@ -522,15 +522,25 @@ public class DebugUIActivity extends NewBaseActivity {
                 steps, km, calories
         );
 
-        showResultModal("Passos e Atividade Diária", "👟", content, null, null);
+        showResultModal("Passos e Atividade Diária", "👟", content, "Ver Histórico de Passos", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DebugUIActivity.this, StepNumberMoreActivity.class));
+            }
+        });
     }
 
     private void onGetHeartRateClicked() {
         String heartText = "-- bpm";
         try {
-            MeasureHeartModel m = DBHelper.getLastMeasureHeart();
-            if (m != null && m.getHeart() > 0) {
-                heartText = m.getHeart() + " bpm";
+            MeasureDetailsModel details = DBHelper.getLaststMeasureDetails();
+            if (details != null && details.getHeart() > 0) {
+                heartText = details.getHeart() + " bpm";
+            } else {
+                MeasureHeartModel m = DBHelper.getLastMeasureHeart();
+                if (m != null && m.getHeart() > 0) {
+                    heartText = m.getHeart() + " bpm";
+                }
             }
         } catch (Throwable ignored) {}
 
@@ -541,7 +551,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Frequência Cardíaca", "❤️", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DebugUIActivity.this, HeartMeasureActivity.class));
+                startActivity(new Intent(DebugUIActivity.this, MeasureActivity.class));
             }
         });
     }
@@ -549,9 +559,14 @@ public class DebugUIActivity extends NewBaseActivity {
     private void onGetBloodPressureClicked() {
         String bpText = "-- / -- mmHg";
         try {
-            MeasureBloodModel m = DBHelper.getLastMeasureBlood();
-            if (m != null && m.getHBlood() > 0) {
-                bpText = m.getHBlood() + " / " + m.getLBlood() + " mmHg";
+            MeasureDetailsModel details = DBHelper.getLaststMeasureDetails();
+            if (details != null && details.getHblood() > 0 && details.getLblood() > 0) {
+                bpText = details.getHblood() + " / " + details.getLblood() + " mmHg";
+            } else {
+                MeasureBloodModel m = DBHelper.getLastMeasureBlood();
+                if (m != null && m.getHBlood() > 0) {
+                    bpText = m.getHBlood() + " / " + m.getLBlood() + " mmHg";
+                }
             }
         } catch (Throwable ignored) {}
 
@@ -562,7 +577,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Pressão Arterial", "🩸", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DebugUIActivity.this, BloodMeasureActivity.class));
+                startActivity(new Intent(DebugUIActivity.this, MeasureActivity.class));
             }
         });
     }
@@ -570,9 +585,14 @@ public class DebugUIActivity extends NewBaseActivity {
     private void onGetSpo2Clicked() {
         String spoText = "--%";
         try {
-            MeasureSpoModel m = DBHelper.getLastMeasureSpo();
-            if (m != null && m.getSpo() > 0) {
-                spoText = m.getSpo() + "%";
+            MeasureDetailsModel details = DBHelper.getLaststMeasureDetails();
+            if (details != null && details.getSpo() > 0) {
+                spoText = details.getSpo() + "%";
+            } else {
+                MeasureSpoModel m = DBHelper.getLastMeasureSpo();
+                if (m != null && m.getSpo() > 0) {
+                    spoText = m.getSpo() + "%";
+                }
             }
         } catch (Throwable ignored) {}
 
@@ -583,7 +603,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Oxigênio no Sangue (SpO2)", "🫁", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DebugUIActivity.this, SpoMeasureActivity.class));
+                startActivity(new Intent(DebugUIActivity.this, MeasureActivity.class));
             }
         });
     }
