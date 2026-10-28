@@ -38,7 +38,7 @@
         }
     .end annotation
 
-    .line 867
+    .line 894
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etTitle:Landroid/widget/EditText;
@@ -59,20 +59,20 @@
 .method public onClick(Landroid/view/View;)V
     .locals 1
 
-    .line 870
+    .line 897
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etTitle:Landroid/widget/EditText;
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$titleVal:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
 
-    .line 871
+    .line 898
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etBody:Landroid/widget/EditText;
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$bodyVal:Ljava/lang/String;
 
     invoke-virtual {p1, v0}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
 
-    .line 872
+    .line 899
     return-void
 .end method

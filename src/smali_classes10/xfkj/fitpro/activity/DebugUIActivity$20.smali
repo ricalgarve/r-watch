@@ -25,7 +25,7 @@
 .method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 1228
+    .line 1255
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$20;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -38,7 +38,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 1231
+    .line 1258
     new-instance p1, Landroid/content/Intent;
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$20;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
@@ -47,25 +47,25 @@
 
     invoke-direct {p1, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 1232
+    .line 1259
     const-string v0, "isTouch"
 
     const/4 v1, 0x1
 
     invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
-    .line 1233
+    .line 1260
     const-string v0, "status"
 
     const/4 v1, -0x1
 
     invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1234
+    .line 1261
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$20;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-virtual {v0, p1}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
 
-    .line 1235
+    .line 1262
     return-void
 .end method

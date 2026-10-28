@@ -40,11 +40,28 @@ import xfkj.fitpro.service.NotifyService;
 import xfkj.fitpro.utils.Constant;
 import xfkj.fitpro.utils.MySPUtils;
 import xfkj.fitpro.utils.SaveKeyValues;
+import xfkj.fitpro.api.HttpHelper;
+import xfkj.fitpro.model.OTAUpgradeInfo;
+import xfkj.fitpro.utils.PathUtils;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.os.Environment;
+import android.text.TextUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class DebugUIActivity extends NewBaseActivity {
 
@@ -126,6 +143,16 @@ public class DebugUIActivity extends NewBaseActivity {
         root.addView(createSectionTitle("💬 Enviar Mensagem para o Smartwatch", "Digite um texto para testar a notificação diretamente na tela do relógio"));
         View cardMessage = buildSendMessageCard();
         root.addView(cardMessage);
+
+        // Spacer
+        View spacer3 = new View(this);
+        spacer3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer3);
+
+        // 5. Section: Backup e Firmware OTA Oficial
+        root.addView(createSectionTitle("💾 Backup / Firmware OTA Oficial", "Consulte e baixe a ROM oficial do servidor para backup do relógio"));
+        View cardOTA = buildOTABackupCard();
+        root.addView(cardOTA);
 
         scrollView.addView(root);
         return scrollView;
@@ -1526,4 +1553,504 @@ public class DebugUIActivity extends NewBaseActivity {
         }
         dialog.show();
     }
+
+    private View buildOTABackupCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable cardBg = new GradientDrawable();
+        cardBg.setCornerRadius(dp(12));
+        cardBg.setColor(Color.parseColor("#151D2A"));
+        cardBg.setStroke(dp(1), Color.parseColor("#1E293B"));
+        card.setBackground(cardBg);
+
+        // Header
+        TextView tvSummaryTitle = new TextView(this);
+        tvSummaryTitle.setText("Assinatura de Hardware do Relógio:");
+        tvSummaryTitle.setTextColor(Color.parseColor("#94A3B8"));
+        tvSummaryTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvSummaryTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        card.addView(tvSummaryTitle);
+
+        final String cacheBluetoothName = MySPUtils.getCacheBluetoothName(MySPUtils.getBluetoothAddress());
+        final String softVersion = MySPUtils.getSoftVersion();
+        final int plarmType = MySPUtils.getPlarmType();
+        final DeviceHardInfoModel hardInfo = DBHelper.getDeviceHardInfo();
+        final String mac = MySPUtils.getBluetoothAddress();
+
+        TextView tvDetails = new TextView(this);
+        StringBuilder sb = new StringBuilder();
+        sb.append("• Dispositivo: ").append(cacheBluetoothName != null ? cacheBluetoothName : "Não conectado").append("\n");
+        sb.append("• MAC: ").append(mac != null ? mac : "--:--:--:--:--:--").append("\n");
+        sb.append("• Versão Atual: ").append(softVersion != null ? softVersion : "N/A").append("\n");
+        sb.append("• Plataforma: ").append(plarmType).append(" (").append(getPlatformName(plarmType)).append(")");
+        if (hardInfo != null) {
+            sb.append("\n• Sensores: G=").append(hardInfo.getGsensor())
+              .append(" | H=").append(hardInfo.getHeart())
+              .append(" | L=").append(hardInfo.getLed());
+        }
+        tvDetails.setText(sb.toString());
+        tvDetails.setTextColor(Color.parseColor("#E2E8F0"));
+        tvDetails.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvDetails.setPadding(0, dp(6), 0, dp(14));
+        card.addView(tvDetails);
+
+        // Primary Button: Consultar e Baixar Firmware OTA
+        Button btnCheckOTA = new Button(this);
+        btnCheckOTA.setText("🔍 Consultar Servidor e Baixar Firmware OTA");
+        btnCheckOTA.setTextColor(Color.WHITE);
+        btnCheckOTA.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        btnCheckOTA.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable btnBg = new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor("#0284C7"), Color.parseColor("#0EA5E9")}
+        );
+        btnBg.setCornerRadius(dp(8));
+        btnCheckOTA.setBackground(btnBg);
+
+        LinearLayout.LayoutParams btnLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(48));
+        btnCheckOTA.setLayoutParams(btnLp);
+
+        btnCheckOTA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performOTACheckAndDownload(false);
+            }
+        });
+        card.addView(btnCheckOTA);
+
+        // Secondary Button: Testar Busca com Versão Base (0.0.1)
+        Button btnForceBase = new Button(this);
+        btnForceBase.setText("🧪 Testar Busca com Versão Base (0.0.1)");
+        btnForceBase.setTextColor(Color.parseColor("#38BDF8"));
+        btnForceBase.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+
+        GradientDrawable secBg = new GradientDrawable();
+        secBg.setCornerRadius(dp(8));
+        secBg.setColor(Color.parseColor("#1E293B"));
+        secBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnForceBase.setBackground(secBg);
+
+        LinearLayout.LayoutParams secLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(38));
+        secLp.setMargins(0, dp(10), 0, 0);
+        btnForceBase.setLayoutParams(secLp);
+
+        btnForceBase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performOTACheckAndDownload(true);
+            }
+        });
+        card.addView(btnForceBase);
+
+        // Tertiary Button: Ver Arquivos de Firmware Locais
+        Button btnLocalFiles = new Button(this);
+        btnLocalFiles.setText("📂 Ver Arquivos Locais de Firmware");
+        btnLocalFiles.setTextColor(Color.parseColor("#94A3B8"));
+        btnLocalFiles.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+
+        GradientDrawable locBg = new GradientDrawable();
+        locBg.setCornerRadius(dp(8));
+        locBg.setColor(Color.parseColor("#0F172A"));
+        locBg.setStroke(dp(1), Color.parseColor("#1E293B"));
+        btnLocalFiles.setBackground(locBg);
+
+        LinearLayout.LayoutParams locLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(36));
+        locLp.setMargins(0, dp(8), 0, 0);
+        btnLocalFiles.setLayoutParams(locLp);
+
+        btnLocalFiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLocalFirmwareDialog();
+            }
+        });
+        card.addView(btnLocalFiles);
+
+        return card;
+    }
+
+    private String getPlatformName(int type) {
+        switch (type) {
+            case 1: return "Telink";
+            case 2: return "Nordic / Realtek";
+            case 3: return "Beken (BK)";
+            case 4: return "OnMicro (OM)";
+            case 5: return "Beken LY";
+            case 6: return "Hunter (LP)";
+            case 7: return "JieLi (JL)";
+            case 8: return "HTX / OnMicro2";
+            default: return "Tipo " + type;
+        }
+    }
+
+    private void performOTACheckAndDownload(final boolean forceBaseVersion) {
+        Toast.makeText(this, "Consultando servidor oficial OTA...", Toast.LENGTH_SHORT).show();
+
+        final String originalSoftVersion = MySPUtils.getSoftVersion();
+        if (forceBaseVersion) {
+            SaveKeyValues.putStringValues("softVersion", "0.0.1");
+        }
+
+        try {
+            HttpHelper.getInstance().getOTAUpgradeInfo(new Callback() {
+                @Override
+                public void onFailure(Call call, final java.io.IOException e) {
+                    if (forceBaseVersion) {
+                        SaveKeyValues.putStringValues("softVersion", originalSoftVersion);
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(DebugUIActivity.this, "Erro de rede: " + (e != null ? e.getMessage() : "Desconhecido"), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws java.io.IOException {
+                    if (forceBaseVersion) {
+                        SaveKeyValues.putStringValues("softVersion", originalSoftVersion);
+                    }
+                    if (response != null && response.body() != null) {
+                        final String bodyStr = response.body().string();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                handleOTAResponse(bodyStr, forceBaseVersion);
+                            }
+                        });
+                    }
+                }
+            });
+        } catch (Throwable t) {
+            if (forceBaseVersion) {
+                SaveKeyValues.putStringValues("softVersion", originalSoftVersion);
+            }
+            Toast.makeText(this, "Falha ao consultar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleOTAResponse(String json, boolean isForced) {
+        try {
+            OTAUpgradeInfo info = OTAUpgradeInfo.objectFromData(json);
+            if (info != null && info.getData() != null && !TextUtils.isEmpty(info.getData().getApp_down_url())) {
+                showOTASuccessDialog(info.getData());
+            } else {
+                showOTANotFoundDialog(json, isForced);
+            }
+        } catch (Throwable t) {
+            Toast.makeText(this, "Resposta do servidor: " + json, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void showOTASuccessDialog(final OTAUpgradeInfo.DataBean data) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(20), dp(20), dp(20));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(16));
+        bg.setColor(Color.parseColor("#0F172A"));
+        bg.setStroke(dp(2), Color.parseColor("#10B981"));
+        layout.setBackground(bg);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText("🎉 Firmware OTA Encontrado!");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        layout.addView(tvTitle);
+
+        TextView tvDetails = new TextView(this);
+        StringBuilder sb = new StringBuilder();
+        sb.append("• Pacote: ").append(data.getDisplay_name()).append("\n");
+        sb.append("• Versão: ").append(data.getVersion()).append("\n");
+        sb.append("• URL: ").append(data.getApp_down_url());
+        if (!TextUtils.isEmpty(data.getContent())) {
+            sb.append("\n• Changelog: ").append(data.getContent());
+        }
+        tvDetails.setText(sb.toString());
+        tvDetails.setTextColor(Color.parseColor("#CBD5E1"));
+        tvDetails.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvDetails.setPadding(0, dp(12), 0, dp(16));
+        layout.addView(tvDetails);
+
+        // Download Button
+        Button btnDownload = new Button(this);
+        btnDownload.setText("⬇️ Baixar Firmware (.zip)");
+        btnDownload.setTextColor(Color.WHITE);
+        btnDownload.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        btnDownload.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable dlBg = new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor("#059669"), Color.parseColor("#10B981")}
+        );
+        dlBg.setCornerRadius(dp(8));
+        btnDownload.setBackground(dlBg);
+
+        LinearLayout.LayoutParams dlLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
+        btnDownload.setLayoutParams(dlLp);
+
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                downloadFirmwareFile(data.getApp_down_url(), data.getDisplay_name());
+            }
+        });
+        layout.addView(btnDownload);
+
+        // Copy Link Button
+        Button btnCopy = new Button(this);
+        btnCopy.setText("📋 Copiar Link de Download");
+        btnCopy.setTextColor(Color.parseColor("#38BDF8"));
+        btnCopy.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+
+        GradientDrawable cpBg = new GradientDrawable();
+        cpBg.setCornerRadius(dp(8));
+        cpBg.setColor(Color.parseColor("#1E293B"));
+        cpBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnCopy.setBackground(cpBg);
+
+        LinearLayout.LayoutParams cpLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40));
+        cpLp.setMargins(0, dp(8), 0, 0);
+        btnCopy.setLayoutParams(cpLp);
+
+        btnCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard != null) {
+                    ClipData clip = ClipData.newPlainText("OTA_URL", data.getApp_down_url());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(DebugUIActivity.this, "Link copiado para a área de transferência!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        layout.addView(btnCopy);
+
+        // Close
+        Button btnClose = new Button(this);
+        btnClose.setText("Fechar");
+        btnClose.setTextColor(Color.parseColor("#94A3B8"));
+        btnClose.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+
+        GradientDrawable clBg = new GradientDrawable();
+        clBg.setCornerRadius(dp(8));
+        clBg.setColor(Color.parseColor("#0F172A"));
+        btnClose.setBackground(clBg);
+
+        LinearLayout.LayoutParams clLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(38));
+        clLp.setMargins(0, dp(8), 0, 0);
+        btnClose.setLayoutParams(clLp);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnClose);
+
+        dialog.setContentView(layout);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(
+                    (int) (getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+        }
+        dialog.show();
+    }
+
+    private void showOTANotFoundDialog(String rawJson, boolean isForced) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(20), dp(20), dp(20));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(16));
+        bg.setColor(Color.parseColor("#0F172A"));
+        bg.setStroke(dp(1), Color.parseColor("#334155"));
+        layout.setBackground(bg);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText("ℹ️ Consulta Concluída (200 OK)");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        layout.addView(tvTitle);
+
+        String cacheBluetoothName = MySPUtils.getCacheBluetoothName(MySPUtils.getBluetoothAddress());
+        String softVersion = MySPUtils.getSoftVersion();
+        int plarmType = MySPUtils.getPlarmType();
+
+        TextView tvDetails = new TextView(this);
+        String msg = "O servidor oficial (tomato.gulaike.com) respondeu com sucesso, mas não há pacote de atualização OTA registrado para esta combinação no momento.\n\n"
+                + "📌 Dados consultados:\n"
+                + "• Nome: " + (cacheBluetoothName != null ? cacheBluetoothName : "N/A") + "\n"
+                + "• Versão Atual: " + (softVersion != null ? softVersion : "N/A") + (isForced ? " (Forçado)" : "") + "\n"
+                + "• Plataforma: " + plarmType + " (" + getPlatformName(plarmType) + ")\n\n"
+                + "💡 Dica: No computador, você pode rodar 'python3 scripts/download_ota.py' na pasta do projeto para testar modelos ou sensores alternativos.";
+        tvDetails.setText(msg);
+        tvDetails.setTextColor(Color.parseColor("#94A3B8"));
+        tvDetails.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvDetails.setPadding(0, dp(12), 0, dp(16));
+        layout.addView(tvDetails);
+
+        Button btnClose = new Button(this);
+        btnClose.setText("Entendido");
+        btnClose.setTextColor(Color.WHITE);
+        btnClose.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+
+        GradientDrawable clBg = new GradientDrawable();
+        clBg.setCornerRadius(dp(8));
+        clBg.setColor(Color.parseColor("#1E293B"));
+        btnClose.setBackground(clBg);
+
+        LinearLayout.LayoutParams clLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40));
+        btnClose.setLayoutParams(clLp);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnClose);
+
+        dialog.setContentView(layout);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(
+                    (int) (getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+        }
+        dialog.show();
+    }
+
+    private void downloadFirmwareFile(final String urlStr, final String displayName) {
+        Toast.makeText(this, "Iniciando download do firmware...", Toast.LENGTH_SHORT).show();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlStr);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("User-Agent", "okhttp/3.14.9");
+                    conn.connect();
+
+                    if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        File dir = new File(getExternalFilesDir(null), "pacote_ota");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        String cleanName = TextUtils.isEmpty(displayName) ? "firmware_ota" : displayName;
+                        final File outputFile = new File(dir, cleanName + ".zip");
+
+                        InputStream is = conn.getInputStream();
+                        FileOutputStream fos = new FileOutputStream(outputFile);
+                        byte[] buffer = new byte[8192];
+                        int len;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                        fos.flush();
+                        fos.close();
+                        is.close();
+
+                        // Tentar salvar também na pasta Downloads pública
+                        try {
+                            File publicDl = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                            if (publicDl.exists()) {
+                                File publicFile = new File(publicDl, cleanName + ".zip");
+                                FileOutputStream pfos = new FileOutputStream(publicFile);
+                                java.io.FileInputStream fis = new java.io.FileInputStream(outputFile);
+                                while ((len = fis.read(buffer)) != -1) {
+                                    pfos.write(buffer, 0, len);
+                                }
+                                pfos.flush();
+                                pfos.close();
+                                fis.close();
+                            }
+                        } catch (Throwable ignored) {}
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DebugUIActivity.this, "✅ Firmware salvo com sucesso em:\n" + outputFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        final int code = conn.getResponseCode();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DebugUIActivity.this, "Erro HTTP ao baixar: " + code, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch (final Throwable e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(DebugUIActivity.this, "Falha no download: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private void showLocalFirmwareDialog() {
+        StringBuilder sb = new StringBuilder();
+
+        // 1. Diretório do app OTA
+        String otaDir = PathUtils.getOTADir();
+        sb.append("📁 Pasta Oficial OTA:\n").append(otaDir).append("\n");
+        if (!TextUtils.isEmpty(otaDir)) {
+            File dir1 = new File(otaDir);
+            if (dir1.exists() && dir1.isDirectory()) {
+                File[] files = dir1.listFiles();
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        sb.append("  • ").append(f.getName()).append(" (").append(f.length() / 1024).append(" KB)\n");
+                    }
+                } else {
+                    sb.append("  (Vazia)\n");
+                }
+            } else {
+                sb.append("  (Não criada)\n");
+            }
+        }
+
+        // 2. Diretório pacote_ota interno
+        File customDir = new File(getExternalFilesDir(null), "pacote_ota");
+        sb.append("\n📁 Pasta de Backups (pacote_ota):\n").append(customDir.getAbsolutePath()).append("\n");
+        if (customDir.exists() && customDir.isDirectory()) {
+            File[] files = customDir.listFiles();
+            if (files != null && files.length > 0) {
+                for (File f : files) {
+                    sb.append("  • ").append(f.getName()).append(" (").append(f.length() / 1024).append(" KB)\n");
+                }
+            } else {
+                sb.append("  (Vazia)\n");
+            }
+        }
+
+        showResultModal("Arquivos de Firmware Locais", "📂", sb.toString(), null, null);
+    }
 }
+

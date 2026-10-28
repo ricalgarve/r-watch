@@ -36,7 +36,7 @@
         }
     .end annotation
 
-    .line 755
+    .line 782
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etTitle:Landroid/widget/EditText;
@@ -55,7 +55,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 3
 
-    .line 758
+    .line 785
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etTitle:Landroid/widget/EditText;
 
     invoke-virtual {p1}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
@@ -66,7 +66,7 @@
 
     move-result-object p1
 
-    .line 759
+    .line 786
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etBody:Landroid/widget/EditText;
 
     invoke-virtual {v0}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
@@ -77,13 +77,13 @@
 
     move-result-object v0
 
-    .line 760
+    .line 787
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$tvFeedback:Landroid/widget/TextView;
 
     invoke-static {v1, p1, v0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1000(Lxfkj/fitpro/activity/DebugUIActivity;Ljava/lang/String;Ljava/lang/String;Landroid/widget/TextView;)V
 
-    .line 761
+    .line 788
     return-void
 .end method
