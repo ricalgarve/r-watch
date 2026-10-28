@@ -14,17 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import xfkj.fitpro.activity.MeasureActivity;
 import xfkj.fitpro.activity.MoreSleepActivity;
 import xfkj.fitpro.activity.StepNumberMoreActivity;
 import xfkj.fitpro.activity.ecg.ECGMeasureActivity;
 import xfkj.fitpro.base.NewBaseActivity;
 import xfkj.fitpro.bluetooth.SDKCmdMannager;
+import xfkj.fitpro.bluetooth.SendData;
 import xfkj.fitpro.db.DBHelper;
 import xfkj.fitpro.model.DeviceHardInfoModel;
 import xfkj.fitpro.model.ECGRecordModel;
@@ -33,9 +36,12 @@ import xfkj.fitpro.model.MeasureDetailsModel;
 import xfkj.fitpro.model.MeasureHeartModel;
 import xfkj.fitpro.model.MeasureSpoModel;
 import xfkj.fitpro.model.SportDetailsModel;
+import xfkj.fitpro.service.NotifyService;
 import xfkj.fitpro.utils.Constant;
 import xfkj.fitpro.utils.MySPUtils;
+import xfkj.fitpro.utils.SaveKeyValues;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +50,7 @@ public class DebugUIActivity extends NewBaseActivity {
 
     private LinearLayout mContainerHardware;
     private LinearLayout mChipsLayout;
+    private int mSelectedAppType = 8; // 8 = WhatsApp, 1 = SMS, 18 = Telegram, 16 = Instagram
 
     @Override
     public int getLayoutId() {
@@ -69,6 +76,7 @@ public class DebugUIActivity extends NewBaseActivity {
             View rootView = buildContentView();
             setContentView(rootView);
             loadCachedDeviceInfo();
+            enableAllPushSwitches();
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -100,14 +108,24 @@ public class DebugUIActivity extends NewBaseActivity {
         root.addView(cardDeviceInfo);
 
         // Spacer
-        View spacer = new View(this);
-        spacer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
-        root.addView(spacer);
+        View spacer1 = new View(this);
+        spacer1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer1);
 
         // 3. Section: Aquisição de Informações do Smartwatch
         root.addView(createSectionTitle("⚡ Aquisição de Informações do Smartwatch", "Clique em 'Obter' para consultar dados ou acionar medição"));
         View cardSensors = buildSensorAcquisitionCard();
         root.addView(cardSensors);
+
+        // Spacer
+        View spacer2 = new View(this);
+        spacer2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer2);
+
+        // 4. Section: Enviar Mensagem para o Smartwatch
+        root.addView(createSectionTitle("💬 Enviar Mensagem para o Smartwatch", "Digite um texto para testar a notificação diretamente na tela do relógio"));
+        View cardMessage = buildSendMessageCard();
+        root.addView(cardMessage);
 
         scrollView.addView(root);
         return scrollView;
@@ -303,6 +321,7 @@ public class DebugUIActivity extends NewBaseActivity {
         addChip(mChipsLayout, "🫁 SpO2", true);
         addChip(mChipsLayout, "📉 ECG", true);
         addChip(mChipsLayout, "🌙 Sono", true);
+        addChip(mChipsLayout, "💬 Mensagens", true);
 
         hsv.addView(mChipsLayout);
         mContainerHardware.addView(hsv);
@@ -426,6 +445,16 @@ public class DebugUIActivity extends NewBaseActivity {
             }
         }));
 
+        addDivider(card);
+
+        // 7. Enviar Mensagem de Teste ao Relógio
+        card.addView(createAcquisitionRow("💬", "Mensagem no Relógio", "Enviar notificação de texto para a tela", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSendMessageRowClicked();
+            }
+        }));
+
         return card;
     }
 
@@ -490,6 +519,581 @@ public class DebugUIActivity extends NewBaseActivity {
         line.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
         line.setBackgroundColor(Color.parseColor("#1E2E48"));
         container.addView(line);
+    }
+
+    // ==========================================
+    // ==========================================
+    // SEÇÃO 4: ENVIAR MENSAGEM PARA O SMARTWATCH
+    // ==========================================
+
+    private View buildSendMessageCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(14));
+        bg.setColor(Color.parseColor("#131B2A"));
+        bg.setStroke(dp(1), Color.parseColor("#1F2E45"));
+        card.setBackground(bg);
+
+        // Description
+        TextView tvDesc = new TextView(this);
+        tvDesc.setText("Digite um texto abaixo e envie para o relogio. Teste como Notificacao ou como Alerta de Chamada para acordar a tela.");
+        tvDesc.setTextColor(Color.parseColor("#94A3B8"));
+        tvDesc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvDesc.setPadding(0, 0, 0, dp(10));
+        card.addView(tvDesc);
+
+        // Android Notification Permission warning banner if not enabled
+        boolean hasNotifPermission = false;
+        try {
+            hasNotifPermission = NotifyService.isNotificationListenersEnabled();
+        } catch (Throwable ignored) {}
+
+        if (!hasNotifPermission) {
+            LinearLayout bannerPerm = new LinearLayout(this);
+            bannerPerm.setOrientation(LinearLayout.VERTICAL);
+            bannerPerm.setPadding(dp(12), dp(10), dp(12), dp(10));
+
+            GradientDrawable bannerBg = new GradientDrawable();
+            bannerBg.setCornerRadius(dp(8));
+            bannerBg.setColor(Color.parseColor("#2D1B06"));
+            bannerBg.setStroke(dp(1), Color.parseColor("#F59E0B"));
+            bannerPerm.setBackground(bannerBg);
+
+            TextView tvWarn = new TextView(this);
+            tvWarn.setText("⚠️ Acesso a Notificacoes no Android desativado!\nToque aqui para conceder permissao no sistema para que o relogio receba notificacoes.");
+            tvWarn.setTextColor(Color.parseColor("#FBBF24"));
+            tvWarn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            tvWarn.setTypeface(Typeface.DEFAULT_BOLD);
+            bannerPerm.addView(tvWarn);
+
+            bannerPerm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+                    } catch (Throwable t) {
+                        Toast.makeText(DebugUIActivity.this, "Abra as Configuracoes > Notificacoes > Acesso a Notificacoes", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            LinearLayout.LayoutParams lpBanner = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lpBanner.setMargins(0, 0, 0, dp(12));
+            bannerPerm.setLayoutParams(lpBanner);
+            card.addView(bannerPerm);
+        }
+
+        // App Type Selector label
+        TextView tvTypeLabel = new TextView(this);
+        tvTypeLabel.setText("Icone da Notificacao no Relogio:");
+        tvTypeLabel.setTextColor(Color.parseColor("#CBD5E1"));
+        tvTypeLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvTypeLabel.setTypeface(Typeface.DEFAULT_BOLD);
+        tvTypeLabel.setPadding(0, 0, 0, dp(6));
+        card.addView(tvTypeLabel);
+
+        // Horizontal chips for App Type
+        HorizontalScrollView hsvTypes = new HorizontalScrollView(this);
+        hsvTypes.setHorizontalScrollBarEnabled(false);
+        LinearLayout typesLayout = new LinearLayout(this);
+        typesLayout.setOrientation(LinearLayout.HORIZONTAL);
+        typesLayout.setPadding(0, 0, 0, dp(12));
+
+        final TextView[] typeChips = new TextView[4];
+        final int[] typeValues = new int[]{8, 1, 18, 16};
+        final String[] typeLabels = new String[]{"💬 WhatsApp", "📱 SMS", "✈️ Telegram", "📸 Instagram"};
+
+        for (int i = 0; i < typeValues.length; i++) {
+            final int index = i;
+            final TextView chip = new TextView(this);
+            chip.setText(typeLabels[i]);
+            chip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            chip.setTypeface(Typeface.DEFAULT_BOLD);
+            chip.setPadding(dp(10), dp(6), dp(10), dp(6));
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            lp.setMargins(0, 0, dp(8), 0);
+            chip.setLayoutParams(lp);
+
+            typeChips[i] = chip;
+            updateChipStyle(chip, mSelectedAppType == typeValues[i]);
+
+            chip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSelectedAppType = typeValues[index];
+                    for (int j = 0; j < typeChips.length; j++) {
+                        updateChipStyle(typeChips[j], j == index);
+                    }
+                }
+            });
+            typesLayout.addView(chip);
+        }
+        hsvTypes.addView(typesLayout);
+        card.addView(hsvTypes);
+
+        // Title / Sender field
+        TextView tvTitleLabel = new TextView(this);
+        tvTitleLabel.setText("Remetente / Titulo:");
+        tvTitleLabel.setTextColor(Color.parseColor("#CBD5E1"));
+        tvTitleLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvTitleLabel.setTypeface(Typeface.DEFAULT_BOLD);
+        tvTitleLabel.setPadding(0, dp(4), 0, dp(4));
+        card.addView(tvTitleLabel);
+
+        final EditText etTitle = new EditText(this);
+        etTitle.setText("R-Watch");
+        etTitle.setTextColor(Color.WHITE);
+        etTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        etTitle.setHint("Ex: R-Watch, Alerta, Nome");
+        etTitle.setHintTextColor(Color.parseColor("#64748B"));
+        etTitle.setSingleLine(true);
+        etTitle.setPadding(dp(12), dp(10), dp(12), dp(10));
+        styleInput(etTitle);
+        card.addView(etTitle);
+
+        // Message Body field
+        TextView tvBodyLabel = new TextView(this);
+        tvBodyLabel.setText("Texto da Mensagem:");
+        tvBodyLabel.setTextColor(Color.parseColor("#CBD5E1"));
+        tvBodyLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvBodyLabel.setTypeface(Typeface.DEFAULT_BOLD);
+        tvBodyLabel.setPadding(0, dp(10), 0, dp(4));
+        card.addView(tvBodyLabel);
+
+        final EditText etBody = new EditText(this);
+        etBody.setText("Ola! Teste de mensagem no smartwatch.");
+        etBody.setTextColor(Color.WHITE);
+        etBody.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        etBody.setHint("Digite o texto para aparecer na tela...");
+        etBody.setHintTextColor(Color.parseColor("#64748B"));
+        etBody.setMinLines(2);
+        etBody.setMaxLines(4);
+        etBody.setGravity(Gravity.TOP | Gravity.START);
+        etBody.setPadding(dp(12), dp(10), dp(12), dp(10));
+        styleInput(etBody);
+        card.addView(etBody);
+
+        // Quick Presets
+        TextView tvQuickLabel = new TextView(this);
+        tvQuickLabel.setText("Mensagens Rapidas de Teste:");
+        tvQuickLabel.setTextColor(Color.parseColor("#94A3B8"));
+        tvQuickLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvQuickLabel.setPadding(0, dp(10), 0, dp(6));
+        card.addView(tvQuickLabel);
+
+        HorizontalScrollView hsvQuick = new HorizontalScrollView(this);
+        hsvQuick.setHorizontalScrollBarEnabled(false);
+        LinearLayout quickLayout = new LinearLayout(this);
+        quickLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        addQuickPresetChip(quickLayout, "🔔 Teste R-Watch", etTitle, "R-Watch", etBody, "Notificacao de teste recebida com sucesso!");
+        addQuickPresetChip(quickLayout, "⏰ Lembrete", etTitle, "Lembrete", etBody, "Hora de beber agua e se movimentar!");
+        addQuickPresetChip(quickLayout, "❤️ Saude", etTitle, "Saude", etBody, "Batimentos cardiacos normais. Otimo trabalho!");
+        addQuickPresetChip(quickLayout, "🏃 Atividade", etTitle, "Meta Diaria", etBody, "Parabens! Meta de passos quase atingida!");
+
+        hsvQuick.addView(quickLayout);
+        card.addView(hsvQuick);
+
+        // Feedback label
+        final TextView tvFeedback = new TextView(this);
+        tvFeedback.setTextColor(Color.parseColor("#10B981"));
+        tvFeedback.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvFeedback.setTypeface(Typeface.DEFAULT_BOLD);
+        tvFeedback.setGravity(Gravity.CENTER);
+        tvFeedback.setPadding(0, dp(12), 0, dp(4));
+        tvFeedback.setVisibility(View.GONE);
+
+        // 1. Primary Button: Enviar Notificação (Push Remind 0x12 0x12)
+        Button btnSendNotif = new Button(this);
+        btnSendNotif.setText("🚀 Enviar Notificacao (WhatsApp/SMS)");
+        btnSendNotif.setTextColor(Color.parseColor("#0B0F19"));
+        btnSendNotif.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        btnSendNotif.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable notifBg = new GradientDrawable();
+        notifBg.setCornerRadius(dp(10));
+        notifBg.setColor(Color.parseColor("#00E5FF"));
+        btnSendNotif.setBackground(notifBg);
+
+        LinearLayout.LayoutParams lpNotif = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
+        lpNotif.setMargins(0, dp(14), 0, 0);
+        btnSendNotif.setLayoutParams(lpNotif);
+
+        btnSendNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = etTitle.getText().toString();
+                String body = etBody.getText().toString();
+                sendPushNotificationToWatch(title, body, mSelectedAppType, tvFeedback);
+            }
+        });
+        card.addView(btnSendNotif);
+
+        // 2. Secondary Button: Enviar Alerta / Chamada (0x12 0x11 - Força acender tela e vibrar)
+        Button btnSendCall = new Button(this);
+        btnSendCall.setText("📞 Testar como Alerta / Chamada (Acende Tela e Vibra)");
+        btnSendCall.setTextColor(Color.parseColor("#0B0F19"));
+        btnSendCall.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        btnSendCall.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable callBg = new GradientDrawable();
+        callBg.setCornerRadius(dp(10));
+        callBg.setColor(Color.parseColor("#38BDF8"));
+        btnSendCall.setBackground(callBg);
+
+        LinearLayout.LayoutParams lpCall = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(42));
+        lpCall.setMargins(0, dp(8), 0, 0);
+        btnSendCall.setLayoutParams(lpCall);
+
+        btnSendCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = etTitle.getText().toString();
+                String body = etBody.getText().toString();
+                sendCallAlertToWatch(title, body, tvFeedback);
+            }
+        });
+        card.addView(btnSendCall);
+
+        // 3. Row of Utility Buttons: Sincronizar Chaves + Testar Vibração
+        LinearLayout rowUtils = new LinearLayout(this);
+        rowUtils.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams lpRow = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(38));
+        lpRow.setMargins(0, dp(8), 0, 0);
+        rowUtils.setLayoutParams(lpRow);
+
+        Button btnSync = new Button(this);
+        btnSync.setText("⚡ Sincronizar Chaves");
+        btnSync.setTextColor(Color.parseColor("#CBD5E1"));
+        btnSync.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        GradientDrawable syncBg = new GradientDrawable();
+        syncBg.setCornerRadius(dp(8));
+        syncBg.setColor(Color.parseColor("#1E293B"));
+        syncBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnSync.setBackground(syncBg);
+        LinearLayout.LayoutParams lpSync = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        lpSync.setMargins(0, 0, dp(4), 0);
+        btnSync.setLayoutParams(lpSync);
+        btnSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enableAllPushSwitches();
+                Toast.makeText(DebugUIActivity.this, "⚡ Todas as chaves de notificacao foram ativadas no relogio!", Toast.LENGTH_SHORT).show();
+                if (tvFeedback != null) {
+                    tvFeedback.setTextColor(Color.parseColor("#10B981"));
+                    tvFeedback.setText("⚡ Chaves de push sincronizadas (WhatsApp, SMS, Chamada = ATIVADOS)");
+                    tvFeedback.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        rowUtils.addView(btnSync);
+
+        Button btnVibrate = new Button(this);
+        btnVibrate.setText("🔔 Testar Vibracao");
+        btnVibrate.setTextColor(Color.parseColor("#CBD5E1"));
+        btnVibrate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        GradientDrawable vibBg = new GradientDrawable();
+        vibBg.setCornerRadius(dp(8));
+        vibBg.setColor(Color.parseColor("#1E293B"));
+        vibBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnVibrate.setBackground(vibBg);
+        LinearLayout.LayoutParams lpVib = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        lpVib.setMargins(dp(4), 0, 0, 0);
+        btnVibrate.setLayoutParams(lpVib);
+        btnVibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testVibrateWatch(tvFeedback);
+            }
+        });
+        rowUtils.addView(btnVibrate);
+
+        card.addView(rowUtils);
+        card.addView(tvFeedback);
+
+        return card;
+    }
+
+    private void updateChipStyle(TextView chip, boolean selected) {
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(12));
+        if (selected) {
+            bg.setColor(Color.parseColor("#064E3B"));
+            bg.setStroke(dp(1), Color.parseColor("#10B981"));
+            chip.setTextColor(Color.parseColor("#10B981"));
+        } else {
+            bg.setColor(Color.parseColor("#10233D"));
+            bg.setStroke(dp(1), Color.parseColor("#1F2E45"));
+            chip.setTextColor(Color.parseColor("#94A3B8"));
+        }
+        chip.setBackground(bg);
+    }
+
+    private void styleInput(EditText editText) {
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(8));
+        bg.setColor(Color.parseColor("#0B0F19"));
+        bg.setStroke(dp(1), Color.parseColor("#1F2E45"));
+        editText.setBackground(bg);
+    }
+
+    private void addQuickPresetChip(LinearLayout layout, String label, final EditText etTitle, final String titleVal, final EditText etBody, final String bodyVal) {
+        TextView chip = new TextView(this);
+        chip.setText(label);
+        chip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        chip.setTextColor(Color.parseColor("#00E5FF"));
+        chip.setPadding(dp(10), dp(5), dp(10), dp(5));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(10));
+        bg.setColor(Color.parseColor("#10233D"));
+        bg.setStroke(dp(1), Color.parseColor("#00E5FF"));
+        chip.setBackground(bg);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        lp.setMargins(0, 0, dp(8), 0);
+        chip.setLayoutParams(lp);
+
+        chip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etTitle.setText(titleVal);
+                etBody.setText(bodyVal);
+            }
+        });
+        layout.addView(chip);
+    }
+
+    private void enableAllPushSwitches() {
+        String[] keys = new String[]{
+                "CALLState", "SMSState", "WECHATState", "QQState",
+                "FaceBookState", "TwitterState", "SkypeState", "LineState",
+                "WhatsappState", "WatsappState", "KakaoTalkState", "INSTAGRAMState",
+                "linkdedInState", "SNAPCHATState", "TIKTOKState",
+                "INSTATE_TELEGRAM", "INSTATE_OK_RU", "INSTATE_VK", "INSTATE_TEN_CHAT",
+                "MSG_NOTIFY_STATE_VIBER", "MSG_NOTIFY_STATE_MESSENGER", "MSG_NOTIFY_STATE_ZALO"
+        };
+        for (String key : keys) {
+            try {
+                SaveKeyValues.putStringValues(key, "1");
+            } catch (Throwable ignored) {}
+        }
+
+        try {
+            byte[] switchPacket = SendData.getSetCallRemindValue();
+            if (switchPacket != null && Constant.mService != null) {
+                Constant.mService.commandPoolWrite(switchPacket, "Ativar Chaves Notificacao");
+            }
+        } catch (Throwable ignored) {}
+    }
+
+    private String cleanWatchText(String input) {
+        if (input == null) return "";
+        String s = input.trim();
+        return s.replace("ã", "a").replace("Ã", "A")
+                .replace("á", "a").replace("Á", "A")
+                .replace("à", "a").replace("À", "A")
+                .replace("â", "a").replace("Â", "A")
+                .replace("é", "e").replace("É", "E")
+                .replace("ê", "e").replace("Ê", "E")
+                .replace("í", "i").replace("Í", "I")
+                .replace("ó", "o").replace("Ó", "O")
+                .replace("õ", "o").replace("Õ", "O")
+                .replace("ô", "o").replace("Ô", "O")
+                .replace("ú", "u").replace("Ú", "U")
+                .replace("ç", "c").replace("Ç", "C");
+    }
+
+    private String getPackageForAppType(int appType) {
+        switch (appType) {
+            case 8: return "com.whatsapp";
+            case 1: return "app.mms";
+            case 18: return "org.telegram.messenger";
+            case 16: return "com.instagram.android";
+            default: return "app.mms";
+        }
+    }
+
+    private void sendPushNotificationToWatch(String title, String body, int appType, TextView tvFeedback) {
+        boolean connected = false;
+        try {
+            connected = SDKCmdMannager.isConnected() || Constant.BleState == 1;
+        } catch (Throwable ignored) {}
+
+        if (!connected || Constant.mService == null) {
+            Toast.makeText(this, "⚠️ Relogio nao conectado! Conecte via Bluetooth primeiro.", Toast.LENGTH_LONG).show();
+            if (tvFeedback != null) {
+                tvFeedback.setTextColor(Color.parseColor("#EF4444"));
+                tvFeedback.setText("❌ Erro: Smartwatch offline ou desconectado.");
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+            return;
+        }
+
+        if (body == null || body.trim().isEmpty()) {
+            Toast.makeText(this, "⚠️ Digite uma mensagem para enviar.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            // 1. Ensure all switches enabled in firmware
+            enableAllPushSwitches();
+
+            // 2. Clean text for smartwatch font compatibility
+            String cleanTitle = cleanWatchText(title);
+            String cleanBody = cleanWatchText(body);
+
+            String formatted;
+            if (!cleanTitle.isEmpty()) {
+                formatted = cleanTitle + ": " + cleanBody;
+            } else {
+                formatted = cleanBody;
+            }
+
+            if (formatted.length() > 200) {
+                formatted = formatted.substring(0, 200);
+            }
+
+            // 3. Build native push packet [appType, 0, 0] + UTF-8 bytes
+            byte[] header = new byte[]{(byte) appType, (byte) 0, (byte) 0};
+            byte[] textBytes = formatted.getBytes("UTF-8");
+            byte[] payload = new byte[header.length + textBytes.length];
+            System.arraycopy(header, 0, payload, 0, header.length);
+            System.arraycopy(textBytes, 0, payload, header.length, textBytes.length);
+
+            // getSendPushRemindValue(1, payload) sets opcode 0x12 0x12
+            byte[] blePacket = SendData.getSendPushRemindValue(1, payload);
+            if (blePacket != null && Constant.mService != null) {
+                Constant.mService.commandPoolWrite(blePacket, "Push Mensagem: " + formatted);
+            }
+
+            // 4. Forward through official NotifyService
+            String pkg = getPackageForAppType(appType);
+            try {
+                NotifyService.sendNotifyPush(pkg, formatted, 0);
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+
+            Toast.makeText(this, "🚀 Mensagem enviada para o Smartwatch!", Toast.LENGTH_SHORT).show();
+
+            if (tvFeedback != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                String time = sdf.format(new Date());
+                tvFeedback.setTextColor(Color.parseColor("#10B981"));
+                tvFeedback.setText("✅ Enviado às " + time + " (" + getAppTypeName(appType) + "):\n\"" + formatted + "\"\n(Chaves ativadas no relogio)");
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Toast.makeText(this, "Falha ao enviar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            if (tvFeedback != null) {
+                tvFeedback.setTextColor(Color.parseColor("#EF4444"));
+                tvFeedback.setText("❌ Erro ao enviar: " + t.getMessage());
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private void sendCallAlertToWatch(String title, String body, TextView tvFeedback) {
+        boolean connected = false;
+        try {
+            connected = SDKCmdMannager.isConnected() || Constant.BleState == 1;
+        } catch (Throwable ignored) {}
+
+        if (!connected || Constant.mService == null) {
+            Toast.makeText(this, "⚠️ Relogio nao conectado! Conecte via Bluetooth primeiro.", Toast.LENGTH_LONG).show();
+            if (tvFeedback != null) {
+                tvFeedback.setTextColor(Color.parseColor("#EF4444"));
+                tvFeedback.setText("❌ Erro: Smartwatch offline ou desconectado.");
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+            return;
+        }
+
+        try {
+            enableAllPushSwitches();
+
+            String cleanTitle = cleanWatchText(title);
+            String cleanBody = cleanWatchText(body);
+            String formatted = cleanTitle.isEmpty() ? cleanBody : (cleanTitle + ": " + cleanBody);
+            if (formatted.length() > 64) {
+                formatted = formatted.substring(0, 64);
+            }
+
+            // Call header: [1, 0] (incoming call ringing)
+            byte[] callHeader = new byte[]{(byte) 1, (byte) 0};
+            byte[] textBytes = formatted.getBytes("UTF-8");
+            byte[] payload = new byte[callHeader.length + textBytes.length];
+            System.arraycopy(callHeader, 0, payload, 0, callHeader.length);
+            System.arraycopy(textBytes, 0, payload, callHeader.length, textBytes.length);
+
+            // getSendPushRemindValue(0, payload) sets opcode 0x12 0x11
+            byte[] callPacket = SendData.getSendPushRemindValue(0, payload);
+            if (callPacket != null && Constant.mService != null) {
+                Constant.mService.commandPoolWrite(callPacket, "Call Push: " + formatted);
+            }
+
+            try {
+                NotifyService.sendNotifyPush("com.android.incallui_deldel", formatted, 0);
+            } catch (Throwable ignored) {}
+
+            Toast.makeText(this, "📞 Alerta de Chamada enviado! O relogio deve vibrar e acender a tela.", Toast.LENGTH_LONG).show();
+            if (tvFeedback != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+                String time = sdf.format(new Date());
+                tvFeedback.setTextColor(Color.parseColor("#38BDF8"));
+                tvFeedback.setText("📞 Alerta de Chamada enviado às " + time + ":\n\"" + formatted + "\"\n(Opcode 0x12 0x11)");
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Toast.makeText(this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void testVibrateWatch(TextView tvFeedback) {
+        boolean connected = false;
+        try {
+            connected = SDKCmdMannager.isConnected() || Constant.BleState == 1;
+        } catch (Throwable ignored) {}
+
+        if (!connected || Constant.mService == null) {
+            Toast.makeText(this, "⚠️ Relogio nao conectado!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            SDKCmdMannager.findWatch();
+            Toast.makeText(this, "🔔 Comando Localizar Relogio enviado!", Toast.LENGTH_SHORT).show();
+            if (tvFeedback != null) {
+                tvFeedback.setTextColor(Color.parseColor("#F59E0B"));
+                tvFeedback.setText("🔔 Comando Localizar Relogio enviado! O relogio deve vibrar agora.");
+                tvFeedback.setVisibility(View.VISIBLE);
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    private String getAppTypeName(int type) {
+        switch (type) {
+            case 8: return "WhatsApp";
+            case 1: return "SMS";
+            case 18: return "Telegram";
+            case 16: return "Instagram";
+            default: return "Notificacao";
+        }
     }
 
     // ==========================================
@@ -647,6 +1251,168 @@ public class DebugUIActivity extends NewBaseActivity {
                 startActivity(new Intent(DebugUIActivity.this, MoreSleepActivity.class));
             }
         });
+    }
+
+    private void onSendMessageRowClicked() {
+        showSendMessageModal();
+    }
+
+    private void showSendMessageModal() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(20), dp(20), dp(20));
+
+        GradientDrawable bg = new GradientDrawable();
+        bg.setCornerRadius(dp(16));
+        bg.setColor(Color.parseColor("#151D2A"));
+        bg.setStroke(dp(1), Color.parseColor("#00E5FF"));
+        layout.setBackground(bg);
+
+        // Header
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView tvIcon = new TextView(this);
+        tvIcon.setText("💬");
+        tvIcon.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        tvIcon.setPadding(0, 0, dp(10), 0);
+        header.addView(tvIcon);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText("Enviar Mensagem ao Relógio");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        header.addView(tvTitle);
+        layout.addView(header);
+
+        // Divider
+        View div = new View(this);
+        LinearLayout.LayoutParams divLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1));
+        divLp.setMargins(0, dp(14), 0, dp(14));
+        div.setLayoutParams(divLp);
+        div.setBackgroundColor(Color.parseColor("#22334A"));
+        layout.addView(div);
+
+        // Title input
+        TextView tvTitleLbl = new TextView(this);
+        tvTitleLbl.setText("Remetente / Título:");
+        tvTitleLbl.setTextColor(Color.parseColor("#CBD5E1"));
+        tvTitleLbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        layout.addView(tvTitleLbl);
+
+        final EditText etTitle = new EditText(this);
+        etTitle.setText("R-Watch");
+        etTitle.setTextColor(Color.WHITE);
+        etTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        etTitle.setPadding(dp(10), dp(8), dp(10), dp(8));
+        styleInput(etTitle);
+        layout.addView(etTitle);
+
+        // Body input
+        TextView tvBodyLbl = new TextView(this);
+        tvBodyLbl.setText("Texto da Mensagem:");
+        tvBodyLbl.setTextColor(Color.parseColor("#CBD5E1"));
+        tvBodyLbl.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvBodyLbl.setPadding(0, dp(10), 0, dp(2));
+        layout.addView(tvBodyLbl);
+
+        final EditText etBody = new EditText(this);
+        etBody.setText("Olá! Teste de mensagem no smartwatch.");
+        etBody.setTextColor(Color.WHITE);
+        etBody.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        etBody.setMinLines(2);
+        etBody.setPadding(dp(10), dp(8), dp(10), dp(8));
+        styleInput(etBody);
+        layout.addView(etBody);
+
+        // 1. Send Notification Button (0x12 0x12)
+        Button btnSend = new Button(this);
+        btnSend.setText("🚀 Enviar Notificacao (WhatsApp/SMS)");
+        btnSend.setTextColor(Color.parseColor("#0B0F19"));
+        btnSend.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        btnSend.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable sendBg = new GradientDrawable();
+        sendBg.setCornerRadius(dp(8));
+        sendBg.setColor(Color.parseColor("#00E5FF"));
+        btnSend.setBackground(sendBg);
+
+        LinearLayout.LayoutParams lpSend = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(44));
+        lpSend.setMargins(0, dp(14), 0, 0);
+        btnSend.setLayoutParams(lpSend);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendPushNotificationToWatch(etTitle.getText().toString(), etBody.getText().toString(), mSelectedAppType, null);
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnSend);
+
+        // 2. Send Call Alert Button (0x12 0x11)
+        Button btnSendCall = new Button(this);
+        btnSendCall.setText("📞 Enviar como Alerta / Chamada");
+        btnSendCall.setTextColor(Color.parseColor("#0B0F19"));
+        btnSendCall.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        btnSendCall.setTypeface(Typeface.DEFAULT_BOLD);
+
+        GradientDrawable callBg = new GradientDrawable();
+        callBg.setCornerRadius(dp(8));
+        callBg.setColor(Color.parseColor("#38BDF8"));
+        btnSendCall.setBackground(callBg);
+
+        LinearLayout.LayoutParams lpCall = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(42));
+        lpCall.setMargins(0, dp(8), 0, 0);
+        btnSendCall.setLayoutParams(lpCall);
+
+        btnSendCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendCallAlertToWatch(etTitle.getText().toString(), etBody.getText().toString(), null);
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnSendCall);
+
+        // Close button
+        Button btnClose = new Button(this);
+        btnClose.setText("Cancelar");
+        btnClose.setTextColor(Color.parseColor("#94A3B8"));
+        btnClose.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+
+        GradientDrawable closeBg = new GradientDrawable();
+        closeBg.setCornerRadius(dp(8));
+        closeBg.setColor(Color.parseColor("#1E293B"));
+        closeBg.setStroke(dp(1), Color.parseColor("#334155"));
+        btnClose.setBackground(closeBg);
+
+        LinearLayout.LayoutParams lpClose = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(40));
+        lpClose.setMargins(0, dp(8), 0, 0);
+        btnClose.setLayoutParams(lpClose);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        layout.addView(btnClose);
+
+        dialog.setContentView(layout);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(
+                    (int) (getResources().getDisplayMetrics().widthPixels * 0.90),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+        }
+        dialog.show();
     }
 
     private void showResultModal(String title, String icon, String message, String actionButtonText, final View.OnClickListener onAction) {

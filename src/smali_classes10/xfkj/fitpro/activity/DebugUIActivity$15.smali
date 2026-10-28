@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->addQuickPresetChip(Landroid/widget/LinearLayout;Ljava/lang/String;Landroid/widget/EditText;Ljava/lang/String;Landroid/widget/EditText;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,11 +20,17 @@
 # instance fields
 .field final synthetic this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-.field final synthetic val$dialog:Landroid/app/Dialog;
+.field final synthetic val$bodyVal:Ljava/lang/String;
+
+.field final synthetic val$etBody:Landroid/widget/EditText;
+
+.field final synthetic val$etTitle:Landroid/widget/EditText;
+
+.field final synthetic val$titleVal:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;)V
+.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/widget/EditText;Ljava/lang/String;Landroid/widget/EditText;Ljava/lang/String;)V
     .locals 0
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -32,10 +38,16 @@
         }
     .end annotation
 
-    .line 745
+    .line 867
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$dialog:Landroid/app/Dialog;
+    iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etTitle:Landroid/widget/EditText;
+
+    iput-object p3, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$titleVal:Ljava/lang/String;
+
+    iput-object p4, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etBody:Landroid/widget/EditText;
+
+    iput-object p5, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$bodyVal:Ljava/lang/String;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -45,13 +57,22 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 0
+    .locals 1
 
-    .line 748
-    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$dialog:Landroid/app/Dialog;
+    .line 870
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etTitle:Landroid/widget/EditText;
 
-    invoke-virtual {p1}, Landroid/app/Dialog;->dismiss()V
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$titleVal:Ljava/lang/String;
 
-    .line 749
+    invoke-virtual {p1, v0}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
+
+    .line 871
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$etBody:Landroid/widget/EditText;
+
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$15;->val$bodyVal:Ljava/lang/String;
+
+    invoke-virtual {p1, v0}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
+
+    .line 872
     return-void
 .end method

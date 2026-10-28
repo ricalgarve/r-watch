@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetEcgClicked()V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->buildSendMessageCard()Landroid/view/View;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,13 +20,30 @@
 # instance fields
 .field final synthetic this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
+.field final synthetic val$etBody:Landroid/widget/EditText;
+
+.field final synthetic val$etTitle:Landroid/widget/EditText;
+
+.field final synthetic val$tvFeedback:Landroid/widget/TextView;
+
 
 # direct methods
-.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/widget/EditText;Landroid/widget/EditText;Landroid/widget/TextView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
-    .line 624
+    .line 755
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+
+    iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etTitle:Landroid/widget/EditText;
+
+    iput-object p3, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etBody:Landroid/widget/EditText;
+
+    iput-object p4, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$tvFeedback:Landroid/widget/TextView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,36 +53,37 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 2
+    .locals 3
 
-    .line 627
-    new-instance p1, Landroid/content/Intent;
+    .line 758
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etTitle:Landroid/widget/EditText;
 
-    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+    invoke-virtual {p1}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
 
-    const-class v1, Lxfkj/fitpro/activity/ecg/ECGMeasureActivity;
+    move-result-object p1
 
-    invoke-direct {p1, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
-    .line 628
-    const-string v0, "isTouch"
+    move-result-object p1
 
-    const/4 v1, 0x1
+    .line 759
+    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$etBody:Landroid/widget/EditText;
 
-    invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+    invoke-virtual {v0}, Landroid/widget/EditText;->getText()Landroid/text/Editable;
 
-    .line 629
-    const-string v0, "status"
+    move-result-object v0
 
-    const/4 v1, -0x1
+    invoke-virtual {v0}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
-    invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+    move-result-object v0
 
-    .line 630
-    iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+    .line 760
+    iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    invoke-virtual {v0, p1}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+    iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity$12;->val$tvFeedback:Landroid/widget/TextView;
 
-    .line 631
+    invoke-static {v1, p1, v0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1000(Lxfkj/fitpro/activity/DebugUIActivity;Ljava/lang/String;Ljava/lang/String;Landroid/widget/TextView;)V
+
+    .line 761
     return-void
 .end method

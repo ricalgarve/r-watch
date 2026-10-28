@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lxfkj/fitpro/activity/DebugUIActivity;->onGetSleepClicked()V
+    value = Lxfkj/fitpro/activity/DebugUIActivity;->buildSendMessageCard()Landroid/view/View;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,13 +20,22 @@
 # instance fields
 .field final synthetic this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
+.field final synthetic val$tvFeedback:Landroid/widget/TextView;
+
 
 # direct methods
-.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
+.method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/widget/TextView;)V
     .locals 0
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
 
-    .line 644
+    .line 784
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+
+    iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
@@ -36,21 +45,53 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 3
+    .locals 2
 
-    .line 647
+    .line 787
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    new-instance v0, Landroid/content/Intent;
+    invoke-static {p1}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1100(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
-    iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+    .line 788
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    const-class v2, Lxfkj/fitpro/activity/MoreSleepActivity;
+    const-string v0, "\u26a1 Todas as chaves de notificacao foram ativadas no relogio!"
 
-    invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    const/4 v1, 0x0
 
-    invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+    invoke-static {p1, v0, v1}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
-    .line 648
+    move-result-object p1
+
+    invoke-virtual {p1}, Landroid/widget/Toast;->show()V
+
+    .line 789
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
+
+    if-eqz p1, :cond_0
+
+    .line 790
+    const-string v0, "#10B981"
+
+    invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setTextColor(I)V
+
+    .line 791
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
+
+    const-string v0, "\u26a1 Chaves de push sincronizadas (WhatsApp, SMS, Chamada = ATIVADOS)"
+
+    invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 792
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
+
+    invoke-virtual {p1, v1}, Landroid/widget/TextView;->setVisibility(I)V
+
+    .line 794
+    :cond_0
     return-void
 .end method
