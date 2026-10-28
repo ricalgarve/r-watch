@@ -19,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.blankj.utilcode.util.ActivityUtils;
 import xfkj.fitpro.activity.MoreSleepActivity;
 import xfkj.fitpro.activity.ecg.ECGMeasureActivity;
 import xfkj.fitpro.activity.measure.BloodMeasureActivity;
@@ -46,6 +44,23 @@ public class DebugUIActivity extends NewBaseActivity {
 
     private LinearLayout mContainerHardware;
     private LinearLayout mChipsLayout;
+
+    @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initData(Bundle bundle) {
+    }
+
+    @Override
+    public void initListener() {
+    }
+
+    @Override
+    protected void initViews() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -526,7 +541,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Frequência Cardíaca", "❤️", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(HeartMeasureActivity.class);
+                startActivity(new Intent(DebugUIActivity.this, HeartMeasureActivity.class));
             }
         });
     }
@@ -547,7 +562,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Pressão Arterial", "🩸", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(BloodMeasureActivity.class);
+                startActivity(new Intent(DebugUIActivity.this, BloodMeasureActivity.class));
             }
         });
     }
@@ -568,7 +583,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Oxigênio no Sangue (SpO2)", "🫁", content, "Iniciar Medição em Tempo Real", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(SpoMeasureActivity.class);
+                startActivity(new Intent(DebugUIActivity.this, SpoMeasureActivity.class));
             }
         });
     }
@@ -592,7 +607,7 @@ public class DebugUIActivity extends NewBaseActivity {
                 Intent intent = new Intent(DebugUIActivity.this, ECGMeasureActivity.class);
                 intent.putExtra("isTouch", true);
                 intent.putExtra("status", -1);
-                ActivityUtils.startActivity(intent);
+                startActivity(intent);
             }
         });
     }
@@ -609,7 +624,7 @@ public class DebugUIActivity extends NewBaseActivity {
         showResultModal("Monitoramento do Sono", "🌙", sleepContent, "Ver Histórico Completo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(MoreSleepActivity.class);
+                startActivity(new Intent(DebugUIActivity.this, MoreSleepActivity.class));
             }
         });
     }

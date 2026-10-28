@@ -287,8 +287,11 @@
 
     move-result v0
 
+    if-eqz v0, :cond_no_layout
+
     invoke-virtual {p0, v0}, Lxfkj/fitpro/base/NewBaseActivity;->setContentView(I)V
 
+    :cond_no_layout
     .line 50
     :goto_1
     const-string v0, ""

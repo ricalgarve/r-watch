@@ -25,7 +25,7 @@
 .method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 387
+    .line 402
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$5;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -38,11 +38,11 @@
 .method public onClick(Landroid/view/View;)V
     .locals 0
 
-    .line 390
+    .line 405
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$5;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {p1}, Lxfkj/fitpro/activity/DebugUIActivity;->access$300(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
-    .line 391
+    .line 406
     return-void
 .end method

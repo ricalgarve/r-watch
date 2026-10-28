@@ -25,7 +25,7 @@
 .method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 526
+    .line 541
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -36,13 +36,21 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 0
+    .locals 3
 
-    .line 529
-    const-class p1, Lxfkj/fitpro/activity/measure/HeartMeasureActivity;
+    .line 544
+    iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
-    invoke-static {p1}, Lcom/blankj/utilcode/util/ActivityUtils;->startActivity(Ljava/lang/Class;)Z
+    new-instance v0, Landroid/content/Intent;
 
-    .line 530
+    iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$8;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
+
+    const-class v2, Lxfkj/fitpro/activity/measure/HeartMeasureActivity;
+
+    invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->startActivity(Landroid/content/Intent;)V
+
+    .line 545
     return-void
 .end method

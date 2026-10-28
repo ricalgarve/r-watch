@@ -13,7 +13,7 @@
 .method public constructor <init>()V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/base/NewBaseActivity;-><init>()V
 
     return-void
@@ -22,7 +22,7 @@
 .method static synthetic access$000(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetStepsClicked()V
 
     return-void
@@ -31,7 +31,7 @@
 .method static synthetic access$100(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetHeartRateClicked()V
 
     return-void
@@ -40,7 +40,7 @@
 .method static synthetic access$200(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetBloodPressureClicked()V
 
     return-void
@@ -49,7 +49,7 @@
 .method static synthetic access$300(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetSpo2Clicked()V
 
     return-void
@@ -58,7 +58,7 @@
 .method static synthetic access$400(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetEcgClicked()V
 
     return-void
@@ -67,7 +67,7 @@
 .method static synthetic access$500(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 45
+    .line 43
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->onGetSleepClicked()V
 
     return-void
@@ -76,27 +76,27 @@
 .method private addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
     .locals 4
 
-    .line 322
+    .line 337
     new-instance p3, Landroid/widget/TextView;
 
     invoke-direct {p3, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 323
+    .line 338
     invoke-virtual {p3, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 324
+    .line 339
     const/4 p2, 0x2
 
     const/high16 v0, 0x41300000    # 11.0f
 
     invoke-virtual {p3, p2, v0}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 325
+    .line 340
     sget-object p2, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {p3, p2}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 326
+    .line 341
     const-string p2, "#00E5FF"
 
     invoke-static {p2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -105,7 +105,7 @@
 
     invoke-virtual {p3, v0}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 327
+    .line 342
     const/16 v0, 0xa
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -128,12 +128,12 @@
 
     invoke-virtual {p3, v1, v3, v0, v2}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 329
+    .line 344
     new-instance v0, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v0}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 330
+    .line 345
     const/16 v1, 0xc
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -144,7 +144,7 @@
 
     invoke-virtual {v0, v1}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 331
+    .line 346
     const-string v1, "#10233D"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -153,7 +153,7 @@
 
     invoke-virtual {v0, v1}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 332
+    .line 347
     const/4 v1, 0x1
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -166,17 +166,17 @@
 
     invoke-virtual {v0, v1, p2}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 333
+    .line 348
     invoke-virtual {p3, v0}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 335
+    .line 350
     new-instance p2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v0, -0x2
 
     invoke-direct {p2, v0, v0}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 339
+    .line 354
     const/16 v0, 0x8
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -187,25 +187,25 @@
 
     invoke-virtual {p2, v1, v1, v0, v1}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 340
+    .line 355
     invoke-virtual {p3, p2}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 342
+    .line 357
     invoke-virtual {p1, p3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 343
+    .line 358
     return-void
 .end method
 
 .method private addDivider(Landroid/widget/LinearLayout;)V
     .locals 4
 
-    .line 474
+    .line 489
     new-instance v0, Landroid/view/View;
 
     invoke-direct {v0, p0}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 475
+    .line 490
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v2, 0x1
@@ -220,7 +220,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 476
+    .line 491
     const-string v1, "#1E2E48"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -229,32 +229,32 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 477
+    .line 492
     invoke-virtual {p1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 478
+    .line 493
     return-void
 .end method
 
 .method private addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
     .locals 6
 
-    .line 297
+    .line 312
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 298
+    .line 313
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 299
+    .line 314
     const/16 v2, 0x10
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 300
+    .line 315
     const/16 v2, 0x8
 
     invoke-direct {p0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -267,12 +267,12 @@
 
     invoke-virtual {v0, v1, v3, v1, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 302
+    .line 317
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 303
+    .line 318
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v4, -0x2
@@ -281,13 +281,13 @@
 
     invoke-direct {v3, v1, v4, v5}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
-    .line 304
+    .line 319
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 305
+    .line 320
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 306
+    .line 321
     const-string p2, "#CBD5E1"
 
     invoke-static {p2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -296,61 +296,61 @@
 
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 307
+    .line 322
     const/4 p2, 0x2
 
     const/high16 v1, 0x41500000    # 13.0f
 
     invoke-virtual {v2, p2, v1}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 308
+    .line 323
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 310
+    .line 325
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 311
+    .line 326
     invoke-virtual {v2, p3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 312
+    .line 327
     const/4 p3, -0x1
 
     invoke-virtual {v2, p3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 313
+    .line 328
     invoke-virtual {v2, p2, v1}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 314
+    .line 329
     sget-object p2, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 315
+    .line 330
     const p2, 0x800005
 
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 316
+    .line 331
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 318
+    .line 333
     invoke-virtual {p1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 319
+    .line 334
     return-void
 .end method
 
 .method private buildContentView()Landroid/view/View;
     .locals 6
 
-    .line 71
+    .line 86
     new-instance v0, Landroid/widget/ScrollView;
 
     invoke-direct {v0, p0}, Landroid/widget/ScrollView;-><init>(Landroid/content/Context;)V
 
-    .line 72
+    .line 87
     const-string v1, "#0B0F19"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -359,20 +359,20 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setBackgroundColor(I)V
 
-    .line 73
+    .line 88
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setFillViewport(Z)V
 
-    .line 75
+    .line 90
     new-instance v2, Landroid/widget/LinearLayout;
 
     invoke-direct {v2, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 76
+    .line 91
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 77
+    .line 92
     const/16 v1, 0x10
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -395,14 +395,14 @@
 
     invoke-virtual {v2, v3, v4, v1, v5}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 80
+    .line 95
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->buildHeaderBar()Landroid/view/View;
 
     move-result-object v1
 
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 83
+    .line 98
     const-string v1, "\ud83d\udccb Informa\u00e7\u00f5es do Dispositivo"
 
     const-string v3, "Dados obtidos durante a sincroniza\u00e7\u00e3o via Bluetooth"
@@ -413,20 +413,20 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 84
+    .line 99
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->buildDeviceInfoCard()Landroid/view/View;
 
     move-result-object v1
 
-    .line 85
+    .line 100
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 88
+    .line 103
     new-instance v1, Landroid/view/View;
 
     invoke-direct {v1, p0}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 89
+    .line 104
     new-instance v3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 v4, 0x14
@@ -441,10 +441,10 @@
 
     invoke-virtual {v1, v3}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 90
+    .line 105
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 93
+    .line 108
     const-string v1, "\u26a1 Aquisi\u00e7\u00e3o de Informa\u00e7\u00f5es do Smartwatch"
 
     const-string v3, "Clique em \'Obter\' para consultar dados ou acionar medi\u00e7\u00e3o"
@@ -455,35 +455,35 @@
 
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 94
+    .line 109
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->buildSensorAcquisitionCard()Landroid/view/View;
 
     move-result-object v1
 
-    .line 95
+    .line 110
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 97
+    .line 112
     invoke-virtual {v0, v2}, Landroid/widget/ScrollView;->addView(Landroid/view/View;)V
 
-    .line 98
+    .line 113
     return-object v0
 .end method
 
 .method private buildDeviceInfoCard()Landroid/view/View;
     .locals 6
 
-    .line 178
+    .line 193
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 179
+    .line 194
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 180
+    .line 195
     const/16 v2, 0x10
 
     invoke-direct {p0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -504,12 +504,12 @@
 
     invoke-virtual {v0, v3, v4, v5, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 182
+    .line 197
     new-instance v2, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 183
+    .line 198
     const/16 v3, 0xe
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -520,7 +520,7 @@
 
     invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 184
+    .line 199
     const-string v3, "#131B2A"
 
     invoke-static {v3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -529,7 +529,7 @@
 
     invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 185
+    .line 200
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v1
@@ -542,35 +542,35 @@
 
     invoke-virtual {v2, v1, v3}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 186
+    .line 201
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 188
+    .line 203
     iput-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
-    .line 189
+    .line 204
     return-object v0
 .end method
 
 .method private buildHeaderBar()Landroid/view/View;
     .locals 10
 
-    .line 102
+    .line 117
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 103
+    .line 118
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 104
+    .line 119
     const/16 v2, 0x10
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 105
+    .line 120
     const/4 v3, 0x4
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -583,17 +583,17 @@
 
     invoke-virtual {v0, v1, v4, v1, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 108
+    .line 123
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 109
+    .line 124
     const-string v4, "\u276e Voltar"
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 110
+    .line 125
     const-string v4, "#00E5FF"
 
     invoke-static {v4}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -602,19 +602,19 @@
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 111
+    .line 126
     const/high16 v4, 0x41700000    # 15.0f
 
     const/4 v5, 0x2
 
     invoke-virtual {v2, v5, v4}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 112
+    .line 127
     sget-object v4, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 113
+    .line 128
     const/16 v4, 0x8
 
     invoke-direct {p0, v4}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -639,22 +639,22 @@
 
     invoke-virtual {v2, v4, v7, v9, v6}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 114
+    .line 129
     new-instance v4, Lxfkj/fitpro/activity/DebugUIActivity$1;
 
     invoke-direct {v4, p0}, Lxfkj/fitpro/activity/DebugUIActivity$1;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 120
+    .line 135
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 123
+    .line 138
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 124
+    .line 139
     new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v6, -0x2
@@ -663,46 +663,46 @@
 
     invoke-direct {v4, v1, v6, v7}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
-    .line 125
+    .line 140
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 126
+    .line 141
     const-string v4, "Ferramentas Avan\u00e7adas"
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 127
+    .line 142
     const/4 v4, -0x1
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 128
+    .line 143
     const/high16 v4, 0x41900000    # 18.0f
 
     invoke-virtual {v2, v5, v4}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 129
+    .line 144
     sget-object v4, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 130
+    .line 145
     const/16 v4, 0x11
 
     invoke-virtual {v2, v4}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 131
+    .line 146
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 134
+    .line 149
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 135
+    .line 150
     nop
 
-    .line 137
+    .line 152
     const/4 v4, 0x1
 
     :try_start_0
@@ -723,7 +723,7 @@
 
     goto :goto_0
 
-    .line 138
+    .line 153
     :catchall_0
     move-exception v6
 
@@ -731,7 +731,7 @@
     :goto_0
     nop
 
-    .line 140
+    .line 155
     if-eqz v1, :cond_2
 
     const-string v6, "\u25cf Conectado"
@@ -744,17 +744,17 @@
     :goto_1
     invoke-virtual {v2, v6}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 141
+    .line 156
     const/high16 v6, 0x41300000    # 11.0f
 
     invoke-virtual {v2, v5, v6}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 142
+    .line 157
     sget-object v5, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v2, v5}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 143
+    .line 158
     const-string v5, "#10B981"
 
     if-eqz v1, :cond_3
@@ -775,7 +775,7 @@
     :goto_2
     invoke-virtual {v2, v6}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 144
+    .line 159
     const/16 v6, 0xa
 
     invoke-direct {p0, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -796,12 +796,12 @@
 
     invoke-virtual {v2, v7, v9, v6, v3}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 146
+    .line 161
     new-instance v3, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v3}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 147
+    .line 162
     invoke-direct {p0, v8}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v6
@@ -810,7 +810,7 @@
 
     invoke-virtual {v3, v6}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 148
+    .line 163
     if-eqz v1, :cond_4
 
     const-string v6, "#064E3B"
@@ -827,7 +827,7 @@
 
     invoke-virtual {v3, v6}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 149
+    .line 164
     invoke-direct {p0, v4}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v4
@@ -850,30 +850,30 @@
     :goto_4
     invoke-virtual {v3, v4, v1}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 150
+    .line 165
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 152
+    .line 167
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 153
+    .line 168
     return-object v0
 .end method
 
 .method private buildSensorAcquisitionCard()Landroid/view/View;
     .locals 6
 
-    .line 346
+    .line 361
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 347
+    .line 362
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 348
+    .line 363
     const/16 v2, 0x10
 
     invoke-direct {p0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -894,12 +894,12 @@
 
     invoke-virtual {v0, v3, v4, v5, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 350
+    .line 365
     new-instance v2, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 351
+    .line 366
     const/16 v3, 0xe
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -910,7 +910,7 @@
 
     invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 352
+    .line 367
     const-string v3, "#131B2A"
 
     invoke-static {v3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -919,7 +919,7 @@
 
     invoke-virtual {v2, v3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 353
+    .line 368
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v1
@@ -932,10 +932,10 @@
 
     invoke-virtual {v2, v1, v3}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 354
+    .line 369
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 357
+    .line 372
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$2;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$2;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -952,10 +952,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 364
+    .line 379
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 367
+    .line 382
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$3;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$3;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -972,10 +972,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 374
+    .line 389
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 377
+    .line 392
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$4;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$4;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -992,10 +992,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 384
+    .line 399
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 387
+    .line 402
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$5;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$5;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -1012,10 +1012,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 394
+    .line 409
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 397
+    .line 412
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$6;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$6;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -1032,10 +1032,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 404
+    .line 419
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 407
+    .line 422
     new-instance v1, Lxfkj/fitpro/activity/DebugUIActivity$7;
 
     invoke-direct {v1, p0}, Lxfkj/fitpro/activity/DebugUIActivity$7;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
@@ -1052,29 +1052,29 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 414
+    .line 429
     return-object v0
 .end method
 
 .method private createAcquisitionRow(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)Landroid/view/View;
     .locals 6
 
-    .line 418
+    .line 433
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 419
+    .line 434
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 420
+    .line 435
     const/16 v2, 0x10
 
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 421
+    .line 436
     const/16 v2, 0xa
 
     invoke-direct {p0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -1087,27 +1087,27 @@
 
     invoke-virtual {v0, v1, v3, v1, v2}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 424
+    .line 439
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 425
+    .line 440
     invoke-virtual {v2, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 426
+    .line 441
     const/high16 p1, 0x41a00000    # 20.0f
 
     const/4 v3, 0x2
 
     invoke-virtual {v2, v3, p1}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 427
+    .line 442
     const/16 p1, 0x11
 
     invoke-virtual {v2, p1}, Landroid/widget/TextView;->setGravity(I)V
 
-    .line 428
+    .line 443
     const/16 p1, 0xc
 
     invoke-direct {p0, p1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -1116,20 +1116,20 @@
 
     invoke-virtual {v2, v1, v1, p1, v1}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 429
+    .line 444
     invoke-virtual {v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 432
+    .line 447
     new-instance p1, Landroid/widget/LinearLayout;
 
     invoke-direct {p1, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 433
+    .line 448
     const/4 v2, 0x1
 
     invoke-virtual {p1, v2}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 434
+    .line 449
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v4, -0x2
@@ -1138,44 +1138,44 @@
 
     invoke-direct {v2, v1, v4, v5}, Landroid/widget/LinearLayout$LayoutParams;-><init>(IIF)V
 
-    .line 435
+    .line 450
     invoke-virtual {p1, v2}, Landroid/widget/LinearLayout;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 437
+    .line 452
     new-instance v2, Landroid/widget/TextView;
 
     invoke-direct {v2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 438
+    .line 453
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 439
+    .line 454
     const/4 p2, -0x1
 
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 440
+    .line 455
     const/high16 p2, 0x41600000    # 14.0f
 
     invoke-virtual {v2, v3, p2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 441
+    .line 456
     sget-object p2, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v2, p2}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 442
+    .line 457
     invoke-virtual {p1, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 444
+    .line 459
     new-instance p2, Landroid/widget/TextView;
 
     invoke-direct {p2, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 445
+    .line 460
     invoke-virtual {p2, p3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 446
+    .line 461
     const-string p3, "#94A3B8"
 
     invoke-static {p3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1184,28 +1184,28 @@
 
     invoke-virtual {p2, p3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 447
+    .line 462
     const/high16 p3, 0x41300000    # 11.0f
 
     invoke-virtual {p2, v3, p3}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 448
+    .line 463
     invoke-virtual {p1, p2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 450
+    .line 465
     invoke-virtual {v0, p1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 453
+    .line 468
     new-instance p1, Landroid/widget/Button;
 
     invoke-direct {p1, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
 
-    .line 454
+    .line 469
     const-string p2, "Obter"
 
     invoke-virtual {p1, p2}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
 
-    .line 455
+    .line 470
     const-string p2, "#0B0F19"
 
     invoke-static {p2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1214,22 +1214,22 @@
 
     invoke-virtual {p1, p2}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 456
+    .line 471
     const/high16 p2, 0x41400000    # 12.0f
 
     invoke-virtual {p1, v3, p2}, Landroid/widget/Button;->setTextSize(IF)V
 
-    .line 457
+    .line 472
     sget-object p2, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {p1, p2}, Landroid/widget/Button;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 459
+    .line 474
     new-instance p2, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {p2}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 460
+    .line 475
     const/16 p3, 0x8
 
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -1240,7 +1240,7 @@
 
     invoke-virtual {p2, v2}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 461
+    .line 476
     const-string v2, "#00E5FF"
 
     invoke-static {v2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1249,10 +1249,10 @@
 
     invoke-virtual {p2, v2}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 462
+    .line 477
     invoke-virtual {p1, p2}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 464
+    .line 479
     new-instance p2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 v2, 0x4a
@@ -1269,40 +1269,40 @@
 
     invoke-direct {p2, v2, v3}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 465
+    .line 480
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p3
 
     invoke-virtual {p2, p3, v1, v1, v1}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 466
+    .line 481
     invoke-virtual {p1, p2}, Landroid/widget/Button;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 467
+    .line 482
     invoke-virtual {p1, p4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 469
+    .line 484
     invoke-virtual {v0, p1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 470
+    .line 485
     return-object v0
 .end method
 
 .method private createSectionTitle(Ljava/lang/String;Ljava/lang/String;)Landroid/view/View;
     .locals 5
 
-    .line 157
+    .line 172
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 158
+    .line 173
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 159
+    .line 174
     const/4 v1, 0x4
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -1327,15 +1327,15 @@
 
     invoke-virtual {v0, v2, v3, v1, v4}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 161
+    .line 176
     new-instance v1, Landroid/widget/TextView;
 
     invoke-direct {v1, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 162
+    .line 177
     invoke-virtual {v1, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 163
+    .line 178
     const-string p1, "#00E5FF"
 
     invoke-static {p1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1344,30 +1344,30 @@
 
     invoke-virtual {v1, p1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 164
+    .line 179
     const/high16 p1, 0x41800000    # 16.0f
 
     const/4 v2, 0x2
 
     invoke-virtual {v1, v2, p1}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 165
+    .line 180
     sget-object p1, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v1, p1}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 166
+    .line 181
     invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 168
+    .line 183
     new-instance p1, Landroid/widget/TextView;
 
     invoke-direct {p1, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 169
+    .line 184
     invoke-virtual {p1, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 170
+    .line 185
     const-string p2, "#94A3B8"
 
     invoke-static {p2}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1376,25 +1376,25 @@
 
     invoke-virtual {p1, p2}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 171
+    .line 186
     const/high16 p2, 0x41400000    # 12.0f
 
     invoke-virtual {p1, v2, p2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 172
+    .line 187
     invoke-virtual {v0, p1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 174
+    .line 189
     return-object v0
 .end method
 
 .method private dp(I)I
     .locals 2
 
-    .line 63
+    .line 78
     int-to-float p1, p1
 
-    .line 66
+    .line 81
     invoke-virtual {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
@@ -1403,7 +1403,7 @@
 
     move-result-object v0
 
-    .line 63
+    .line 78
     const/4 v1, 0x1
 
     invoke-static {v1, p1, v0}, Landroid/util/TypedValue;->applyDimension(IFLandroid/util/DisplayMetrics;)F
@@ -1418,7 +1418,7 @@
 .method private loadCachedDeviceInfo()V
     .locals 11
 
-    .line 193
+    .line 208
     const-string v0, "Desconectado"
 
     const-string v1, "--"
@@ -1429,38 +1429,38 @@
 
     return-void
 
-    .line 194
+    .line 209
     :cond_0
     invoke-virtual {v2}, Landroid/widget/LinearLayout;->removeAllViews()V
 
-    .line 196
+    .line 211
     nop
 
-    .line 197
+    .line 212
     nop
 
-    .line 198
+    .line 213
     nop
 
-    .line 199
+    .line 214
     nop
 
-    .line 200
+    .line 215
     nop
 
-    .line 201
+    .line 216
     const-string v2, "--%"
 
-    .line 202
+    .line 217
     nop
 
-    .line 205
+    .line 220
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/utils/MySPUtils;->getBluetoothName()Ljava/lang/String;
 
     move-result-object v3
 
-    .line 206
+    .line 221
     if-eqz v3, :cond_1
 
     invoke-virtual {v3}, Ljava/lang/String;->isEmpty()Z
@@ -1473,7 +1473,7 @@
 
     goto :goto_0
 
-    .line 207
+    .line 222
     :cond_1
     move-object v3, v1
 
@@ -1485,14 +1485,14 @@
 
     move-object v3, v1
 
-    .line 210
+    .line 225
     :goto_1
     :try_start_1
     invoke-static {}, Lxfkj/fitpro/utils/MySPUtils;->getBluetoothAddress()Ljava/lang/String;
 
     move-result-object v4
 
-    .line 211
+    .line 226
     if-eqz v4, :cond_2
 
     invoke-virtual {v4}, Ljava/lang/String;->isEmpty()Z
@@ -1505,7 +1505,7 @@
 
     goto :goto_2
 
-    .line 212
+    .line 227
     :cond_2
     move-object v4, v1
 
@@ -1517,14 +1517,14 @@
 
     move-object v4, v1
 
-    .line 215
+    .line 230
     :goto_3
     :try_start_2
     invoke-static {}, Lxfkj/fitpro/utils/MySPUtils;->getDeviceVersion()Ljava/lang/String;
 
     move-result-object v5
 
-    .line 216
+    .line 231
     if-eqz v5, :cond_3
 
     invoke-virtual {v5}, Ljava/lang/String;->isEmpty()Z
@@ -1537,7 +1537,7 @@
 
     goto :goto_4
 
-    .line 217
+    .line 232
     :cond_3
     move-object v5, v1
 
@@ -1549,14 +1549,14 @@
 
     move-object v5, v1
 
-    .line 220
+    .line 235
     :goto_5
     :try_start_3
     invoke-static {}, Lxfkj/fitpro/utils/MySPUtils;->getHardVersion()Ljava/lang/String;
 
     move-result-object v6
 
-    .line 221
+    .line 236
     if-eqz v6, :cond_4
 
     invoke-virtual {v6}, Ljava/lang/String;->isEmpty()Z
@@ -1571,7 +1571,7 @@
 
     goto :goto_6
 
-    .line 222
+    .line 237
     :catchall_3
     move-exception v6
 
@@ -1579,7 +1579,7 @@
     :goto_6
     nop
 
-    .line 225
+    .line 240
     const/4 v6, 0x1
 
     :try_start_4
@@ -1587,14 +1587,14 @@
 
     move-result v7
 
-    .line 226
+    .line 241
     if-ne v7, v6, :cond_5
 
     const-string v7, "Telink BLE SoC (Plataforma 1)"
 
     goto :goto_7
 
-    .line 227
+    .line 242
     :cond_5
     new-instance v8, Ljava/lang/StringBuilder;
 
@@ -1622,7 +1622,7 @@
     :try_end_4
     .catchall {:try_start_4 .. :try_end_4} :catchall_4
 
-    .line 228
+    .line 243
     :goto_7
     goto :goto_8
 
@@ -1631,15 +1631,15 @@
 
     const-string v7, "Padr\u00e3o BLE"
 
-    .line 231
+    .line 246
     :goto_8
     :try_start_5
     sget v8, Lxfkj/fitpro/utils/Constant;->battery:I
 
-    .line 232
+    .line 247
     if-ltz v8, :cond_7
 
-    .line 233
+    .line 248
     new-instance v9, Ljava/lang/StringBuilder;
 
     invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
@@ -1678,7 +1678,7 @@
 
     goto :goto_a
 
-    .line 235
+    .line 250
     :catchall_5
     move-exception v8
 
@@ -1686,7 +1686,7 @@
     :goto_a
     nop
 
-    .line 238
+    .line 253
     const/4 v8, 0x0
 
     :try_start_6
@@ -1711,7 +1711,7 @@
     :goto_b
     const/4 v9, 0x1
 
-    .line 239
+    .line 254
     :goto_c
     if-eqz v9, :cond_a
 
@@ -1721,7 +1721,7 @@
 
     goto :goto_d
 
-    .line 240
+    .line 255
     :catchall_6
     move-exception v9
 
@@ -1729,95 +1729,95 @@
     :goto_d
     nop
 
-    .line 242
+    .line 257
     iget-object v9, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v10, "\ud83c\udff7\ufe0f Nome do Dispositivo"
 
     invoke-direct {p0, v9, v10, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 243
+    .line 258
     iget-object v3, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 244
+    .line 259
     iget-object v3, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v9, "\ud83d\udcf6 Endere\u00e7o MAC"
 
     invoke-direct {p0, v3, v9, v4}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 245
+    .line 260
     iget-object v3, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 246
+    .line 261
     iget-object v3, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v4, "\ud83d\udd0b N\u00edvel de Bateria"
 
     invoke-direct {p0, v3, v4, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 247
+    .line 262
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 248
+    .line 263
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v3, "\ud83d\udce1 Status da Conex\u00e3o"
 
     invoke-direct {p0, v2, v3, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 249
+    .line 264
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 250
+    .line 265
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83d\udcbe Firmware (Software)"
 
     invoke-direct {p0, v0, v2, v5}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 251
+    .line 266
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 252
+    .line 267
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v2, "\u2699\ufe0f Vers\u00e3o Hardware"
 
     invoke-direct {p0, v0, v2, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 253
+    .line 268
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 254
+    .line 269
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v1, "\ud83e\udde9 Chipset / SoC"
 
     invoke-direct {p0, v0, v1, v7}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 258
+    .line 273
     :try_start_7
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getDeviceHardInfo()Lxfkj/fitpro/model/DeviceHardInfoModel;
 
     move-result-object v0
 
-    .line 259
+    .line 274
     if-eqz v0, :cond_c
 
-    .line 260
+    .line 275
     invoke-virtual {v0}, Lxfkj/fitpro/model/DeviceHardInfoModel;->getGsensor()Ljava/lang/String;
 
     move-result-object v1
@@ -1834,12 +1834,12 @@
 
     if-nez v1, :cond_b
 
-    .line 261
+    .line 276
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 262
+    .line 277
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83d\udcc8 Sensor de Movimento (G-Sensor)"
@@ -1850,7 +1850,7 @@
 
     invoke-direct {p0, v1, v2, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->addInfoRow(Landroid/widget/LinearLayout;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 264
+    .line 279
     :cond_b
     invoke-virtual {v0}, Lxfkj/fitpro/model/DeviceHardInfoModel;->getHeart()Ljava/lang/String;
 
@@ -1868,12 +1868,12 @@
 
     if-nez v1, :cond_c
 
-    .line 265
+    .line 280
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 266
+    .line 281
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     const-string v2, "\u2764\ufe0f Sensor \u00d3ptico Card\u00edaco"
@@ -1888,7 +1888,7 @@
 
     goto :goto_e
 
-    .line 269
+    .line 284
     :catchall_7
     move-exception v0
 
@@ -1896,22 +1896,22 @@
     :goto_e
     nop
 
-    .line 272
+    .line 287
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->addDivider(Landroid/widget/LinearLayout;)V
 
-    .line 273
+    .line 288
     new-instance v0, Landroid/widget/TextView;
 
     invoke-direct {v0, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 274
+    .line 289
     const-string v1, "Recursos Suportados pelo Dispositivo:"
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 275
+    .line 290
     const-string v1, "#94A3B8"
 
     invoke-static {v1}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -1920,14 +1920,14 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 276
+    .line 291
     const/4 v1, 0x2
 
     const/high16 v2, 0x41400000    # 12.0f
 
     invoke-virtual {v0, v1, v2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 277
+    .line 292
     const/16 v1, 0x8
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -1942,98 +1942,98 @@
 
     invoke-virtual {v0, v8, v1, v8, v2}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 278
+    .line 293
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 280
+    .line 295
     new-instance v0, Landroid/widget/HorizontalScrollView;
 
     invoke-direct {v0, p0}, Landroid/widget/HorizontalScrollView;-><init>(Landroid/content/Context;)V
 
-    .line 281
+    .line 296
     invoke-virtual {v0, v8}, Landroid/widget/HorizontalScrollView;->setHorizontalScrollBarEnabled(Z)V
 
-    .line 282
+    .line 297
     new-instance v1, Landroid/widget/LinearLayout;
 
     invoke-direct {v1, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
     iput-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
-    .line 283
+    .line 298
     invoke-virtual {v1, v8}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 285
+    .line 300
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83d\udcc8 Passos"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 286
+    .line 301
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\u2764\ufe0f Card\u00edaco"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 287
+    .line 302
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83e\ude78 Press\u00e3o"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 288
+    .line 303
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83e\udec1 SpO2"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 289
+    .line 304
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83d\udcc9 ECG"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 290
+    .line 305
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     const-string v2, "\ud83c\udf19 Sono"
 
     invoke-direct {p0, v1, v2, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->addChip(Landroid/widget/LinearLayout;Ljava/lang/String;Z)V
 
-    .line 292
+    .line 307
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mChipsLayout:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, v1}, Landroid/widget/HorizontalScrollView;->addView(Landroid/view/View;)V
 
-    .line 293
+    .line 308
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity;->mContainerHardware:Landroid/widget/LinearLayout;
 
     invoke-virtual {v1, v0}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 294
+    .line 309
     return-void
 .end method
 
 .method private onGetBloodPressureClicked()V
     .locals 7
 
-    .line 535
+    .line 550
     const-string v0, "-- / -- mmHg"
 
-    .line 537
+    .line 552
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureBlood()Lxfkj/fitpro/model/MeasureBloodModel;
 
     move-result-object v1
 
-    .line 538
+    .line 553
     if-eqz v1, :cond_0
 
     invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureBloodModel;->getHBlood()I
@@ -2042,7 +2042,7 @@
 
     if-lez v2, :cond_0
 
-    .line 539
+    .line 554
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2083,7 +2083,7 @@
 
     goto :goto_0
 
-    .line 541
+    .line 556
     :catchall_0
     move-exception v1
 
@@ -2091,7 +2091,7 @@
     :goto_0
     nop
 
-    .line 543
+    .line 558
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2116,7 +2116,7 @@
 
     move-result-object v4
 
-    .line 547
+    .line 562
     const-string v2, "Press\u00e3o Arterial"
 
     const-string v3, "\ud83e\ude78"
@@ -2131,23 +2131,23 @@
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 553
+    .line 568
     return-void
 .end method
 
 .method private onGetEcgClicked()V
     .locals 7
 
-    .line 577
+    .line 592
     const-string v0, "Tra\u00e7ado card\u00edaco em tempo real dispon\u00edvel."
 
-    .line 579
+    .line 594
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getTodayRecentData()Lxfkj/fitpro/model/ECGRecordModel;
 
     move-result-object v1
 
-    .line 580
+    .line 595
     if-eqz v1, :cond_0
 
     invoke-virtual {v1}, Lxfkj/fitpro/model/ECGRecordModel;->getHeartRate()I
@@ -2156,7 +2156,7 @@
 
     if-lez v2, :cond_0
 
-    .line 581
+    .line 596
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2189,7 +2189,7 @@
 
     goto :goto_0
 
-    .line 583
+    .line 598
     :catchall_0
     move-exception v1
 
@@ -2197,7 +2197,7 @@
     :goto_0
     nop
 
-    .line 585
+    .line 600
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2222,7 +2222,7 @@
 
     move-result-object v4
 
-    .line 589
+    .line 604
     const-string v2, "Eletrocardiograma (ECG)"
 
     const-string v3, "\ud83d\udcc9"
@@ -2237,23 +2237,23 @@
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 598
+    .line 613
     return-void
 .end method
 
 .method private onGetHeartRateClicked()V
     .locals 7
 
-    .line 514
+    .line 529
     const-string v0, "-- bpm"
 
-    .line 516
+    .line 531
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureHeart()Lxfkj/fitpro/model/MeasureHeartModel;
 
     move-result-object v1
 
-    .line 517
+    .line 532
     if-eqz v1, :cond_0
 
     invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureHeartModel;->getHeart()I
@@ -2262,7 +2262,7 @@
 
     if-lez v2, :cond_0
 
-    .line 518
+    .line 533
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2289,7 +2289,7 @@
 
     goto :goto_0
 
-    .line 520
+    .line 535
     :catchall_0
     move-exception v1
 
@@ -2297,7 +2297,7 @@
     :goto_0
     nop
 
-    .line 522
+    .line 537
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2322,7 +2322,7 @@
 
     move-result-object v4
 
-    .line 526
+    .line 541
     const-string v2, "Frequ\u00eancia Card\u00edaca"
 
     const-string v3, "\u2764\ufe0f"
@@ -2337,17 +2337,17 @@
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 532
+    .line 547
     return-void
 .end method
 
 .method private onGetSleepClicked()V
     .locals 8
 
-    .line 601
+    .line 616
     const-string v0, "Nenhum dado de sono registrado hoje."
 
-    .line 603
+    .line 618
     :try_start_0
     new-instance v1, Ljava/util/Date;
 
@@ -2357,7 +2357,7 @@
 
     move-result-object v1
 
-    .line 604
+    .line 619
     if-eqz v1, :cond_0
 
     invoke-interface {v1}, Ljava/util/List;->isEmpty()Z
@@ -2366,14 +2366,14 @@
 
     if-nez v1, :cond_0
 
-    .line 605
+    .line 620
     const-string v0, "Dados de sono obtidos com sucesso para a data de hoje."
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     goto :goto_0
 
-    .line 607
+    .line 622
     :catchall_0
     move-exception v1
 
@@ -2381,7 +2381,7 @@
     :goto_0
     move-object v5, v0
 
-    .line 609
+    .line 624
     const-string v3, "Monitoramento do Sono"
 
     const-string v4, "\ud83c\udf19"
@@ -2396,23 +2396,23 @@
 
     invoke-direct/range {v2 .. v7}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 615
+    .line 630
     return-void
 .end method
 
 .method private onGetSpo2Clicked()V
     .locals 7
 
-    .line 556
+    .line 571
     const-string v0, "--%"
 
-    .line 558
+    .line 573
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/db/DBHelper;->getLastMeasureSpo()Lxfkj/fitpro/model/MeasureSpoModel;
 
     move-result-object v1
 
-    .line 559
+    .line 574
     if-eqz v1, :cond_0
 
     invoke-virtual {v1}, Lxfkj/fitpro/model/MeasureSpoModel;->getSpo()I
@@ -2421,7 +2421,7 @@
 
     if-lez v2, :cond_0
 
-    .line 560
+    .line 575
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -2448,7 +2448,7 @@
 
     goto :goto_0
 
-    .line 562
+    .line 577
     :catchall_0
     move-exception v1
 
@@ -2456,7 +2456,7 @@
     :goto_0
     nop
 
-    .line 564
+    .line 579
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
@@ -2481,7 +2481,7 @@
 
     move-result-object v4
 
-    .line 568
+    .line 583
     const-string v2, "Oxig\u00eanio no Sangue (SpO2)"
 
     const-string v3, "\ud83e\udec1"
@@ -2496,20 +2496,20 @@
 
     invoke-direct/range {v1 .. v6}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 574
+    .line 589
     return-void
 .end method
 
 .method private onGetStepsClicked()V
     .locals 12
 
-    .line 486
+    .line 501
     :try_start_0
     invoke-static {}, Lxfkj/fitpro/bluetooth/SDKCmdMannager;->getTotalSportData()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 487
+    .line 502
     :goto_0
     goto :goto_1
 
@@ -2518,17 +2518,17 @@
 
     goto :goto_0
 
-    .line 489
+    .line 504
     :goto_1
     nop
 
-    .line 490
+    .line 505
     nop
 
-    .line 491
+    .line 506
     nop
 
-    .line 494
+    .line 509
     const/4 v0, 0x0
 
     const/4 v1, 0x0
@@ -2538,7 +2538,7 @@
 
     move-result-object v2
 
-    .line 495
+    .line 510
     if-eqz v2, :cond_0
 
     invoke-interface {v2}, Ljava/util/List;->isEmpty()Z
@@ -2547,21 +2547,21 @@
 
     if-nez v3, :cond_0
 
-    .line 496
+    .line 511
     invoke-interface {v2, v0}, Ljava/util/List;->get(I)Ljava/lang/Object;
 
     move-result-object v2
 
     check-cast v2, Lxfkj/fitpro/model/SportDetailsModel;
 
-    .line 497
+    .line 512
     invoke-virtual {v2}, Lxfkj/fitpro/model/SportDetailsModel;->getStep()I
 
     move-result v3
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_2
 
-    .line 498
+    .line 513
     :try_start_2
     invoke-virtual {v2}, Lxfkj/fitpro/model/SportDetailsModel;->getDistance()I
 
@@ -2573,7 +2573,7 @@
 
     div-float/2addr v1, v4
 
-    .line 499
+    .line 514
     invoke-virtual {v2}, Lxfkj/fitpro/model/SportDetailsModel;->getCalory()I
 
     move-result v2
@@ -2582,7 +2582,7 @@
 
     goto :goto_2
 
-    .line 501
+    .line 516
     :catchall_1
     move-exception v2
 
@@ -2604,7 +2604,7 @@
     :goto_3
     const/4 v2, 0x0
 
-    .line 503
+    .line 518
     :goto_4
     invoke-static {}, Ljava/util/Locale;->getDefault()Ljava/util/Locale;
 
@@ -2614,7 +2614,7 @@
 
     new-array v5, v5, [Ljava/lang/Object;
 
-    .line 507
+    .line 522
     invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v3
@@ -2637,14 +2637,14 @@
 
     aput-object v1, v5, v0
 
-    .line 503
+    .line 518
     const-string v0, "\ud83d\udc5f  Passos Hoje: %,d passos\n\n\ud83d\udccf  Dist\u00e2ncia Percorrida: %.2f km\n\n\ud83d\udd25  Calorias Gastas: %d kcal"
 
     invoke-static {v4, v0, v5}, Ljava/lang/String;->format(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v9
 
-    .line 510
+    .line 525
     const-string v7, "Passos e Atividade Di\u00e1ria"
 
     const-string v8, "\ud83d\udc5f"
@@ -2657,32 +2657,32 @@
 
     invoke-direct/range {v6 .. v11}, Lxfkj/fitpro/activity/DebugUIActivity;->showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
 
-    .line 511
+    .line 526
     return-void
 .end method
 
 .method private showResultModal(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/view/View$OnClickListener;)V
     .locals 10
 
-    .line 618
+    .line 633
     new-instance v0, Landroid/app/Dialog;
 
     invoke-direct {v0, p0}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
 
-    .line 619
+    .line 634
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->requestWindowFeature(I)Z
 
-    .line 621
+    .line 636
     new-instance v2, Landroid/widget/LinearLayout;
 
     invoke-direct {v2, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 622
+    .line 637
     invoke-virtual {v2, v1}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 623
+    .line 638
     const/16 v3, 0x14
 
     invoke-direct {p0, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2703,12 +2703,12 @@
 
     invoke-virtual {v2, v4, v5, v6, v3}, Landroid/widget/LinearLayout;->setPadding(IIII)V
 
-    .line 625
+    .line 640
     new-instance v3, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v3}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 626
+    .line 641
     const/16 v4, 0x10
 
     invoke-direct {p0, v4}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2719,7 +2719,7 @@
 
     invoke-virtual {v3, v5}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 627
+    .line 642
     const-string v5, "#151D2A"
 
     invoke-static {v5}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2728,7 +2728,7 @@
 
     invoke-virtual {v3, v5}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 628
+    .line 643
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v5
@@ -2741,38 +2741,38 @@
 
     invoke-virtual {v3, v5, v7}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 629
+    .line 644
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 632
+    .line 647
     new-instance v3, Landroid/widget/LinearLayout;
 
     invoke-direct {v3, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
 
-    .line 633
+    .line 648
     const/4 v5, 0x0
 
     invoke-virtual {v3, v5}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 634
+    .line 649
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->setGravity(I)V
 
-    .line 636
+    .line 651
     new-instance v4, Landroid/widget/TextView;
 
     invoke-direct {v4, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 637
+    .line 652
     invoke-virtual {v4, p2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 638
+    .line 653
     const/high16 p2, 0x41b00000    # 22.0f
 
     const/4 v7, 0x2
 
     invoke-virtual {v4, v7, p2}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 639
+    .line 654
     const/16 p2, 0xa
 
     invoke-direct {p0, p2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2781,44 +2781,44 @@
 
     invoke-virtual {v4, v5, v5, v8, v5}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 640
+    .line 655
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 642
+    .line 657
     new-instance v4, Landroid/widget/TextView;
 
     invoke-direct {v4, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 643
+    .line 658
     invoke-virtual {v4, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 644
+    .line 659
     const/4 p1, -0x1
 
     invoke-virtual {v4, p1}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 645
+    .line 660
     const/high16 v8, 0x41800000    # 16.0f
 
     invoke-virtual {v4, v7, v8}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 646
+    .line 661
     sget-object v8, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v4, v8}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 647
+    .line 662
     invoke-virtual {v3, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 649
+    .line 664
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 652
+    .line 667
     new-instance v3, Landroid/view/View;
 
     invoke-direct {v3, p0}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 653
+    .line 668
     new-instance v4, Landroid/widget/LinearLayout$LayoutParams;
 
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2827,7 +2827,7 @@
 
     invoke-direct {v4, p1, v8}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 654
+    .line 669
     const/16 v8, 0xe
 
     invoke-direct {p0, v8}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2840,10 +2840,10 @@
 
     invoke-virtual {v4, v5, v9, v5, v8}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 655
+    .line 670
     invoke-virtual {v3, v4}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 656
+    .line 671
     const-string v4, "#22334A"
 
     invoke-static {v4}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2852,18 +2852,18 @@
 
     invoke-virtual {v3, v4}, Landroid/view/View;->setBackgroundColor(I)V
 
-    .line 657
+    .line 672
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 660
+    .line 675
     new-instance v3, Landroid/widget/TextView;
 
     invoke-direct {v3, p0}, Landroid/widget/TextView;-><init>(Landroid/content/Context;)V
 
-    .line 661
+    .line 676
     invoke-virtual {v3, p3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 662
+    .line 677
     const-string p3, "#E2E8F0"
 
     invoke-static {p3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2872,12 +2872,12 @@
 
     invoke-virtual {v3, p3}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 663
+    .line 678
     const/high16 p3, 0x41600000    # 14.0f
 
     invoke-virtual {v3, v7, p3}, Landroid/widget/TextView;->setTextSize(IF)V
 
-    .line 664
+    .line 679
     const/4 p3, 0x4
 
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2890,10 +2890,10 @@
 
     invoke-virtual {v3, p3, v4}, Landroid/widget/TextView;->setLineSpacing(FF)V
 
-    .line 665
+    .line 680
     invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 668
+    .line 683
     const/16 p3, 0x8
 
     const/high16 v3, 0x41500000    # 13.0f
@@ -2902,15 +2902,15 @@
 
     if-eqz p5, :cond_0
 
-    .line 669
+    .line 684
     new-instance v4, Landroid/widget/Button;
 
     invoke-direct {v4, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
 
-    .line 670
+    .line 685
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
 
-    .line 671
+    .line 686
     const-string p4, "#0B0F19"
 
     invoke-static {p4}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -2919,20 +2919,20 @@
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 672
+    .line 687
     invoke-virtual {v4, v7, v3}, Landroid/widget/Button;->setTextSize(IF)V
 
-    .line 673
+    .line 688
     sget-object p4, Landroid/graphics/Typeface;->DEFAULT_BOLD:Landroid/graphics/Typeface;
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 675
+    .line 690
     new-instance p4, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {p4}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 676
+    .line 691
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result v8
@@ -2941,17 +2941,17 @@
 
     invoke-virtual {p4, v8}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 677
+    .line 692
     invoke-static {v6}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
 
     move-result v6
 
     invoke-virtual {p4, v6}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 678
+    .line 693
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 680
+    .line 695
     new-instance p4, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 v6, 0x2c
@@ -2962,7 +2962,7 @@
 
     invoke-direct {p4, p1, v6}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 681
+    .line 696
     const/16 v6, 0x12
 
     invoke-direct {p0, v6}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
@@ -2971,31 +2971,31 @@
 
     invoke-virtual {p4, v5, v6, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 682
+    .line 697
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 684
+    .line 699
     new-instance p4, Lxfkj/fitpro/activity/DebugUIActivity$13;
 
     invoke-direct {p4, p0, v0, p5}, Lxfkj/fitpro/activity/DebugUIActivity$13;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;Landroid/view/View$OnClickListener;)V
 
     invoke-virtual {v4, p4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 691
+    .line 706
     invoke-virtual {v2, v4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 695
+    .line 710
     :cond_0
     new-instance p4, Landroid/widget/Button;
 
     invoke-direct {p4, p0}, Landroid/widget/Button;-><init>(Landroid/content/Context;)V
 
-    .line 696
+    .line 711
     const-string p5, "Fechar"
 
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setText(Ljava/lang/CharSequence;)V
 
-    .line 697
+    .line 712
     const-string p5, "#94A3B8"
 
     invoke-static {p5}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -3004,15 +3004,15 @@
 
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 698
+    .line 713
     invoke-virtual {p4, v7, v3}, Landroid/widget/Button;->setTextSize(IF)V
 
-    .line 700
+    .line 715
     new-instance p5, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {p5}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 701
+    .line 716
     invoke-direct {p0, p3}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p3
@@ -3021,7 +3021,7 @@
 
     invoke-virtual {p5, p3}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 702
+    .line 717
     const-string p3, "#1E293B"
 
     invoke-static {p3}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -3030,7 +3030,7 @@
 
     invoke-virtual {p5, p3}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 703
+    .line 718
     invoke-direct {p0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p3
@@ -3043,10 +3043,10 @@
 
     invoke-virtual {p5, p3, v1}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 704
+    .line 719
     invoke-virtual {p4, p5}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 706
+    .line 721
     new-instance p3, Landroid/widget/LinearLayout$LayoutParams;
 
     const/16 p5, 0x28
@@ -3057,37 +3057,37 @@
 
     invoke-direct {p3, p1, p5}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 707
+    .line 722
     invoke-direct {p0, p2}, Lxfkj/fitpro/activity/DebugUIActivity;->dp(I)I
 
     move-result p1
 
     invoke-virtual {p3, v5, p1, v5, v5}, Landroid/widget/LinearLayout$LayoutParams;->setMargins(IIII)V
 
-    .line 708
+    .line 723
     invoke-virtual {p4, p3}, Landroid/widget/Button;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 710
+    .line 725
     new-instance p1, Lxfkj/fitpro/activity/DebugUIActivity$14;
 
     invoke-direct {p1, p0, v0}, Lxfkj/fitpro/activity/DebugUIActivity$14;-><init>(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/app/Dialog;)V
 
     invoke-virtual {p4, p1}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 716
+    .line 731
     invoke-virtual {v2, p4}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;)V
 
-    .line 718
+    .line 733
     invoke-virtual {v0, v2}, Landroid/app/Dialog;->setContentView(Landroid/view/View;)V
 
-    .line 719
+    .line 734
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
 
     if-eqz p1, :cond_1
 
-    .line 720
+    .line 735
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
@@ -3098,12 +3098,12 @@
 
     invoke-virtual {p1, p2}, Landroid/view/Window;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 721
+    .line 736
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object p1
 
-    .line 722
+    .line 737
     invoke-virtual {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->getResources()Landroid/content/res/Resources;
 
     move-result-object p2
@@ -3124,52 +3124,82 @@
 
     double-to-int p2, p2
 
-    .line 721
+    .line 736
     const/4 p3, -0x2
 
     invoke-virtual {p1, p2, p3}, Landroid/view/Window;->setLayout(II)V
 
-    .line 726
+    .line 741
     :cond_1
     invoke-virtual {v0}, Landroid/app/Dialog;->show()V
 
-    .line 727
+    .line 742
     return-void
 .end method
 
 
 # virtual methods
+.method public getLayoutId()I
+    .locals 1
+
+    .line 50
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public initData(Landroid/os/Bundle;)V
+    .locals 0
+
+    .line 55
+    return-void
+.end method
+
+.method public initListener()V
+    .locals 0
+
+    .line 59
+    return-void
+.end method
+
+.method protected initViews()V
+    .locals 0
+
+    .line 63
+    return-void
+.end method
+
 .method protected onCreate(Landroid/os/Bundle;)V
     .locals 0
 
-    .line 52
+    .line 67
     invoke-super {p0, p1}, Lxfkj/fitpro/base/NewBaseActivity;->onCreate(Landroid/os/Bundle;)V
 
-    .line 54
+    .line 69
     :try_start_0
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->buildContentView()Landroid/view/View;
 
     move-result-object p1
 
-    .line 55
+    .line 70
     invoke-virtual {p0, p1}, Lxfkj/fitpro/activity/DebugUIActivity;->setContentView(Landroid/view/View;)V
 
-    .line 56
+    .line 71
     invoke-direct {p0}, Lxfkj/fitpro/activity/DebugUIActivity;->loadCachedDeviceInfo()V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 59
+    .line 74
     goto :goto_0
 
-    .line 57
+    .line 72
     :catchall_0
     move-exception p1
 
-    .line 58
+    .line 73
     invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
 
-    .line 60
+    .line 75
     :goto_0
     return-void
 .end method
