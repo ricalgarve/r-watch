@@ -1,7 +1,9 @@
 package xfkj.fitpro.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import xfkj.fitpro.model.sever.body.ClockDialInfoBody;
 import xfkj.fitpro.utils.MatrixThemeHelper;
+import xfkj.fitpro.utils.InfoNewsScheduler;
 import xfkj.fitpro.activity.MeasureActivity;
 import xfkj.fitpro.activity.MoreSleepActivity;
 import xfkj.fitpro.activity.StepNumberMoreActivity;
@@ -101,6 +104,7 @@ public class DebugUIActivity extends NewBaseActivity {
         try {
             View rootView = buildContentView();
             setContentView(rootView);
+            InfoNewsScheduler.getInstance().init(this.getApplicationContext());
             loadCachedDeviceInfo();
             enableAllPushSwitches();
         } catch (Throwable t) {
@@ -172,6 +176,16 @@ public class DebugUIActivity extends NewBaseActivity {
         root.addView(createSectionTitle("🕶️ Mostradores & Temas Offline (Matrix)", "Gere papéis de parede Matrix na resolução nativa e alterne a posição do relógio"));
         View cardMatrix = buildMatrixThemeCard();
         root.addView(cardMatrix);
+
+        // Spacer
+        View spacer5 = new View(this);
+        spacer5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer5);
+
+        // 7. Section: Info Notícias (Envios Automáticos para o Smartwatch)
+        root.addView(createSectionTitle("📰 Info Notícias (Envios Automáticos)", "Compilado periódico de clima, latência e alertas Wi-Fi na tela do relógio"));
+        View cardInfoNews = buildInfoNewsCard();
+        root.addView(cardInfoNews);
 
         scrollView.addView(root);
         return scrollView;
@@ -2340,6 +2354,387 @@ public class DebugUIActivity extends NewBaseActivity {
         card.addView(actionsRow);
 
         return card;
+    }
+
+    private View buildInfoNewsCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable cardBg = new GradientDrawable();
+        cardBg.setCornerRadius(dp(16));
+        cardBg.setColor(Color.parseColor("#0F172A"));
+        cardBg.setStroke(dp(1), Color.parseColor("#0284C7"));
+        card.setBackground(cardBg);
+
+        // Header (Icon + Title + Subtitle)
+        LinearLayout headerRow = new LinearLayout(this);
+        headerRow.setOrientation(LinearLayout.HORIZONTAL);
+        headerRow.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView iconTv = new TextView(this);
+        iconTv.setText("📰");
+        iconTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        iconTv.setPadding(0, 0, dp(10), 0);
+        headerRow.addView(iconTv);
+
+        LinearLayout titleCol = new LinearLayout(this);
+        titleCol.setOrientation(LinearLayout.VERTICAL);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText("Info Notícias • Envios Automáticos");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        titleCol.addView(tvTitle);
+
+        TextView tvSub = new TextView(this);
+        tvSub.setText("Envio periódico de informações compiladas e alertas de rede direto no smartwatch.");
+        tvSub.setTextColor(Color.parseColor("#94A3B8"));
+        tvSub.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        titleCol.addView(tvSub);
+
+        headerRow.addView(titleCol);
+        card.addView(headerRow);
+
+        // Status bar & Immediate Dispatch button
+        LinearLayout topBar = new LinearLayout(this);
+        topBar.setOrientation(LinearLayout.HORIZONTAL);
+        topBar.setGravity(Gravity.CENTER_VERTICAL);
+        topBar.setPadding(0, dp(12), 0, dp(12));
+
+        final TextView tvStatus = new TextView(this);
+        tvStatus.setTextColor(Color.parseColor("#38BDF8"));
+        tvStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        tvStatus.setTypeface(Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams statusLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        tvStatus.setLayoutParams(statusLp);
+        topBar.addView(tvStatus);
+
+        Button btnDispatchNow = new Button(this);
+        btnDispatchNow.setText("⚡ Disparar Compilado Agora");
+        btnDispatchNow.setTextColor(Color.WHITE);
+        btnDispatchNow.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        btnDispatchNow.setTypeface(Typeface.DEFAULT_BOLD);
+        GradientDrawable dispatchBg = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor("#0284C7"), Color.parseColor("#0EA5E9")});
+        dispatchBg.setCornerRadius(dp(10));
+        btnDispatchNow.setBackground(dispatchBg);
+        btnDispatchNow.setPadding(dp(12), 0, dp(12), 0);
+        LinearLayout.LayoutParams btnDispLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(38));
+        btnDispatchNow.setLayoutParams(btnDispLp);
+
+        btnDispatchNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DebugUIActivity.this, "🚀 Coletando dados e enviando ao smartwatch...", Toast.LENGTH_SHORT).show();
+                InfoNewsScheduler.getInstance().dispatchCompiledDigest(true, true);
+            }
+        });
+        topBar.addView(btnDispatchNow);
+        card.addView(topBar);
+
+        // =========================================================================
+        // GRID INFO NOTÍCIAS (CONTAINER)
+        // =========================================================================
+        LinearLayout gridLayout = new LinearLayout(this);
+        gridLayout.setOrientation(LinearLayout.VERTICAL);
+        GradientDrawable gridBg = new GradientDrawable();
+        gridBg.setCornerRadius(dp(12));
+        gridBg.setColor(Color.parseColor("#1E293B"));
+        gridBg.setStroke(dp(1), Color.parseColor("#334155"));
+        gridLayout.setBackground(gridBg);
+        gridLayout.setPadding(dp(12), dp(12), dp(12), dp(12));
+
+        // -------------------------------------------------------------------------
+        // LINHA 1: CLIMA & METEOROLOGIA (API)
+        // -------------------------------------------------------------------------
+        LinearLayout rowWeather = new LinearLayout(this);
+        rowWeather.setOrientation(LinearLayout.HORIZONTAL);
+        rowWeather.setGravity(Gravity.CENTER_VERTICAL);
+        rowWeather.setPadding(0, dp(4), 0, dp(10));
+
+        LinearLayout colWeatherInfo = new LinearLayout(this);
+        colWeatherInfo.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams colWeatherLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        colWeatherInfo.setLayoutParams(colWeatherLp);
+
+        TextView tvWeatherTitle = new TextView(this);
+        tvWeatherTitle.setText("⛅ Linha 1: Clima & Tempo (API)");
+        tvWeatherTitle.setTextColor(Color.WHITE);
+        tvWeatherTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvWeatherTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        colWeatherInfo.addView(tvWeatherTitle);
+
+        final TextView tvWeatherValue = new TextView(this);
+        tvWeatherValue.setText("Último: " + InfoNewsScheduler.getInstance().getCachedWeather());
+        tvWeatherValue.setTextColor(Color.parseColor("#94A3B8"));
+        tvWeatherValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvWeatherValue.setPadding(0, dp(2), 0, dp(4));
+        colWeatherInfo.addView(tvWeatherValue);
+
+        // Botão para testar clima agora
+        TextView btnTestWeather = new TextView(this);
+        btnTestWeather.setText("🔄 Consultar Clima Agora");
+        btnTestWeather.setTextColor(Color.parseColor("#38BDF8"));
+        btnTestWeather.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        btnTestWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvWeatherValue.setText("Consultando clima na API wttr.in...");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String weather = InfoNewsScheduler.fetchWeatherSync();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (weather != null && !weather.isEmpty()) {
+                                    tvWeatherValue.setText("Clima: " + weather);
+                                    Toast.makeText(DebugUIActivity.this, "⛅ " + weather, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    tvWeatherValue.setText("Falha ao consultar clima (verifique conexão).");
+                                }
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+        colWeatherInfo.addView(btnTestWeather);
+        rowWeather.addView(colWeatherInfo);
+
+        // Botão seletor de frequência de envio do clima
+        final Button btnWeatherFreq = new Button(this);
+        btnWeatherFreq.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        btnWeatherFreq.setTypeface(Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams btnWeatherLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(38));
+        btnWeatherLp.leftMargin = dp(8);
+        btnWeatherFreq.setLayoutParams(btnWeatherLp);
+
+        final Runnable updateWeatherFreqUi = new Runnable() {
+            @Override
+            public void run() {
+                int freq = InfoNewsScheduler.getInstance().getWeatherFrequency();
+                String label = "⏱️ A cada 1 hora";
+                for (int i = 0; i < InfoNewsScheduler.WEATHER_FREQS.length; i++) {
+                    if (InfoNewsScheduler.WEATHER_FREQS[i] == freq) {
+                        label = InfoNewsScheduler.WEATHER_LABELS[i];
+                        break;
+                    }
+                }
+                btnWeatherFreq.setText(label + " ▾");
+
+                GradientDrawable bg = new GradientDrawable();
+                bg.setCornerRadius(dp(8));
+                if (freq == InfoNewsScheduler.FREQ_DISABLED) {
+                    bg.setColor(Color.parseColor("#334155"));
+                    btnWeatherFreq.setTextColor(Color.parseColor("#94A3B8"));
+                } else {
+                    bg.setColor(Color.parseColor("#0369A1"));
+                    btnWeatherFreq.setTextColor(Color.WHITE);
+                }
+                btnWeatherFreq.setBackground(bg);
+            }
+        };
+        updateWeatherFreqUi.run();
+
+        btnWeatherFreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DebugUIActivity.this);
+                builder.setTitle("Frequência de Envio: Clima");
+                builder.setItems(InfoNewsScheduler.WEATHER_LABELS, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int selectedFreq = InfoNewsScheduler.WEATHER_FREQS[which];
+                        InfoNewsScheduler.getInstance().setWeatherFrequency(selectedFreq);
+                        updateWeatherFreqUi.run();
+                        updateStatusText(tvStatus);
+                    }
+                });
+                builder.show();
+            }
+        });
+        rowWeather.addView(btnWeatherFreq);
+        gridLayout.addView(rowWeather);
+
+        // Divisor
+        View div = new View(this);
+        div.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(1)));
+        div.setBackgroundColor(Color.parseColor("#334155"));
+        gridLayout.addView(div);
+
+        // -------------------------------------------------------------------------
+        // LINHA 2: PING DE REDE WI-FI (8.8.8.8)
+        // -------------------------------------------------------------------------
+        LinearLayout rowWifi = new LinearLayout(this);
+        rowWifi.setOrientation(LinearLayout.HORIZONTAL);
+        rowWifi.setGravity(Gravity.CENTER_VERTICAL);
+        rowWifi.setPadding(0, dp(10), 0, dp(4));
+
+        LinearLayout colWifiInfo = new LinearLayout(this);
+        colWifiInfo.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams colWifiLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        colWifiInfo.setLayoutParams(colWifiLp);
+
+        TextView tvWifiTitle = new TextView(this);
+        tvWifiTitle.setText("📶 Linha 2: Ping Wi-Fi (8.8.8.8)");
+        tvWifiTitle.setTextColor(Color.WHITE);
+        tvWifiTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        tvWifiTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        colWifiInfo.addView(tvWifiTitle);
+
+        final TextView tvWifiValue = new TextView(this);
+        tvWifiValue.setText("Último: " + InfoNewsScheduler.getInstance().getCachedWifiPing());
+        tvWifiValue.setTextColor(Color.parseColor("#94A3B8"));
+        tvWifiValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvWifiValue.setPadding(0, dp(2), 0, dp(4));
+        colWifiInfo.addView(tvWifiValue);
+
+        // Botão para testar ping agora
+        TextView btnTestPing = new TextView(this);
+        btnTestPing.setText("⚡ Medir Latência Wi-Fi");
+        btnTestPing.setTextColor(Color.parseColor("#10B981"));
+        btnTestPing.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        btnTestPing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvWifiValue.setText("Medindo ping para 8.8.8.8:53...");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final InfoNewsScheduler.WifiPingResult res = InfoNewsScheduler.measureWifiPing(DebugUIActivity.this);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (res.isWifiConnected) {
+                                    if (res.isSuccess) {
+                                        tvWifiValue.setText("Wi-Fi Conectado • Latência: " + res.latencyMs + " ms (OK)");
+                                        Toast.makeText(DebugUIActivity.this, "📶 Latência 8.8.8.8: " + res.latencyMs + " ms", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        tvWifiValue.setText("Wi-Fi Conectado • Falha de ping 8.8.8.8");
+                                        Toast.makeText(DebugUIActivity.this, "⚠️ Falha de ping no Wi-Fi!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    tvWifiValue.setText("Wi-Fi não conectado (Rede móvel ou offline)");
+                                    Toast.makeText(DebugUIActivity.this, "Wi-Fi não conectado", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+        colWifiInfo.addView(btnTestPing);
+        rowWifi.addView(colWifiInfo);
+
+        // Botão seletor de frequência / modo do ping Wi-Fi
+        final Button btnWifiFreq = new Button(this);
+        btnWifiFreq.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        btnWifiFreq.setTypeface(Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams btnWifiLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp(38));
+        btnWifiLp.leftMargin = dp(8);
+        btnWifiFreq.setLayoutParams(btnWifiLp);
+
+        final Runnable updateWifiFreqUi = new Runnable() {
+            @Override
+            public void run() {
+                int freq = InfoNewsScheduler.getInstance().getWifiFrequency();
+                String label = "⏱️ A cada 1 hora";
+                for (int i = 0; i < InfoNewsScheduler.WIFI_FREQS.length; i++) {
+                    if (InfoNewsScheduler.WIFI_FREQS[i] == freq) {
+                        label = InfoNewsScheduler.WIFI_LABELS[i];
+                        break;
+                    }
+                }
+                btnWifiFreq.setText(label + " ▾");
+
+                GradientDrawable bg = new GradientDrawable();
+                bg.setCornerRadius(dp(8));
+                if (freq == InfoNewsScheduler.FREQ_DISABLED) {
+                    bg.setColor(Color.parseColor("#334155"));
+                    btnWifiFreq.setTextColor(Color.parseColor("#94A3B8"));
+                } else if (freq == InfoNewsScheduler.FREQ_WIFI_ALERT_ONLY) {
+                    bg.setColor(Color.parseColor("#B45309")); // Amber / Alerta
+                    btnWifiFreq.setTextColor(Color.WHITE);
+                } else {
+                    bg.setColor(Color.parseColor("#047857")); // Emerald
+                    btnWifiFreq.setTextColor(Color.WHITE);
+                }
+                btnWifiFreq.setBackground(bg);
+            }
+        };
+        updateWifiFreqUi.run();
+
+        btnWifiFreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DebugUIActivity.this);
+                builder.setTitle("Frequência: Ping de Rede Wi-Fi");
+                builder.setItems(InfoNewsScheduler.WIFI_LABELS, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int selectedFreq = InfoNewsScheduler.WIFI_FREQS[which];
+                        InfoNewsScheduler.getInstance().setWifiFrequency(selectedFreq);
+                        updateWifiFreqUi.run();
+                        updateStatusText(tvStatus);
+                    }
+                });
+                builder.show();
+            }
+        });
+        rowWifi.addView(btnWifiFreq);
+        gridLayout.addView(rowWifi);
+
+        // =========================================================================
+        // PRÓXIMAS EVOLUÇÕES: ADICIONE NOVAS LINHAS AO GRID 'INFO NOTÍCIAS' AQUI
+        // Exemplo:
+        // // Linha 3: Cotações Financeiras (Dólar, Bitcoin)
+        // // Linha 4: Nível de Bateria do Smartphone
+        // =========================================================================
+
+        card.addView(gridLayout);
+
+        // Bloco decorativo para próximas expansões
+        LinearLayout futureCard = new LinearLayout(this);
+        futureCard.setOrientation(LinearLayout.HORIZONTAL);
+        futureCard.setGravity(Gravity.CENTER_VERTICAL);
+        futureCard.setPadding(dp(12), dp(10), dp(12), dp(10));
+        LinearLayout.LayoutParams futureLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        futureLp.topMargin = dp(10);
+        futureCard.setLayoutParams(futureLp);
+
+        GradientDrawable futureBg = new GradientDrawable();
+        futureBg.setCornerRadius(dp(10));
+        futureBg.setColor(Color.parseColor("#0B132B"));
+        futureBg.setStroke(dp(1), Color.parseColor("#1E3A8A"));
+        futureCard.setBackground(futureBg);
+
+        TextView futureTv = new TextView(this);
+        futureTv.setText("➕ Próximas Notícias: Estrutura modular pronta para receber novas fontes de dados (Cotações, Bateria do Celular, Notícias RSS).");
+        futureTv.setTextColor(Color.parseColor("#60A5FA"));
+        futureTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        futureCard.addView(futureTv);
+        card.addView(futureCard);
+
+        updateStatusText(tvStatus);
+
+        return card;
+    }
+
+    private void updateStatusText(TextView tvStatus) {
+        if (tvStatus == null) return;
+        int weatherFreq = InfoNewsScheduler.getInstance().getWeatherFrequency();
+        int wifiFreq = InfoNewsScheduler.getInstance().getWifiFrequency();
+
+        if (weatherFreq == InfoNewsScheduler.FREQ_DISABLED && wifiFreq == InfoNewsScheduler.FREQ_DISABLED) {
+            tvStatus.setText("🔴 Automação: Todos os envios desligados");
+            tvStatus.setTextColor(Color.parseColor("#94A3B8"));
+        } else {
+            tvStatus.setText("🟢 Automação Ativa • Monitorando em 2º plano");
+            tvStatus.setTextColor(Color.parseColor("#34D399"));
+        }
     }
 }
 

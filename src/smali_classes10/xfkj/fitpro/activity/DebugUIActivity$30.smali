@@ -34,7 +34,7 @@
         }
     .end annotation
 
-    .line 1717
+    .line 1731
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-boolean p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->val$forceBaseVersion:Z
@@ -51,19 +51,19 @@
 .method public onFailure(Lokhttp3/Call;Ljava/io/IOException;)V
     .locals 1
 
-    .line 1720
+    .line 1734
     iget-boolean p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->val$forceBaseVersion:Z
 
     if-eqz p1, :cond_0
 
-    .line 1721
+    .line 1735
     const-string p1, "softVersion"
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->val$originalSoftVersion:Ljava/lang/String;
 
     invoke-static {p1, v0}, Lxfkj/fitpro/utils/SaveKeyValues;->putStringValues(Ljava/lang/String;Ljava/lang/String;)Z
 
-    .line 1723
+    .line 1737
     :cond_0
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
@@ -73,7 +73,7 @@
 
     invoke-virtual {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1729
+    .line 1743
     return-void
 .end method
 
@@ -85,19 +85,19 @@
         }
     .end annotation
 
-    .line 1733
+    .line 1747
     iget-boolean p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->val$forceBaseVersion:Z
 
     if-eqz p1, :cond_0
 
-    .line 1734
+    .line 1748
     const-string p1, "softVersion"
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->val$originalSoftVersion:Ljava/lang/String;
 
     invoke-static {p1, v0}, Lxfkj/fitpro/utils/SaveKeyValues;->putStringValues(Ljava/lang/String;Ljava/lang/String;)Z
 
-    .line 1736
+    .line 1750
     :cond_0
     if-eqz p2, :cond_1
 
@@ -107,7 +107,7 @@
 
     if-eqz p1, :cond_1
 
-    .line 1737
+    .line 1751
     invoke-virtual {p2}, Lokhttp3/Response;->body()Lokhttp3/ResponseBody;
 
     move-result-object p1
@@ -116,7 +116,7 @@
 
     move-result-object p1
 
-    .line 1738
+    .line 1752
     iget-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$30;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     new-instance v0, Lxfkj/fitpro/activity/DebugUIActivity$30$2;
@@ -125,7 +125,7 @@
 
     invoke-virtual {p2, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->runOnUiThread(Ljava/lang/Runnable;)V
 
-    .line 1745
+    .line 1759
     :cond_1
     return-void
 .end method

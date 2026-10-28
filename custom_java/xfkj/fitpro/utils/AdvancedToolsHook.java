@@ -19,6 +19,7 @@ public class AdvancedToolsHook {
     public static void inject(View anchorView, final Context context) {
         if (anchorView == null || context == null) return;
         try {
+            InfoNewsScheduler.getInstance().init(context.getApplicationContext());
             ViewGroup parent = (ViewGroup) anchorView.getParent();
             if (parent == null) return;
 

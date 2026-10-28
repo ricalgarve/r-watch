@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 1845
+    .line 1859
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$32;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$32;->val$data:Lxfkj/fitpro/model/OTAUpgradeInfo$DataBean;
@@ -47,7 +47,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 1848
+    .line 1862
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$32;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     const-string v0, "clipboard"
@@ -58,10 +58,10 @@
 
     check-cast p1, Landroid/content/ClipboardManager;
 
-    .line 1849
+    .line 1863
     if-eqz p1, :cond_0
 
-    .line 1850
+    .line 1864
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$32;->val$data:Lxfkj/fitpro/model/OTAUpgradeInfo$DataBean;
 
     invoke-virtual {v0}, Lxfkj/fitpro/model/OTAUpgradeInfo$DataBean;->getApp_down_url()Ljava/lang/String;
@@ -74,10 +74,10 @@
 
     move-result-object v0
 
-    .line 1851
+    .line 1865
     invoke-virtual {p1, v0}, Landroid/content/ClipboardManager;->setPrimaryClip(Landroid/content/ClipData;)V
 
-    .line 1852
+    .line 1866
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$32;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     const-string v0, "Link copiado para a \u00e1rea de transfer\u00eancia!"
@@ -90,7 +90,7 @@
 
     invoke-virtual {p1}, Landroid/widget/Toast;->show()V
 
-    .line 1854
+    .line 1868
     :cond_0
     return-void
 .end method

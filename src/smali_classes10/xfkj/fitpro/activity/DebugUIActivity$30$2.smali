@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 1738
+    .line 1752
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$30$2;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$30;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$30$2;->val$bodyStr:Ljava/lang/String;
@@ -47,7 +47,7 @@
 .method public run()V
     .locals 3
 
-    .line 1741
+    .line 1755
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$30$2;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$30;
 
     iget-object v0, v0, Lxfkj/fitpro/activity/DebugUIActivity$30;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
@@ -60,6 +60,6 @@
 
     invoke-static {v0, v1, v2}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1500(Lxfkj/fitpro/activity/DebugUIActivity;Ljava/lang/String;Z)V
 
-    .line 1742
+    .line 1756
     return-void
 .end method

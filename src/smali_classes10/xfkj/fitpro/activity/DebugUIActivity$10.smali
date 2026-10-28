@@ -36,7 +36,7 @@
         }
     .end annotation
 
-    .line 673
+    .line 687
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$10;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$10;->val$typeValues:[I
@@ -55,7 +55,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 4
 
-    .line 676
+    .line 690
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$10;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$10;->val$typeValues:[I
@@ -66,7 +66,7 @@
 
     invoke-static {p1, v0}, Lxfkj/fitpro/activity/DebugUIActivity;->access$702(Lxfkj/fitpro/activity/DebugUIActivity;I)I
 
-    .line 677
+    .line 691
     const/4 p1, 0x0
 
     const/4 v0, 0x0
@@ -78,7 +78,7 @@
 
     if-ge v0, v2, :cond_1
 
-    .line 678
+    .line 692
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity$10;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     aget-object v1, v1, v0
@@ -97,12 +97,12 @@
     :goto_1
     invoke-static {v2, v1, v3}, Lxfkj/fitpro/activity/DebugUIActivity;->access$800(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/widget/TextView;Z)V
 
-    .line 677
+    .line 691
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .line 680
+    .line 694
     :cond_1
     return-void
 .end method

@@ -42,7 +42,7 @@
         }
     .end annotation
 
-    .line 2195
+    .line 2209
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$fDialW:I
@@ -67,7 +67,7 @@
 .method public run()V
     .locals 12
 
-    .line 2198
+    .line 2212
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v0}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1700(Lxfkj/fitpro/activity/DebugUIActivity;)Landroid/graphics/Bitmap;
@@ -76,7 +76,7 @@
 
     if-nez v0, :cond_0
 
-    .line 2199
+    .line 2213
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v0}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1800(Lxfkj/fitpro/activity/DebugUIActivity;)I
@@ -93,7 +93,7 @@
 
     invoke-static {v0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1702(Lxfkj/fitpro/activity/DebugUIActivity;Landroid/graphics/Bitmap;)Landroid/graphics/Bitmap;
 
-    .line 2201
+    .line 2215
     :cond_0
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
@@ -111,12 +111,12 @@
 
     move-result-object v0
 
-    .line 2202
+    .line 2216
     iget-object v1, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$previewImg:Landroid/widget/ImageView;
 
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    .line 2203
+    .line 2217
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$tvInfoBar:Landroid/widget/TextView;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -173,7 +173,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 2206
+    .line 2220
     const/4 v0, 0x0
 
     const/4 v1, 0x0
@@ -197,7 +197,7 @@
 
     if-ge v1, v2, :cond_5
 
-    .line 2207
+    .line 2221
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v2}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1800(Lxfkj/fitpro/activity/DebugUIActivity;)I
@@ -213,13 +213,13 @@
     :cond_1
     const/4 v2, 0x0
 
-    .line 2208
+    .line 2222
     :goto_1
     new-instance v9, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v9}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 2209
+    .line 2223
     iget-object v10, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v10, v7}, Lxfkj/fitpro/activity/DebugUIActivity;->access$2000(Lxfkj/fitpro/activity/DebugUIActivity;I)I
@@ -230,7 +230,7 @@
 
     invoke-virtual {v9, v7}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 2210
+    .line 2224
     if-eqz v2, :cond_2
 
     const-string v6, "#059669"
@@ -242,7 +242,7 @@
 
     invoke-virtual {v9, v6}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 2211
+    .line 2225
     iget-object v6, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v6, v8}, Lxfkj/fitpro/activity/DebugUIActivity;->access$2000(Lxfkj/fitpro/activity/DebugUIActivity;I)I
@@ -260,14 +260,14 @@
 
     invoke-virtual {v9, v6, v5}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 2212
+    .line 2226
     iget-object v5, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$themeButtons:[Landroid/widget/Button;
 
     aget-object v5, v5, v1
 
     invoke-virtual {v5, v9}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 2213
+    .line 2227
     iget-object v5, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$themeButtons:[Landroid/widget/Button;
 
     aget-object v5, v5, v1
@@ -284,12 +284,12 @@
     :goto_2
     invoke-virtual {v5, v3}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 2206
+    .line 2220
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
 
-    .line 2217
+    .line 2231
     :cond_5
     const/4 v1, 0x0
 
@@ -300,7 +300,7 @@
 
     if-ge v1, v2, :cond_a
 
-    .line 2218
+    .line 2232
     iget-object v2, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v2}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1900(Lxfkj/fitpro/activity/DebugUIActivity;)I
@@ -316,13 +316,13 @@
     :cond_6
     const/4 v2, 0x0
 
-    .line 2219
+    .line 2233
     :goto_4
     new-instance v9, Landroid/graphics/drawable/GradientDrawable;
 
     invoke-direct {v9}, Landroid/graphics/drawable/GradientDrawable;-><init>()V
 
-    .line 2220
+    .line 2234
     iget-object v10, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v10, v7}, Lxfkj/fitpro/activity/DebugUIActivity;->access$2000(Lxfkj/fitpro/activity/DebugUIActivity;I)I
@@ -333,7 +333,7 @@
 
     invoke-virtual {v9, v10}, Landroid/graphics/drawable/GradientDrawable;->setCornerRadius(F)V
 
-    .line 2221
+    .line 2235
     if-eqz v2, :cond_7
 
     const-string v10, "#0284C7"
@@ -352,7 +352,7 @@
     :goto_5
     invoke-virtual {v9, v10}, Landroid/graphics/drawable/GradientDrawable;->setColor(I)V
 
-    .line 2222
+    .line 2236
     iget-object v10, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {v10, v8}, Lxfkj/fitpro/activity/DebugUIActivity;->access$2000(Lxfkj/fitpro/activity/DebugUIActivity;I)I
@@ -377,14 +377,14 @@
     :goto_6
     invoke-virtual {v9, v10, v11}, Landroid/graphics/drawable/GradientDrawable;->setStroke(II)V
 
-    .line 2223
+    .line 2237
     iget-object v10, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$posButtons:[Landroid/widget/Button;
 
     aget-object v10, v10, v1
 
     invoke-virtual {v10, v9}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
 
-    .line 2224
+    .line 2238
     iget-object v9, p0, Lxfkj/fitpro/activity/DebugUIActivity$36;->val$posButtons:[Landroid/widget/Button;
 
     aget-object v9, v9, v1
@@ -403,12 +403,12 @@
     :goto_7
     invoke-virtual {v9, v2}, Landroid/widget/Button;->setTextColor(I)V
 
-    .line 2217
+    .line 2231
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_3
 
-    .line 2226
+    .line 2240
     :cond_a
     return-void
 .end method

@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 830
+    .line 844
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
@@ -47,12 +47,12 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 833
+    .line 847
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-static {p1}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1100(Lxfkj/fitpro/activity/DebugUIActivity;)V
 
-    .line 834
+    .line 848
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     const-string v0, "\u26a1 Todas as chaves de notificacao foram ativadas no relogio!"
@@ -65,12 +65,12 @@
 
     invoke-virtual {p1}, Landroid/widget/Toast;->show()V
 
-    .line 835
+    .line 849
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
 
     if-eqz p1, :cond_0
 
-    .line 836
+    .line 850
     const-string v0, "#10B981"
 
     invoke-static {v0}, Landroid/graphics/Color;->parseColor(Ljava/lang/String;)I
@@ -79,19 +79,19 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 837
+    .line 851
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
 
     const-string v0, "\u26a1 Chaves de push sincronizadas (WhatsApp, SMS, Chamada = ATIVADOS)"
 
     invoke-virtual {p1, v0}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 838
+    .line 852
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$13;->val$tvFeedback:Landroid/widget/TextView;
 
     invoke-virtual {p1, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 840
+    .line 854
     :cond_0
     return-void
 .end method

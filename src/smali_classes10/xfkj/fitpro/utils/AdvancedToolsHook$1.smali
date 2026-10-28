@@ -30,7 +30,7 @@
         }
     .end annotation
 
-    .line 88
+    .line 89
     iput-object p1, p0, Lxfkj/fitpro/utils/AdvancedToolsHook$1;->val$context:Landroid/content/Context;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -43,7 +43,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 92
+    .line 93
     :try_start_0
     new-instance p1, Landroid/content/Intent;
 
@@ -53,29 +53,29 @@
 
     invoke-direct {p1, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
 
-    .line 93
+    .line 94
     const/high16 v0, 0x10000000
 
     invoke-virtual {p1, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 94
+    .line 95
     iget-object v0, p0, Lxfkj/fitpro/utils/AdvancedToolsHook$1;->val$context:Landroid/content/Context;
 
     invoke-virtual {v0, p1}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 97
+    .line 98
     goto :goto_0
 
-    .line 95
+    .line 96
     :catchall_0
     move-exception p1
 
-    .line 96
+    .line 97
     invoke-virtual {p1}, Ljava/lang/Throwable;->printStackTrace()V
 
-    .line 98
+    .line 99
     :goto_0
     return-void
 .end method
