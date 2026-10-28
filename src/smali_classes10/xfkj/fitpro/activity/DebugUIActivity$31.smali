@@ -34,7 +34,7 @@
         }
     .end annotation
 
-    .line 1801
+    .line 1820
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$31;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$31;->val$dialog:Landroid/app/Dialog;
@@ -51,12 +51,12 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 1804
+    .line 1823
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$31;->val$dialog:Landroid/app/Dialog;
 
     invoke-virtual {p1}, Landroid/app/Dialog;->dismiss()V
 
-    .line 1805
+    .line 1824
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$31;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$31;->val$data:Lxfkj/fitpro/model/OTAUpgradeInfo$DataBean;
@@ -73,6 +73,6 @@
 
     invoke-static {p1, v0, v1}, Lxfkj/fitpro/activity/DebugUIActivity;->access$1600(Lxfkj/fitpro/activity/DebugUIActivity;Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 1806
+    .line 1825
     return-void
 .end method

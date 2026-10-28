@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 1854
+    .line 1873
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$33;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$33;->val$dialog:Landroid/app/Dialog;
@@ -47,11 +47,11 @@
 .method public onClick(Landroid/view/View;)V
     .locals 0
 
-    .line 1857
+    .line 1876
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$33;->val$dialog:Landroid/app/Dialog;
 
     invoke-virtual {p1}, Landroid/app/Dialog;->dismiss()V
 
-    .line 1858
+    .line 1877
     return-void
 .end method

@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 2006
+    .line 2025
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$3;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$35;
 
     iput-object p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$3;->val$e:Ljava/lang/Throwable;
@@ -47,7 +47,7 @@
 .method public run()V
     .locals 3
 
-    .line 2009
+    .line 2028
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$3;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$35;
 
     iget-object v0, v0, Lxfkj/fitpro/activity/DebugUIActivity$35;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
@@ -84,6 +84,6 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 2010
+    .line 2029
     return-void
 .end method

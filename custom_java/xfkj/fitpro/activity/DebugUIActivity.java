@@ -12,15 +12,21 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import xfkj.fitpro.model.sever.body.ClockDialInfoBody;
+import xfkj.fitpro.utils.MatrixThemeHelper;
 import xfkj.fitpro.activity.MeasureActivity;
 import xfkj.fitpro.activity.MoreSleepActivity;
 import xfkj.fitpro.activity.StepNumberMoreActivity;
@@ -68,6 +74,9 @@ public class DebugUIActivity extends NewBaseActivity {
     private LinearLayout mContainerHardware;
     private LinearLayout mChipsLayout;
     private int mSelectedAppType = 8; // 8 = WhatsApp, 1 = SMS, 18 = Telegram, 16 = Instagram
+    private int selectedMatrixTheme = 0;
+    private int selectedMatrixPosition = 0; // 0=TL, 1=TR, 2=BR, 3=BL
+    private Bitmap currentMatrixThemeBmp = null;
 
     @Override
     public int getLayoutId() {
@@ -153,6 +162,16 @@ public class DebugUIActivity extends NewBaseActivity {
         root.addView(createSectionTitle("💾 Backup / Firmware OTA Oficial", "Consulte e baixe a ROM oficial do servidor para backup do relógio"));
         View cardOTA = buildOTABackupCard();
         root.addView(cardOTA);
+
+        // Spacer
+        View spacer4 = new View(this);
+        spacer4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(20)));
+        root.addView(spacer4);
+
+        // 6. Section: Mostradores & Temas Offline (Matrix & Cyberpunk)
+        root.addView(createSectionTitle("🕶️ Mostradores & Temas Offline (Matrix)", "Gere papéis de parede Matrix na resolução nativa e alterne a posição do relógio"));
+        View cardMatrix = buildMatrixThemeCard();
+        root.addView(cardMatrix);
 
         scrollView.addView(root);
         return scrollView;
@@ -2051,6 +2070,276 @@ public class DebugUIActivity extends NewBaseActivity {
         }
 
         showResultModal("Arquivos de Firmware Locais", "📂", sb.toString(), null, null);
+    }
+
+    private View buildMatrixThemeCard() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        GradientDrawable cardBg = new GradientDrawable();
+        cardBg.setCornerRadius(dp(16));
+        cardBg.setColor(Color.parseColor("#111827"));
+        cardBg.setStroke(dp(1), Color.parseColor("#10B981"));
+        card.setBackground(cardBg);
+
+        // Header with icon and title
+        LinearLayout titleRow = new LinearLayout(this);
+        titleRow.setOrientation(LinearLayout.HORIZONTAL);
+        titleRow.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView iconTv = new TextView(this);
+        iconTv.setText("🕶️");
+        iconTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        iconTv.setPadding(0, 0, dp(10), 0);
+        titleRow.addView(iconTv);
+
+        LinearLayout titleCol = new LinearLayout(this);
+        titleCol.setOrientation(LinearLayout.VERTICAL);
+
+        TextView tvTitle = new TextView(this);
+        tvTitle.setText("Estúdio de Temas Matrix & Relógio");
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        titleCol.addView(tvTitle);
+
+        TextView tvSub = new TextView(this);
+        tvSub.setText("Gere papéis de parede Matrix offline na resolução nativa e alterne a posição da hora.");
+        tvSub.setTextColor(Color.parseColor("#94A3B8"));
+        tvSub.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        titleCol.addView(tvSub);
+
+        titleRow.addView(titleCol);
+        card.addView(titleRow);
+
+        // Resolution and smart detection
+        int dialW = 240;
+        int dialH = 280;
+        try {
+            ClockDialInfoBody clockInfo = DBHelper.getClockDialInfo();
+            if (clockInfo != null && clockInfo.getWidth() > 0 && clockInfo.getHeight() > 0) {
+                dialW = clockInfo.getWidth();
+                dialH = clockInfo.getHeight();
+            }
+        } catch (Throwable ignored) {}
+
+        final int fDialW = dialW;
+        final int fDialH = dialH;
+
+        final TextView tvInfoBar = new TextView(this);
+        tvInfoBar.setTextColor(Color.parseColor("#34D399"));
+        tvInfoBar.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvInfoBar.setTypeface(Typeface.MONOSPACE);
+        tvInfoBar.setPadding(0, dp(10), 0, dp(6));
+        card.addView(tvInfoBar);
+
+        // Preview Mockup Frame (Bezel simulating smartwatch)
+        LinearLayout previewContainer = new LinearLayout(this);
+        previewContainer.setOrientation(LinearLayout.VERTICAL);
+        previewContainer.setGravity(Gravity.CENTER);
+        previewContainer.setPadding(0, dp(8), 0, dp(12));
+
+        FrameLayout bezel = new FrameLayout(this);
+        int bezelW = dp(160);
+        int bezelH = dp(160 * fDialH / fDialW);
+        LinearLayout.LayoutParams bezelLp = new LinearLayout.LayoutParams(bezelW, bezelH);
+        bezelLp.gravity = Gravity.CENTER_HORIZONTAL;
+        bezel.setLayoutParams(bezelLp);
+
+        GradientDrawable bezelBg = new GradientDrawable();
+        bezelBg.setColor(Color.parseColor("#05080C"));
+        bezelBg.setCornerRadius(dp(18));
+        bezelBg.setStroke(dp(3), Color.parseColor("#10B981"));
+        bezel.setBackground(bezelBg);
+        bezel.setPadding(dp(6), dp(6), dp(6), dp(6));
+
+        final ImageView previewImg = new ImageView(this);
+        previewImg.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        FrameLayout.LayoutParams imgLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        previewImg.setLayoutParams(imgLp);
+        bezel.addView(previewImg);
+
+        previewContainer.addView(bezel);
+        card.addView(previewContainer);
+
+        // Theme selector label
+        TextView tvThemeLabel = new TextView(this);
+        tvThemeLabel.setText("1. ESCOLHA O TEMA MATRIX:");
+        tvThemeLabel.setTextColor(Color.parseColor("#6EE7B7"));
+        tvThemeLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvThemeLabel.setTypeface(Typeface.DEFAULT_BOLD);
+        tvThemeLabel.setPadding(0, dp(4), 0, dp(6));
+        card.addView(tvThemeLabel);
+
+        // Theme selector row
+        LinearLayout themeRow = new LinearLayout(this);
+        themeRow.setOrientation(LinearLayout.HORIZONTAL);
+        final Button[] themeButtons = new Button[3];
+        final String[] themeLabels = {"🟢 Chuva Matrix", "💻 Terminal HUD", "🌀 Glitch Quântico"};
+
+        // Position selector label
+        TextView tvPosLabel = new TextView(this);
+        tvPosLabel.setText("2. POSIÇÃO DO RELÓGIO NO MOSTRADOR:");
+        tvPosLabel.setTextColor(Color.parseColor("#38BDF8"));
+        tvPosLabel.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        tvPosLabel.setTypeface(Typeface.DEFAULT_BOLD);
+        tvPosLabel.setPadding(0, dp(12), 0, dp(6));
+
+        // Position selector grid / row
+        LinearLayout posRow = new LinearLayout(this);
+        posRow.setOrientation(LinearLayout.HORIZONTAL);
+        final Button[] posButtons = new Button[4];
+        final String[] posLabels = {"↖️ Sup. Esq", "↗️ Sup. Dir", "↘️ Inf. Dir", "↙️ Inf. Esq"};
+
+        final Runnable refreshMockup = new Runnable() {
+            @Override
+            public void run() {
+                if (currentMatrixThemeBmp == null) {
+                    currentMatrixThemeBmp = MatrixThemeHelper.generateMatrixTheme(DebugUIActivity.this, selectedMatrixTheme, fDialW, fDialH);
+                }
+                Bitmap mockup = MatrixThemeHelper.renderMockupWithClock(currentMatrixThemeBmp, selectedMatrixPosition);
+                previewImg.setImageBitmap(mockup);
+                tvInfoBar.setText("• Resolução: " + fDialW + "×" + fDialH + " px  |  Posição: " + MatrixThemeHelper.POSITION_NAMES[selectedMatrixPosition]);
+
+                // Update theme button states
+                for (int i = 0; i < themeButtons.length; i++) {
+                    boolean active = (i == selectedMatrixTheme);
+                    GradientDrawable bg = new GradientDrawable();
+                    bg.setCornerRadius(dp(10));
+                    bg.setColor(active ? Color.parseColor("#059669") : Color.parseColor("#1F2937"));
+                    bg.setStroke(dp(1), active ? Color.parseColor("#34D399") : Color.parseColor("#374151"));
+                    themeButtons[i].setBackground(bg);
+                    themeButtons[i].setTextColor(active ? Color.WHITE : Color.parseColor("#9CA3AF"));
+                }
+
+                // Update position button states
+                for (int i = 0; i < posButtons.length; i++) {
+                    boolean active = (i == selectedMatrixPosition);
+                    GradientDrawable bg = new GradientDrawable();
+                    bg.setCornerRadius(dp(10));
+                    bg.setColor(active ? Color.parseColor("#0284C7") : Color.parseColor("#1F2937"));
+                    bg.setStroke(dp(1), active ? Color.parseColor("#38BDF8") : Color.parseColor("#374151"));
+                    posButtons[i].setBackground(bg);
+                    posButtons[i].setTextColor(active ? Color.WHITE : Color.parseColor("#9CA3AF"));
+                }
+            }
+        };
+
+        for (int i = 0; i < 3; i++) {
+            final int idx = i;
+            Button btn = new Button(this);
+            btn.setText(themeLabels[i]);
+            btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            btn.setTypeface(Typeface.DEFAULT_BOLD);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(38), 1f);
+            if (i > 0) lp.leftMargin = dp(6);
+            btn.setLayoutParams(lp);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedMatrixTheme = idx;
+                    currentMatrixThemeBmp = MatrixThemeHelper.generateMatrixTheme(DebugUIActivity.this, selectedMatrixTheme, fDialW, fDialH);
+                    refreshMockup.run();
+                }
+            });
+            themeButtons[i] = btn;
+            themeRow.addView(btn);
+        }
+        card.addView(themeRow);
+
+        card.addView(tvPosLabel);
+
+        for (int i = 0; i < 4; i++) {
+            final int idx = i;
+            Button btn = new Button(this);
+            btn.setText(posLabels[i]);
+            btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            btn.setTypeface(Typeface.DEFAULT_BOLD);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(38), 1f);
+            if (i > 0) lp.leftMargin = dp(4);
+            btn.setLayoutParams(lp);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedMatrixPosition = idx;
+                    refreshMockup.run();
+                }
+            });
+            posButtons[i] = btn;
+            posRow.addView(btn);
+        }
+        card.addView(posRow);
+
+        // Action Buttons Row
+        LinearLayout actionsRow = new LinearLayout(this);
+        actionsRow.setOrientation(LinearLayout.HORIZONTAL);
+        actionsRow.setPadding(0, dp(16), 0, 0);
+
+        Button btnSaveGallery = new Button(this);
+        btnSaveGallery.setText("📥 Salvar na Galeria");
+        btnSaveGallery.setTextColor(Color.WHITE);
+        btnSaveGallery.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        btnSaveGallery.setTypeface(Typeface.DEFAULT_BOLD);
+        GradientDrawable saveBg = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor("#059669"), Color.parseColor("#10B981")});
+        saveBg.setCornerRadius(dp(12));
+        btnSaveGallery.setBackground(saveBg);
+        LinearLayout.LayoutParams saveLp = new LinearLayout.LayoutParams(0, dp(44), 1f);
+        saveLp.rightMargin = dp(8);
+        btnSaveGallery.setLayoutParams(saveLp);
+
+        btnSaveGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentMatrixThemeBmp == null) {
+                    currentMatrixThemeBmp = MatrixThemeHelper.generateMatrixTheme(DebugUIActivity.this, selectedMatrixTheme, fDialW, fDialH);
+                }
+                String themeName = MatrixThemeHelper.THEME_NAMES[selectedMatrixTheme];
+                Uri uri = MatrixThemeHelper.saveThemeToGallery(DebugUIActivity.this, currentMatrixThemeBmp, themeName);
+                if (uri != null) {
+                    Toast.makeText(DebugUIActivity.this, "✅ Imagem salva em Pictures/WatchThemes!", Toast.LENGTH_SHORT).show();
+                    showResultModal("Tema Salvo na Galeria", "🖼️",
+                            "O wallpaper Matrix foi gerado e salvo com sucesso na galeria do seu telefone!\n\n"
+                            + "📁 Pasta: Pictures/WatchThemes\n"
+                            + "🎨 Tema: " + themeName + "\n"
+                            + "📐 Resolução: " + fDialW + "×" + fDialH + " px\n"
+                            + "⏰ Posição recomendada: " + MatrixThemeHelper.POSITION_NAMES[selectedMatrixPosition] + "\n\n"
+                            + "Como aplicar no relógio:\n"
+                            + "1. Toque no botão '⌚ Abrir Mostradores' abaixo\n"
+                            + "2. Escolha o mostrador personalizável (Custom Watch Dial)\n"
+                            + "3. Toque em 'Alterar Imagem de Fundo' e selecione esta imagem salva\n"
+                            + "4. Ajuste a posição do relógio para " + MatrixThemeHelper.POSITION_NAMES[selectedMatrixPosition] + "\n"
+                            + "5. Toque em 'Sincronizar' para transferir ao smartwatch!",
+                            null, null);
+                }
+            }
+        });
+        actionsRow.addView(btnSaveGallery);
+
+        Button btnOpenDials = new Button(this);
+        btnOpenDials.setText("⌚ Abrir Mostradores");
+        btnOpenDials.setTextColor(Color.WHITE);
+        btnOpenDials.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        btnOpenDials.setTypeface(Typeface.DEFAULT_BOLD);
+        GradientDrawable dialsBg = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor("#0284C7"), Color.parseColor("#0EA5E9")});
+        dialsBg.setCornerRadius(dp(12));
+        btnOpenDials.setBackground(dialsBg);
+        LinearLayout.LayoutParams dialsLp = new LinearLayout.LayoutParams(0, dp(44), 1f);
+        btnOpenDials.setLayoutParams(dialsLp);
+
+        btnOpenDials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatrixThemeHelper.openWatchDialSelector(DebugUIActivity.this);
+            }
+        });
+        actionsRow.addView(btnOpenDials);
+
+        card.addView(actionsRow);
+
+        return card;
     }
 }
 

@@ -25,7 +25,7 @@
 .method constructor <init>(Lxfkj/fitpro/activity/DebugUIActivity;)V
     .locals 0
 
-    .line 599
+    .line 618
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$9;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -38,7 +38,7 @@
 .method public onClick(Landroid/view/View;)V
     .locals 2
 
-    .line 603
+    .line 622
     :try_start_0
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$9;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
@@ -52,14 +52,14 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 606
+    .line 625
     goto :goto_0
 
-    .line 604
+    .line 623
     :catchall_0
     move-exception p1
 
-    .line 605
+    .line 624
     iget-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$9;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
 
     const-string v0, "Abra as Configuracoes > Notificacoes > Acesso a Notificacoes"
@@ -72,7 +72,7 @@
 
     invoke-virtual {p1}, Landroid/widget/Toast;->show()V
 
-    .line 607
+    .line 626
     :goto_0
     return-void
 .end method

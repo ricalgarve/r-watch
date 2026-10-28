@@ -32,7 +32,7 @@
         }
     .end annotation
 
-    .line 1998
+    .line 2017
     iput-object p1, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$2;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$35;
 
     iput p2, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$2;->val$code:I
@@ -47,7 +47,7 @@
 .method public run()V
     .locals 3
 
-    .line 2001
+    .line 2020
     iget-object v0, p0, Lxfkj/fitpro/activity/DebugUIActivity$35$2;->this$1:Lxfkj/fitpro/activity/DebugUIActivity$35;
 
     iget-object v0, v0, Lxfkj/fitpro/activity/DebugUIActivity$35;->this$0:Lxfkj/fitpro/activity/DebugUIActivity;
@@ -80,6 +80,6 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 2002
+    .line 2021
     return-void
 .end method

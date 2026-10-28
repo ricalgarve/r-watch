@@ -144,6 +144,10 @@
     .line 77
     invoke-virtual {v0, p1}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
+    iget-object v1, p0, Lxfkj/fitpro/activity/ecg/EcgTransformImageActivity$LoadTask;->this$0:Lxfkj/fitpro/activity/ecg/EcgTransformImageActivity;
+
+    invoke-static {v1, v0, p1}, Lxfkj/fitpro/utils/ECGExportHelper;->inject(Landroid/app/Activity;Landroid/widget/ImageView;Landroid/graphics/Bitmap;)V
+
     return-void
 .end method
 
