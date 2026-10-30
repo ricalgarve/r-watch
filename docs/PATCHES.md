@@ -59,3 +59,25 @@ Todas as bibliotecas e gatilhos de anúncios foram desativados no nível de inst
   * Característica RX (Envio): `6e400002-b5a3-f393-e0a9-e50e24dcca9d`
   * Característica TX (Notificação): `6e400003-b5a3-f393-e0a9-e50e24dcca9d`
   * Estrutura do Pacote: `[0xCD, len_high, len_low, cmd, version(0x01), sub_key, payload_len_high, payload_len_low, ...payload]`
+
+---
+
+## 3. FindPhone com Disparo de Compilado de Dados (InfoNewsScheduler)
+
+* **Arquivo Modificado**: `src/smali_classes10/xfkj/fitpro/utils/FindPhone.smali` e `src/smali_classes10/xfkj/fitpro/utils/InfoNewsScheduler.smali`
+* **Código Java de Referência**: `custom_java/xfkj/fitpro/utils/InfoNewsScheduler.java`
+* **Comportamento Original**: Ao pressionar o ícone "Encontrar Celular" no relógio, o celular tocava um alarme sonoro e exibia um diálogo para parar o bipe.
+* **Novo Comportamento**: Ao pressionar "Encontrar Celular" no smartwatch:
+  1. O celular reproduz um **som suave e cristalino de gota d'água / MSN chime** (`water_drop.wav`), **disparando uma única vez e parando imediatamente** sem loop nem sirene contínua e sem diálogo modal invasivo.
+  2. O app **dispara imediatamente o compilado de dados das APIs** (`InfoNewsScheduler.getInstance().dispatchCompiledDigest(true, true)`) como mensagem/push diretamente para a tela do relógio.
+
+### Integração com a Tela de Ferramentas e Áudio One-Shot
+
+1. `FindPhone.playSound()`: reproduz `assets/water_drop.wav` com `setLooping(false)` e `STREAM_MUSIC`, parando sozinho em 360ms. Substitui a sirene contínua de 28 segundos e elimina a necessidade de clicar em diálogos para silenciar.
+2. `FindPhone.findPhone()`: garante a inicialização de contexto via `InfoNewsScheduler.getInstance().init(MyApplication.getContext())`.
+3. Executa `InfoNewsScheduler.getInstance().dispatchCompiledDigest(true, true)` em thread de background.
+4. Coleta os dados ativos de APIs (Clima em tempo real via wttr.in e Latência Wi-Fi via Ping TCP 8.8.8.8:53).
+5. Transmite o compilado formatado via BLE nativo (`SendData.getSendPushRemindValue` e `NotifyService.sendNotifyPush`) para o smartwatch.
+
+
+

@@ -214,13 +214,59 @@
 
 # virtual methods
 .method public findPhone()V
-    .locals 0
+    .locals 5
 
-    .line 44
+    # 1. ACORDAR CPU E ACENDER TELA (WAKELOCK COM TRY-CATCH BLINDADO)
+    :try_start_wake
+    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
+    move-result-object v0
+    if-eqz v0, :cond_wake_skip
+
+    const-string v1, "power"
+    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    move-result-object v1
+    check-cast v1, Landroid/os/PowerManager;
+    if-eqz v1, :cond_wake_skip
+
+    # CPU Lock: PARTIAL_WAKE_LOCK (0x1) por 15 segundos
+    const/4 v2, 0x1
+    const-string v3, "rwatch:findphone_cpu"
+    invoke-virtual {v1, v2, v3}, Landroid/os/PowerManager;->newWakeLock(ILjava/lang/String;)Landroid/os/PowerManager;
+    move-result-object v2
+    if-eqz v2, :cond_screen_lock
+    const-wide/16 v3, 0x3a98
+    invoke-virtual {v2, v3, v4}, Landroid/os/PowerManager;->acquire(J)V
+
+    :cond_screen_lock
+    # Screen Lock: SCREEN_BRIGHT_WAKE_LOCK | ACQUIRE_CAUSES_WAKEUP | ON_AFTER_RELEASE (0x1000001a) por 10 segundos
+    const v2, 0x1000001a
+    const-string v3, "rwatch:findphone_screen"
+    invoke-virtual {v1, v2, v3}, Landroid/os/PowerManager;->newWakeLock(ILjava/lang/String;)Landroid/os/PowerManager;
+    move-result-object v1
+    if-eqz v1, :cond_wake_skip
+    const-wide/16 v2, 0x2710
+    invoke-virtual {v1, v2, v3}, Landroid/os/PowerManager;->acquire(J)V
+
+    :cond_wake_skip
+    :try_end_wake
+    .catchall {:try_start_wake .. :try_end_wake} :catch_wake
+
+    :catch_wake
+    # 2. Tocar som de gota d'agua (dispara uma vez e para)
     invoke-virtual {p0}, Lxfkj/fitpro/utils/FindPhone;->playSound()V
 
-    .line 45
-    invoke-direct {p0}, Lxfkj/fitpro/utils/FindPhone;->showFindPhoneDialog()V
+    # 3. Disparar compilado de dados de APIs/informacoes para o smartwatch
+    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
+    move-result-object v0
+    if-eqz v0, :cond_skip_init
+    invoke-static {}, Lxfkj/fitpro/utils/InfoNewsScheduler;->getInstance()Lxfkj/fitpro/utils/InfoNewsScheduler;
+    move-result-object v1
+    invoke-virtual {v1, v0}, Lxfkj/fitpro/utils/InfoNewsScheduler;->init(Landroid/content/Context;)V
+    :cond_skip_init
+    invoke-static {}, Lxfkj/fitpro/utils/InfoNewsScheduler;->getInstance()Lxfkj/fitpro/utils/InfoNewsScheduler;
+    move-result-object v0
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1, v1}, Lxfkj/fitpro/utils/InfoNewsScheduler;->dispatchCompiledDigest(ZZ)V
 
     return-void
 .end method
@@ -268,150 +314,96 @@
 .end method
 
 .method public playSound()V
-    .locals 5
+    .locals 8
 
-    .line 80
+    # 1. Se ja havia MediaPlayer ativo, para e libera
     sget-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
+    if-eqz v0, :cond_clean_done
 
-    const/high16 v1, 0x7f120000
-
-    if-nez v0, :cond_0
-
-    .line 81
-    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    invoke-static {v0, v1}, Landroid/media/MediaPlayer;->create(Landroid/content/Context;I)Landroid/media/MediaPlayer;
-
-    move-result-object v0
-
-    sput-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
-
-    .line 84
-    :cond_0
-    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    invoke-static {v0, v1}, Landroid/media/MediaPlayer;->create(Landroid/content/Context;I)Landroid/media/MediaPlayer;
-
-    move-result-object v0
-
-    sput-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
-
-    .line 85
-    sget-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
-
-    const/4 v1, 0x1
-
-    if-eqz v0, :cond_1
-
-    sget-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
-
+    :try_start_clean
     invoke-virtual {v0}, Landroid/media/MediaPlayer;->isPlaying()Z
-
-    move-result v0
-
-    if-nez v0, :cond_1
-
-    .line 87
-    invoke-static {}, Lcom/blankj/utilcode/util/Utils;->getApp()Landroid/app/Application;
-
-    move-result-object v0
-
-    const-string v2, "audio"
-
-    invoke-virtual {v0, v2}, Landroid/app/Application;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/media/AudioManager;
-
-    const/4 v2, 0x3
-
-    .line 88
-    invoke-virtual {v0, v2}, Landroid/media/AudioManager;->setMode(I)V
-
-    .line 89
-    invoke-virtual {v0, v1}, Landroid/media/AudioManager;->setSpeakerphoneOn(Z)V
-
-    .line 91
-    sget-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
-
-    invoke-virtual {v0}, Landroid/media/MediaPlayer;->start()V
-
-    .line 93
-    :cond_1
-    invoke-static {}, Lcom/blankj/utilcode/util/AppUtils;->isAppForeground()Z
-
-    move-result v0
-
-    if-nez v0, :cond_2
-
-    .line 94
-    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    const v2, 0x7f13027f
-
-    invoke-virtual {v0, v2}, Landroid/content/Context;->getString(I)Ljava/lang/String;
-
-    move-result-object v0
-
-    const-class v2, Lxfkj/fitpro/activity/SplashActivity;
-
-    const/4 v3, 0x0
-
-    invoke-static {v1, v0, v2, v3}, Lxfkj/fitpro/application/MyApplication;->sendChatMsg(ILjava/lang/String;Ljava/lang/Class;Z)V
-
-    .line 97
-    :cond_2
-    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
-
-    move-result-object v0
-
-    const-string v1, "power"
-
-    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/os/PowerManager;
-
-    .line 98
-    invoke-virtual {v0}, Landroid/os/PowerManager;->isScreenOn()Z
-
     move-result v1
+    if-eqz v1, :cond_release
+    invoke-virtual {v0}, Landroid/media/MediaPlayer;->stop()V
+    :cond_release
+    invoke-virtual {v0}, Landroid/media/MediaPlayer;->release()V
+    :try_end_clean
+    .catchall {:try_start_clean .. :try_end_clean} :catch_clean
 
-    if-nez v1, :cond_3
+    :catch_clean
+    const/4 v0, 0x0
+    sput-object v0, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
 
-    const v1, 0x10000006
-
-    .line 101
-    const-string v2, "TAG"
-
-    invoke-virtual {v0, v1, v2}, Landroid/os/PowerManager;->newWakeLock(ILjava/lang/String;)Landroid/os/PowerManager$WakeLock;
-
+    :cond_clean_done
+    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
     move-result-object v0
+    if-nez v0, :cond_play_start
+    return-void
 
-    .line 102
-    invoke-virtual {v0}, Landroid/os/PowerManager$WakeLock;->acquire()V
+    :cond_play_start
+    # 2. Tentar carregar water_drop.wav dos assets
+    :try_start_asset
+    invoke-virtual {v0}, Landroid/content/Context;->getAssets()Landroid/content/res/AssetManager;
+    move-result-object v1
+    const-string v2, "water_drop.wav"
+    invoke-virtual {v1, v2}, Landroid/content/res/AssetManager;->openFd(Ljava/lang/String;)Landroid/content/res/AssetFileDescriptor;
+    move-result-object v1
 
-    .line 103
-    new-instance v1, Landroid/os/Handler;
+    new-instance v2, Landroid/media/MediaPlayer;
+    invoke-direct {v2}, Landroid/media/MediaPlayer;-><init>()V
 
-    invoke-direct {v1}, Landroid/os/Handler;-><init>()V
+    invoke-virtual {v1}, Landroid/content/res/AssetFileDescriptor;->getFileDescriptor()Ljava/io/FileDescriptor;
+    move-result-object v3
+    invoke-virtual {v1}, Landroid/content/res/AssetFileDescriptor;->getStartOffset()J
+    move-result-wide v4
+    invoke-virtual {v1}, Landroid/content/res/AssetFileDescriptor;->getLength()J
+    move-result-wide v6
+    invoke-virtual/range {v2 .. v7}, Landroid/media/MediaPlayer;->setDataSource(Ljava/io/FileDescriptor;JJ)V
+    invoke-virtual {v1}, Landroid/content/res/AssetFileDescriptor;->close()V
 
-    new-instance v2, Lxfkj/fitpro/utils/FindPhone$1;
+    # STREAM_ALARM (4) para tocar alto no alto-falante mesmo com tela bloqueada
+    const/4 v1, 0x4
+    invoke-virtual {v2, v1}, Landroid/media/MediaPlayer;->setAudioStreamType(I)V
 
-    invoke-direct {v2, p0, v0}, Lxfkj/fitpro/utils/FindPhone$1;-><init>(Lxfkj/fitpro/utils/FindPhone;Landroid/os/PowerManager$WakeLock;)V
+    # setWakeMode(context, PARTIAL_WAKE_LOCK)
+    const/4 v1, 0x1
+    invoke-virtual {v2, v0, v1}, Landroid/media/MediaPlayer;->setWakeMode(Landroid/content/Context;I)V
 
-    const-wide/16 v3, 0x2710
+    const/4 v1, 0x0
+    invoke-virtual {v2, v1}, Landroid/media/MediaPlayer;->setLooping(Z)V
+    invoke-virtual {v2}, Landroid/media/MediaPlayer;->prepare()V
+    invoke-virtual {v2}, Landroid/media/MediaPlayer;->start()V
+    sput-object v2, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
+    goto :cond_sound_done
+    :try_end_asset
+    .catchall {:try_start_asset .. :try_end_asset} :catch_asset
 
-    invoke-virtual {v1, v2, v3, v4}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+    :catch_asset
+    # Fallback para o recurso 0x7f120000 (res/yrs.ogg suave de 310ms)
+    const/high16 v1, 0x7f120000
+    invoke-static {v0, v1}, Landroid/media/MediaPlayer;->create(Landroid/content/Context;I)Landroid/media/MediaPlayer;
+    move-result-object v1
+    if-eqz v1, :cond_sound_done
+    const/4 v2, 0x4
+    invoke-virtual {v1, v2}, Landroid/media/MediaPlayer;->setAudioStreamType(I)V
+    const/4 v2, 0x0
+    invoke-virtual {v1, v2}, Landroid/media/MediaPlayer;->setLooping(Z)V
+    invoke-virtual {v1}, Landroid/media/MediaPlayer;->start()V
+    sput-object v1, Lxfkj/fitpro/utils/Constant;->mediaPlayer:Landroid/media/MediaPlayer;
 
-    :cond_3
+    :cond_sound_done
+    # 3. Notificacao no celular se estiver em background
+    invoke-static {}, Lcom/blankj/utilcode/util/AppUtils;->isAppForeground()Z
+    move-result v1
+    if-nez v1, :cond_return
+    const v1, 0x7f13027f
+    invoke-virtual {v0, v1}, Landroid/content/Context;->getString(I)Ljava/lang/String;
+    move-result-object v1
+    const-class v2, Lxfkj/fitpro/activity/SplashActivity;
+    const/4 v3, 0x1
+    const/4 v4, 0x0
+    invoke-static {v3, v1, v2, v4}, Lxfkj/fitpro/application/MyApplication;->sendChatMsg(ILjava/lang/String;Ljava/lang/Class;Z)V
+
+    :cond_return
     return-void
 .end method

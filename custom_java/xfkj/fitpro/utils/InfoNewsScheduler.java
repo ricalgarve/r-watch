@@ -244,6 +244,12 @@ public class InfoNewsScheduler {
      * Coleta as informações ativas e dispara a mensagem compilada para o relógio.
      */
     public synchronized void dispatchCompiledDigest(final boolean includeWeather, final boolean includeWifi) {
+        if (mContext == null) {
+            android.content.Context appCtx = xfkj.fitpro.application.MyApplication.getContext();
+            if (appCtx != null) {
+                init(appCtx);
+            }
+        }
         if (mContext == null) return;
 
         new Thread(new Runnable() {
@@ -329,7 +335,7 @@ public class InfoNewsScheduler {
             // Realiza conexão TCP na porta DNS 53 do Google 8.8.8.8 com timeout de 2.5 segundos
             long t0 = System.currentTimeMillis();
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress("8.8.8.8", 53), 2500);
+            socket.connect(new InetSocketAddress("8.8.8.8", 53), 1000);
             long latency = System.currentTimeMillis() - t0;
             socket.close();
 
@@ -348,8 +354,8 @@ public class InfoNewsScheduler {
             URL url = new URL("https://wttr.in/?format=%l:+%C+%t");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setConnectTimeout(5000);
-            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(1500);
+            conn.setReadTimeout(1500);
             conn.setRequestProperty("User-Agent", "curl/7.68.0");
             conn.setRequestProperty("Accept-Language", "pt-br,pt;q=0.9,en;q=0.8");
 
@@ -384,8 +390,8 @@ public class InfoNewsScheduler {
             URL url = new URL("https://wttr.in/?format=3");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setConnectTimeout(4000);
-            conn.setReadTimeout(4000);
+            conn.setConnectTimeout(1500);
+            conn.setReadTimeout(1500);
             conn.setRequestProperty("User-Agent", "curl/7.68.0");
             conn.setRequestProperty("Accept-Language", "pt-br");
 

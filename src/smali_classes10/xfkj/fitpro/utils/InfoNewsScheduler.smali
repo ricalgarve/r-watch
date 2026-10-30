@@ -387,7 +387,7 @@
     invoke-virtual {v1, v2}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
     .line 387
-    const/16 v2, 0xfa0
+    const/16 v2, 0x5dc
 
     invoke-virtual {v1, v2}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
@@ -556,7 +556,7 @@
     invoke-virtual {v1, v0}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
 
     .line 351
-    const/16 v0, 0x1388
+    const/16 v0, 0x5dc
 
     invoke-virtual {v1, v0}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
@@ -884,7 +884,7 @@
 
     invoke-direct {v5, v6, v7}, Ljava/net/InetSocketAddress;-><init>(Ljava/lang/String;I)V
 
-    const/16 v6, 0x9c4
+    const/16 v6, 0x3e8
 
     invoke-virtual {p0, v5, v6}, Ljava/net/Socket;->connect(Ljava/net/SocketAddress;I)V
 
@@ -1376,10 +1376,25 @@
     .line 247
     :try_start_0
     iget-object v0, p0, Lxfkj/fitpro/utils/InfoNewsScheduler;->mContext:Landroid/content/Context;
+
+    if-nez v0, :cond_has_context
+
+    invoke-static {}, Lxfkj/fitpro/application/MyApplication;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_no_context
+
+    invoke-virtual {p0, v0}, Lxfkj/fitpro/utils/InfoNewsScheduler;->init(Landroid/content/Context;)V
+
+    iget-object v0, p0, Lxfkj/fitpro/utils/InfoNewsScheduler;->mContext:Landroid/content/Context;
+
+    :cond_has_context
+    if-nez v0, :cond_0
+
+    :cond_no_context
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    if-nez v0, :cond_0
 
     monitor-exit p0
 
